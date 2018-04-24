@@ -13,6 +13,8 @@ abstract class Command {
         commands = new HashMap<>();
         commands.put( "login", new Login() );
         commands.put( "register", new Register() );
+        commands.put( "link", new Link() );
+        commands.put( "createorder", new CreateOrder() );
     }
 
     static Command from( HttpServletRequest request ) {
@@ -25,5 +27,4 @@ abstract class Command {
 
     abstract String execute( HttpServletRequest request, HttpServletResponse response ) 
             throws LoginSampleException;
-
 }
