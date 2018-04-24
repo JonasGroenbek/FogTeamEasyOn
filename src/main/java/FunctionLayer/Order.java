@@ -11,6 +11,18 @@ public class Order {
     private int roofID;
     private int shedID;
 
+    public Order(int id, int userID, int price, int materialID, int height, int length, int width, int roofID, int shedID) {
+        this.id = id;
+        this.userID = userID;
+        this.price = price;
+        this.materialID = materialID;
+        this.height = height;
+        this.length = length;
+        this.width = width;
+        this.roofID = roofID;
+        this.shedID = shedID;
+    }
+
     public int getId() {
         return id;
     }
