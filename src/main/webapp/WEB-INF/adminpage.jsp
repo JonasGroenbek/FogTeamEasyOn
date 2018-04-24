@@ -1,9 +1,3 @@
-<%-- 
-    Document   : adminpage
-    Created on : Apr 24, 2018, 1:22:23 PM
-    Author     : jonas
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
