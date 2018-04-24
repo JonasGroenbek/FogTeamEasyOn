@@ -22,6 +22,12 @@ public class Login extends Command {
         HttpSession session = request.getSession();
         session.setAttribute( "user", user );
         session.setAttribute( "role", user.getRole() );
+        
+        switch(user.getRole()){
+            case 1: return "customerpage";
+            case 2: return "employeepage";
+            case 3: return "adminpage";
+        }
         return "customerpage";
     }
 

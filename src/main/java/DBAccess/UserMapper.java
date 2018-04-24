@@ -24,7 +24,7 @@ public class UserMapper {
             PreparedStatement ps = con.prepareStatement( SQL, Statement.RETURN_GENERATED_KEYS );
             ps.setString( 1, user.getEmail() );
             ps.setString( 2, user.getPassword() );
-            ps.setString( 3, user.getRole() );
+            ps.setInt( 3, user.getRole() );
             ps.executeUpdate();
             ResultSet ids = ps.getGeneratedKeys();
             ids.next();
@@ -45,7 +45,7 @@ public class UserMapper {
             ps.setString( 2, password );
             ResultSet rs = ps.executeQuery();
             if ( rs.next() ) {
-                String role = rs.getString( "roleID" );
+                int role = rs.getInt( "roleID" );
                 int id = rs.getInt( "id" );
                 User user = new User( email, password, role );
                 user.setId( id );
