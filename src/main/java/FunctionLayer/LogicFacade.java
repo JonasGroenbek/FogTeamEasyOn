@@ -17,5 +17,9 @@ public class LogicFacade {
         UserMapper.createUser( user );
         return user;
     }
+    
+    public static void updateBuilder(Integer orderId, Integer builds){
+        UserMapper.updateAssembler(orderId, builds);
+    }
 
 }
