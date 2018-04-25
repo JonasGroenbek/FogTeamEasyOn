@@ -1,5 +1,6 @@
 package FunctionLayer;
 
+import DBAccess.OrderMapper;
 import DBAccess.UserMapper;
 
 /**
@@ -19,7 +20,7 @@ public class LogicFacade {
     }
     
     public static void updateBuilder(Integer orderId, Integer builds){
-        UserMapper.updateAssembler(orderId, builds);
+        OrderMapper.updateAssembler(orderId, builds);
     }
 
 }

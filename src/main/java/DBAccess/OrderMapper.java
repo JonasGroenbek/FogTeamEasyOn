@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class OrderMapper {
-    
+
     public static int getCustomerId(String email) throws ClassNotFoundException, SQLException, LoginSampleException {
         try {
             Connection con = Connector.connection();
@@ -23,13 +23,13 @@ public class OrderMapper {
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-            
-            int id = rs.getInt("id");
-            return id;
+            while (rs.next()) {
+
+                int id = rs.getInt("id");
+                return id;
             }
             return 0;
-            
+
         } catch (ClassNotFoundException | SQLException ex) {
             throw new LoginSampleException(ex.getMessage());
         }
@@ -58,7 +58,7 @@ public class OrderMapper {
             throw new LoginSampleException(ex.getMessage());
         }
     }
-    
+
     public static Roof getRoof(int id) throws ClassNotFoundException, SQLException, LoginSampleException {
         try {
             Connection con = Connector.connection();
@@ -67,7 +67,7 @@ public class OrderMapper {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                
+
                 int roofId = rs.getInt("id");
                 String type = rs.getString("type");
                 int price = rs.getInt("price");
@@ -119,7 +119,7 @@ public class OrderMapper {
             throw new LoginSampleException(ex.getMessage());
         }
     }
-    
+
     public static Shed getShed(int id) throws ClassNotFoundException, SQLException, LoginSampleException {
         try {
             Connection con = Connector.connection();
@@ -128,13 +128,13 @@ public class OrderMapper {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                
+
                 int shedId = rs.getInt("id");
                 int length = rs.getInt("length");
                 int width = rs.getInt("width");
                 int price = rs.getInt("price");
 
-                Shed shed = new Shed(shedId, length, width, price   );
+                Shed shed = new Shed(shedId, length, width, price);
 
                 return shed;
             }
@@ -164,8 +164,8 @@ public class OrderMapper {
         }
         return Orders;
     }
-    
-    public Order getOrder(int ID){
+
+    public Order getOrder(int ID) {
         Order order = null;
 
         try {
@@ -176,10 +176,10 @@ public class OrderMapper {
             ps.setInt(1, ID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                order = new Order(rs.getInt("id"), rs.getInt("userID"), 
-                        rs.getInt("price"), rs.getInt("materialD"), 
+                order = new Order(rs.getInt("id"), rs.getInt("userID"),
+                        rs.getInt("price"), rs.getInt("materialD"),
                         rs.getInt("height"), rs.getInt("length"),
-                        rs.getInt("width"), rs.getInt("roofID"), 
+                        rs.getInt("width"), rs.getInt("roofID"),
                         rs.getInt("shed"));
             }
         } catch (SQLException | ClassNotFoundException ex) {
@@ -187,8 +187,8 @@ public class OrderMapper {
         }
         return order;
     }
-    
-    public ArrayList<Order> getAllOrders(){
+
+    public ArrayList<Order> getAllOrders() {
         ArrayList<Order> Orders = new ArrayList();
 
         try {
@@ -198,10 +198,10 @@ public class OrderMapper {
             PreparedStatement ps = con.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Orders.add(new Order(rs.getInt("id"), rs.getInt("userID"), 
-                        rs.getInt("price"), rs.getInt("materialD"), 
+                Orders.add(new Order(rs.getInt("id"), rs.getInt("userID"),
+                        rs.getInt("price"), rs.getInt("materialD"),
                         rs.getInt("height"), rs.getInt("length"),
-                        rs.getInt("width"), rs.getInt("roofID"), 
+                        rs.getInt("width"), rs.getInt("roofID"),
                         rs.getInt("shed")));
             }
         } catch (SQLException | ClassNotFoundException ex) {
@@ -209,7 +209,8 @@ public class OrderMapper {
         }
         return Orders;
     }
-    public boolean updateOrder(int ID, Order newOrder){
+
+    public boolean updateOrder(int ID, Order newOrder) {
         try {
             Order order = null;
             Connection con;
@@ -219,46 +220,58 @@ public class OrderMapper {
             ps.setInt(1, ID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                order  = new Order(rs.getInt("id"), rs.getInt("userID"), 
-                        rs.getInt("price"), rs.getInt("materialD"), 
+                order = new Order(rs.getInt("id"), rs.getInt("userID"),
+                        rs.getInt("price"), rs.getInt("materialD"),
                         rs.getInt("height"), rs.getInt("length"),
-                        rs.getInt("width"), rs.getInt("roofID"), 
+                        rs.getInt("width"), rs.getInt("roofID"),
                         rs.getInt("shed"));
             }
-            if(order != null){
-            if(order.getPrice() != newOrder.getPrice()) {
-                SQL = "UPDATE `fog`.`orders` SET `price`=? WHERE `id`=?;";
-                ps = con.prepareStatement(SQL);
-                ps.setInt(1, newOrder.getPrice());
-                ps.setInt(2, ID);
-                ps.execute();
-            }
-            if(order.getHeight() != newOrder.getHeight()) {
-                SQL = "UPDATE `fog`.`orders` SET `height`=? WHERE `id`=?;";
-                ps = con.prepareStatement(SQL);
-                ps.setInt(1, newOrder.getHeight());
-                ps.setInt(2, ID);
-                ps.execute();
-            }
-            if(order.getLength() != newOrder.getLength()) {
-                SQL = "UPDATE `fog`.`orders` SET `length`=? WHERE `id`=?;";
-                ps = con.prepareStatement(SQL);
-                ps.setInt(1, newOrder.getLength());
-                ps.setInt(2, ID);
-                ps.execute();
-            }
-            if(order.getWidth() != newOrder.getWidth()) {
-                SQL = "UPDATE `fog`.`orders` SET `height`=? WHERE `id`=?;";
-                ps = con.prepareStatement(SQL);
-                ps.setInt(1, newOrder.getWidth());
-                ps.setInt(2, ID);
-                ps.execute();
-            }
+            if (order != null) {
+                if (order.getPrice() != newOrder.getPrice()) {
+                    SQL = "UPDATE `fog`.`orders` SET `price`=? WHERE `id`=?;";
+                    ps = con.prepareStatement(SQL);
+                    ps.setInt(1, newOrder.getPrice());
+                    ps.setInt(2, ID);
+                    ps.execute();
+                }
+                if (order.getHeight() != newOrder.getHeight()) {
+                    SQL = "UPDATE `fog`.`orders` SET `height`=? WHERE `id`=?;";
+                    ps = con.prepareStatement(SQL);
+                    ps.setInt(1, newOrder.getHeight());
+                    ps.setInt(2, ID);
+                    ps.execute();
+                }
+                if (order.getLength() != newOrder.getLength()) {
+                    SQL = "UPDATE `fog`.`orders` SET `length`=? WHERE `id`=?;";
+                    ps = con.prepareStatement(SQL);
+                    ps.setInt(1, newOrder.getLength());
+                    ps.setInt(2, ID);
+                    ps.execute();
+                }
+                if (order.getWidth() != newOrder.getWidth()) {
+                    SQL = "UPDATE `fog`.`orders` SET `height`=? WHERE `id`=?;";
+                    ps = con.prepareStatement(SQL);
+                    ps.setInt(1, newOrder.getWidth());
+                    ps.setInt(2, ID);
+                    ps.execute();
+                }
             }
             return true;
         } catch (SQLException | ClassNotFoundException ex) {
-           //TO-DO
+            //TO-DO
         }
         return false;
+    }
+
+    public static void updateAssembler(Integer orderId, Integer builds) {
+        try {
+            Connection con = Connector.connection();
+            String SQL = "UPDATE `fog`.`orders` SET `assembling`='" + builds + "'"
+                    + " WHERE `id`='" + orderId + "';";
+            Statement statement = con.createStatement();
+            statement.executeUpdate(SQL);
+        } catch (SQLException | ClassNotFoundException x) {
+            System.out.println(x.getMessage());
+        }
     }
 }
