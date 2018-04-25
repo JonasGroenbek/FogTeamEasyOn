@@ -50,6 +50,23 @@ public class UserMapper {
             throw new LoginSampleException(ex.getMessage());
         }
     }
+    
+    public String getMail(int userID){
+        String mail = null;
+        try {
+            Connection con = Connector.connection();
+            String SQL = "SELECT mail FROM users WHERE id=?";
+            PreparedStatement ps = con.prepareStatement( SQL );
+            ps.setInt( 1, userID );
+            ResultSet rs = ps.executeQuery();
+            if ( rs.next() ) {
+                mail = rs.getString( "mail" );
+            }
+            } catch ( ClassNotFoundException | SQLException ex ) {
+            //TO-DO
+        }
+        return mail;
+    }
 
     public static void updateAssembler(Integer orderId, Integer builds) {
         try {
