@@ -6,6 +6,13 @@ public class Shed {
     private int width;
     private int price;
 
+    public Shed(int id, int length, int width, int price) {
+        this.id = id;
+        this.length = length;
+        this.width = width;
+        this.price = price;
+    }
+
     public int getId() {
         return id;
     }

@@ -3,6 +3,7 @@ package DBAccess;
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.Material;
 import FunctionLayer.Order;
+import FunctionLayer.Roof;
 import FunctionLayer.Shed;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,16 +15,35 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class OrderMapper {
+    
+    public static int getCustomerId(String email) throws ClassNotFoundException, SQLException, LoginSampleException {
+        try {
+            Connection con = Connector.connection();
+            String SQL = "SELECT id from users where email = ?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+            
+            int id = rs.getInt("id");
+            return id;
+            }
+            return 0;
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new LoginSampleException(ex.getMessage());
+        }
+    }
 
-    public static Material getMaterial(int type) throws ClassNotFoundException, SQLException, LoginSampleException {
+    public static Material getMaterial(int id) throws ClassNotFoundException, SQLException, LoginSampleException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT * from materials where id = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setInt(1, type);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("id");
+                int matId = rs.getInt("id");
                 String mat = rs.getString("type");
                 int price = rs.getInt("price");
                 String description = rs.getString("description");
@@ -38,21 +58,45 @@ public class OrderMapper {
             throw new LoginSampleException(ex.getMessage());
         }
     }
-
-    public static void createOrder(Order order) throws LoginSampleException {
+    
+    public static Roof getRoof(int id) throws ClassNotFoundException, SQLException, LoginSampleException {
         try {
             Connection con = Connector.connection();
-            String SQL = "INSERT INTO orders (id, userID, price, materialID, height, length, width, roofID, shed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String SQL = "SELECT * from roof where id = ?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                
+                int roofId = rs.getInt("id");
+                String type = rs.getString("type");
+                int price = rs.getInt("price");
+                String description = rs.getString("description");
+
+                Roof roof = new Roof(id, type, price, description);
+
+                return roof;
+            }
+            return null;
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new LoginSampleException(ex.getMessage());
+        }
+    }
+
+    public static void createOrder(Order order, String email, int matType, Shed shed) throws LoginSampleException {
+        try {
+            Connection con = Connector.connection();
+            String SQL = "INSERT INTO orders (userID, price, materialID, height, length, width, roofID, shed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, order.getId());
-            ps.setInt(2, order.getUserID());
-            ps.setInt(3, order.getPrice());
-            ps.setInt(4, order.getMaterial());
-            ps.setInt(5, order.getHeight());
-            ps.setInt(6, order.getLength());
-            ps.setInt(7, order.getWidth());
-            ps.setInt(8, order.getRoofID());
-            ps.setInt(9, order.getShed());
+            ps.setInt(1, OrderMapper.getCustomerId(email));
+            ps.setInt(2, order.getPrice());
+            ps.setInt(3, OrderMapper.getMaterial(matType).getId());
+            ps.setInt(4, order.getHeight());
+            ps.setInt(5, order.getLength());
+            ps.setInt(6, order.getWidth());
+            //ps.setInt(7, );
+            ps.setInt(8, order.getShed());
             ps.executeUpdate();
             ResultSet ids = ps.getGeneratedKeys();
             ids.next();
@@ -65,14 +109,38 @@ public class OrderMapper {
     public static void createShed(Shed shed) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
-            String SQL = "INSERT INTO orders (id, userID, price, materialID, height, length, width, roofID, shed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String SQL = "INSERT INTO shed (length, width, price) VALUES (?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, shed.getId());
-            ps.setInt(2, shed.getPrice());
-            ps.setInt(3, shed.getLength());
-            ps.setInt(4, shed.getWidth());
+            ps.setInt(1, shed.getPrice());
+            ps.setInt(2, shed.getLength());
+            ps.setInt(3, shed.getWidth());
             ps.executeUpdate();
         } catch (SQLException | ClassNotFoundException ex) {
+            throw new LoginSampleException(ex.getMessage());
+        }
+    }
+    
+    public static Shed getShed(int id) throws ClassNotFoundException, SQLException, LoginSampleException {
+        try {
+            Connection con = Connector.connection();
+            String SQL = "SELECT * from shed where id = ?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                
+                int shedId = rs.getInt("id");
+                int length = rs.getInt("length");
+                int width = rs.getInt("width");
+                int price = rs.getInt("price");
+
+                Shed shed = new Shed(shedId, length, width, price   );
+
+                return shed;
+            }
+            return null;
+
+        } catch (ClassNotFoundException | SQLException ex) {
             throw new LoginSampleException(ex.getMessage());
         }
     }
