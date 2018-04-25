@@ -96,5 +96,101 @@ public class OrderMapper {
         }
         return Orders;
     }
+    
+    public Order getOrder(int ID){
+        Order order = null;
 
+        try {
+            Connection con;
+            con = Connector.connection();
+            String SQL = "SELECT * FROM orders WHERE id = ?;";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, ID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                order = new Order(rs.getInt("id"), rs.getInt("userID"), 
+                        rs.getInt("price"), rs.getInt("materialD"), 
+                        rs.getInt("height"), rs.getInt("length"),
+                        rs.getInt("width"), rs.getInt("roofID"), 
+                        rs.getInt("shed"));
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            //TO-DO
+        }
+        return order;
+    }
+    
+    public ArrayList<Order> getAllOrders(){
+        ArrayList<Order> Orders = new ArrayList();
+
+        try {
+            Connection con;
+            con = Connector.connection();
+            String SQL = "SELECT * FROM orders;";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Orders.add(new Order(rs.getInt("id"), rs.getInt("userID"), 
+                        rs.getInt("price"), rs.getInt("materialD"), 
+                        rs.getInt("height"), rs.getInt("length"),
+                        rs.getInt("width"), rs.getInt("roofID"), 
+                        rs.getInt("shed")));
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            //TO-DO
+        }
+        return Orders;
+    }
+    public boolean updateOrder(int ID, Order newOrder){
+        try {
+            Order order = null;
+            Connection con;
+            con = Connector.connection();
+            String SQL = "SELECT * FROM orders WHERE id = ?;";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, ID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                order  = new Order(rs.getInt("id"), rs.getInt("userID"), 
+                        rs.getInt("price"), rs.getInt("materialD"), 
+                        rs.getInt("height"), rs.getInt("length"),
+                        rs.getInt("width"), rs.getInt("roofID"), 
+                        rs.getInt("shed"));
+            }
+            if(order != null){
+            if(order.getPrice() != newOrder.getPrice()) {
+                SQL = "UPDATE `fog`.`orders` SET `price`=? WHERE `id`=?;";
+                ps = con.prepareStatement(SQL);
+                ps.setInt(1, newOrder.getPrice());
+                ps.setInt(2, ID);
+                ps.execute();
+            }
+            if(order.getHeight() != newOrder.getHeight()) {
+                SQL = "UPDATE `fog`.`orders` SET `height`=? WHERE `id`=?;";
+                ps = con.prepareStatement(SQL);
+                ps.setInt(1, newOrder.getHeight());
+                ps.setInt(2, ID);
+                ps.execute();
+            }
+            if(order.getLength() != newOrder.getLength()) {
+                SQL = "UPDATE `fog`.`orders` SET `length`=? WHERE `id`=?;";
+                ps = con.prepareStatement(SQL);
+                ps.setInt(1, newOrder.getLength());
+                ps.setInt(2, ID);
+                ps.execute();
+            }
+            if(order.getWidth() != newOrder.getWidth()) {
+                SQL = "UPDATE `fog`.`orders` SET `height`=? WHERE `id`=?;";
+                ps = con.prepareStatement(SQL);
+                ps.setInt(1, newOrder.getWidth());
+                ps.setInt(2, ID);
+                ps.execute();
+            }
+            }
+            return true;
+        } catch (SQLException | ClassNotFoundException ex) {
+           //TO-DO
+        }
+        return false;
+    }
 }
