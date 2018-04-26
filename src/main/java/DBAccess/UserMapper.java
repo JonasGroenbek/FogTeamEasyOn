@@ -67,16 +67,4 @@ public class UserMapper {
         }
         return mail;
     }
-
-    public static void updateAssembler(Integer orderId, Integer builds) {
-        try {
-            Connection con = Connector.connection();
-            String SQL = "UPDATE `fog`.`orders` SET `assembling`='" + builds + "'"
-                    + " WHERE `id`='" + orderId + "';";
-            Statement statement = con.createStatement();
-            statement.executeUpdate(SQL);
-        } catch (SQLException | ClassNotFoundException x) {
-            System.out.println(x.getMessage());
-        }
-    }
 }

@@ -96,7 +96,7 @@ public class OrderMapper {
             ps.setInt(5, order.getLength());
             ps.setInt(6, order.getWidth());
             ps.setInt(7, OrderMapper.getRoof(roofType).getId());
-            ps.setInt(8, OrderMapper.getShedId(email));
+            ps.setInt(8, OrderMapper.getShed(email).getId());
             ps.setInt(9, assemble);
             ps.executeUpdate();
             ResultSet ids = ps.getGeneratedKeys();
