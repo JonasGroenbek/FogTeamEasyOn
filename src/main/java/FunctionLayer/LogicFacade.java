@@ -1,6 +1,8 @@
 package FunctionLayer;
 
+import DBAccess.OrderMapper;
 import DBAccess.UserMapper;
+import java.sql.SQLException;
 
 /**
  * The purpose of LogicFacade is to...
@@ -17,5 +19,16 @@ public class LogicFacade {
         UserMapper.createUser( user );
         return user;
     }
-
+    
+    public static void createShed(Shed shed, String email) throws LoginSampleException {
+        OrderMapper.createShed(shed, email);
+    }
+    
+    public static Shed getShed(String email) throws ClassNotFoundException, SQLException, LoginSampleException {
+        return OrderMapper.getShed(email);
+    }
+    
+    public static void createOrder(String email,int price, Order order, int matType, int roofType, Shed shed, int assemble) throws LoginSampleException {
+        OrderMapper.createOrder(email, price, order, matType, roofType, shed, assemble);
+    }
 }

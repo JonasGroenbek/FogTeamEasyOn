@@ -23,6 +23,14 @@ public class Order {
         this.shedID = shedID;
     }
 
+    public Order(int height, int length, int width) {
+        this.height = height;
+        this.length = length;
+        this.width = width;
+    }
+    
+    
+
     public int getId() {
         return id;
     }

@@ -16,6 +16,8 @@ abstract class Command {
         commands.put( "link", new Link() );
         commands.put( "createorder", new CreateOrder() );
         commands.put( "updateorder", new UpdateOrder() );
+        commands.put( "updateBuilder", new UpdateBuilder() );
+
     }
 
     static Command from( HttpServletRequest request ) {

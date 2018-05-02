@@ -13,26 +13,22 @@
             Choose Material:
             <br>
             <select name="material">
-                <option value="material1">material1</option>
-                <option value="material2">material2</option>
-                <option value="material3">material3</option>
-                <option value="material4">material4</option>
+                <option value="1">material1</option>
+                <option value="2">material2</option>
             </select>
             <br>
             Choose type of roof:
             <br>
             <select name="roof">
-                <option value="roof1">roof1</option>
-                <option value="roof2">roof2</option>
-                <option value="roof3">roof3</option>
-                <option value="roof4">roof4</option>
+                <option value="1">roof1</option>
+                <option value="2">roof2</option>
             </select>
             <br>
             Length of shed:<br>
             <input type="text" name="lengthShed" value="Meters">
             <br>
             Width of shed:<br>
-            <input type="text" name="length" value="Meters">
+            <input type="text" name="widthShed" value="Meters">
             <br>
             Length:<br>
             <input type="text" name="length" value="Meters">
@@ -42,6 +38,9 @@
             <br>
             Width:<br>
             <input type="text" name="width" value="Meters">
+            <br>
+            Would you like to build it yourself ?:<br>
+            <input type="text" name="assemble" value="0 for no 1 for yes">
             <br>
             <input type="submit" value="Submit">
         </form>
