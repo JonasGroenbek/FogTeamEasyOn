@@ -34,7 +34,8 @@
                 <tr>
                 <%
                     for(Order o : orders){
-                        out.println("<form action=\"UpdateOrder\" method=\"post\">");
+                        out.println("<form name=\"updateorder\" action=\"FrontController\" method=\"POST\">");
+                        out.println("<input type=\"hidden\" name=\"command\" value=\"updateorder\">");
                         out.println("<th>"+o.getId()+"</th>");
                         out.println("<th>"+um.getMail(o.getUserID())+"</th>");
                         out.println("<th><input type=\"text\" name=\"price\" value=\""+o.getPrice() + "\">DKK</th>");
@@ -44,8 +45,10 @@
                         out.println("<th><input type=\"text\" name=\"width\" value=\""+o.getWidth()+"\">cm</th>");
                         out.println("<th>"+o.getRoofID()+"</th>");
                         out.println("<th>"+o.getShed()+"</th>");
-                        out.println("<th><input type=\"hidden\" name=\"orderID\" value=\""+o.getId()+"\">"
-                        + "<input type=\"submit\" name=\"update\" value=\"Gem\"></form></th></tr>");
+                        out.println("<th><input type=\"hidden\" name=\"orderID\" value=\""+o.getId()+"\">");
+                        ///"<input type=\"submit\" name=\"update\" value=\"Gem\"></form></th></tr>");
+                        
+                        out.println("<th><input type=\"submit\" value=\"Submit\"></th></tr> ");
                     }}
                     %>
                 

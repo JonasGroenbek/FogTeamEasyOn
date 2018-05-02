@@ -180,7 +180,7 @@ public class OrderMapper {
                 ps.execute();
             }
             if(order.getWidth() != newOrder.getWidth()) {
-                SQL = "UPDATE `fog`.`orders` SET `height`=? WHERE `id`=?;";
+                SQL = "UPDATE `fog`.`orders` SET `width`=? WHERE `id`=?;";
                 ps = con.prepareStatement(SQL);
                 ps.setInt(1, newOrder.getWidth());
                 ps.setInt(2, ID);
