@@ -20,7 +20,7 @@ public class LogicFacade {
         OrderMapper.createShed(shed, email);
     }
     
-    public static Shed getShed(String email) throws ClassNotFoundException, SQLException, LoginSampleException {
+    public static int getShed(String email) throws ClassNotFoundException, SQLException, LoginSampleException {
         return OrderMapper.getShed(email);
     }
     

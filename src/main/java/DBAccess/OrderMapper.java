@@ -96,7 +96,7 @@ public class OrderMapper {
             ps.setInt(5, order.getLength());
             ps.setInt(6, order.getWidth());
             ps.setInt(7, OrderMapper.getRoof(roofType).getId());
-            ps.setInt(8, OrderMapper.getShed(email).getId());
+            ps.setInt(8, OrderMapper.getShed(email));
             ps.setInt(9, assemble);
             ps.executeUpdate();
             ResultSet ids = ps.getGeneratedKeys();
@@ -149,24 +149,20 @@ public class OrderMapper {
         }
     }
     
-    public static Shed getShed(String email) throws ClassNotFoundException, SQLException, LoginSampleException {
+    public static int getShed(String email) throws ClassNotFoundException, SQLException, LoginSampleException {
         try {
             Connection con = Connector.connection();
-            String SQL = "SELECT * from shed where userid = ?";
+            String SQL = "SELECT id from shed where userid = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, OrderMapper.getCustomerId(email));
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 
-                int length = rs.getInt("length");
-                int width = rs.getInt("width");
-                int price = rs.getInt("price");
+                int id = rs.getInt("id");
 
-                Shed shed = new Shed(length, width, price);
-
-                return shed;
+                return id;
             }
-            return null;
+            return 0;
 
         } catch (ClassNotFoundException | SQLException ex) {
             throw new LoginSampleException(ex.getMessage());
