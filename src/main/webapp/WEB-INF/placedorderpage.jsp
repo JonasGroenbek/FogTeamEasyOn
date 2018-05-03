@@ -13,7 +13,9 @@
               height="<%=request.getParameter("length")%>"
               style="fill:white;stroke:black;stroke-width:3;" />
         <circle cx="27" cy="27" r="3" stroke="black" stroke-width="1" fill="white" />
-        <circle cx="<%=request.getParameter("width")+27 %>" cy="27" r="3" stroke="black" stroke-width="1" fill="white" />
+        <circle cx="<%=Integer.parseInt(request.getParameter("width")) + 13%>" cy="27" r="3" stroke="black" stroke-width="1" fill="white" />
+        <circle cx="27" cy="<%=Integer.parseInt(request.getParameter("length")) + 13%>" r="3" stroke="black" stroke-width="1" fill="white" />
+        <circle cx="<%=Integer.parseInt(request.getParameter("width")) + 13%>" cy="<%=Integer.parseInt(request.getParameter("length")) + 13%>" r="3" stroke="black" stroke-width="1" fill="white" />
         </svg>
 
     </body>
