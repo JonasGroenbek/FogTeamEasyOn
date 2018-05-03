@@ -35,13 +35,7 @@ public class CreateOrder extends Command {
         request.setAttribute("width", width);
 
         LogicFacade.createShed(shed, email);
-        try {
-            LogicFacade.createOrder(user.getEmail(), 500, order,  material, roof, LogicFacade.getShed(email), assemble );
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateOrder.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(CreateOrder.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        LogicFacade.createOrder(user.getEmail(), 500, order,  material, roof, shed, assemble);
 
         return "placedorderpage";
 
