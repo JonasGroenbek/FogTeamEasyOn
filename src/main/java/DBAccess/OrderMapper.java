@@ -169,7 +169,7 @@ public class OrderMapper {
         }
     }
 
-    public static ArrayList<Order> getUserOrders(String userID) throws SQLException {
+    public static ArrayList<Order> getUserOrders(int userID) throws SQLException {
         ArrayList<Order> Orders = new ArrayList();
 
         try {
@@ -177,7 +177,7 @@ public class OrderMapper {
             con = Connector.connection();
             String SQL = "SELECT id, userID, price, materialD, height, length, width, roofID, shed FROM orders WHERE userID=?;";
             PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setString(1, userID);
+            ps.setInt(1, userID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Orders.add(new Order(rs.getInt("id"), rs.getInt("userID"), rs.getInt("price"), rs.getInt("materialD"), rs.getInt("height"), rs.getInt("length"), rs.getInt("width"), rs.getInt("roofID"), rs.getInt("shed")));

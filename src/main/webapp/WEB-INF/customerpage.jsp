@@ -1,4 +1,5 @@
 
+<%@page import="FunctionLayer.User"%>
 <%@page import="DBAccess.OrderMapper"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,10 +11,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customer home page</title>
     </head>
+    <% User user = (User)session.getAttribute("user");%>
     <body>
         <h1>Hello <%=request.getParameter("email")%> </h1>
         <%
-            if (OrderMapper.getUserOrders("6").isEmpty()) {
+            if (OrderMapper.getUserOrders(user.getId()).isEmpty()) {
         %>
         <p>du har ingen tideligere ordere</p>>
         <%
@@ -33,18 +35,18 @@
             </tr>
             
             <%
-                for (int i = 0; i < OrderMapper.getUserOrders("6").size(); i++) {
+                for (int i = 0; i < OrderMapper.getUserOrders(user.getId()).size(); i++) {
             %> 
             <tr>
-                <th> <%out.println(OrderMapper.getUserOrders("6").get(i).getId()); %> </th>
-                <th> <%out.println(OrderMapper.getUserOrders("6").get(i).getUserID());%> </th>
-                <th> <%out.println(OrderMapper.getUserOrders("6").get(i).getPrice());%> </th>
-                <th> <%out.println(OrderMapper.getUserOrders("6").get(i).getMaterial());%> </th>
-                <th> <%out.println(OrderMapper.getUserOrders("6").get(i).getHeight());%> </th>
-                <th> <%out.println(OrderMapper.getUserOrders("6").get(i).getLength());%> </th>
-                <th> <%out.println(OrderMapper.getUserOrders("6").get(i).getWidth());%> </th>
-                <th> <%out.println(OrderMapper.getUserOrders("6").get(i).getRoofID());%> </th>
-                <th> <%out.println(OrderMapper.getUserOrders("6").get(i).getShed());%> </th>
+                <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getId()); %> </th>
+                <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getUserID());%> </th>
+                <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getPrice());%> </th>
+                <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getMaterial());%> </th>
+                <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getHeight());%> </th>
+                <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getLength());%> </th>
+                <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getWidth());%> </th>
+                <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getRoofID());%> </th>
+                <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getShed());%> </th>
 
             </tr>
             <% }
