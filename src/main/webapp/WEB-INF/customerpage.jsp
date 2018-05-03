@@ -14,6 +14,7 @@
     <% User user = (User)session.getAttribute("user");%>
     <body>
         <h1>Hello <%=request.getParameter("email")%> </h1>
+         <a href="FrontController?command=link" > tryk her for at bestille </a>
         <%
             if (OrderMapper.getUserOrders(user.getId()).isEmpty()) {
         %>
@@ -54,6 +55,5 @@
                 }
             %>
         </table>>
-        <a href="FrontController?command=link" > tryk her for at bestille </a>
     </body>
 </html>

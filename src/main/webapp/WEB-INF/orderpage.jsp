@@ -25,22 +25,23 @@
             </select>
             <br>
             Length of shed:<br>
-            <input type="text" name="lengthShed" value="Meters">
+            <input type="number" name="lengthShed" value="Meters" max="5">
             <br>
             Width of shed:<br>
-            <input type="text" name="widthShed" value="Meters">
+            <input type="number" name="widthShed" value="Meters" max="5">
             <br>
             Length:<br>
-            <input type="text" name="length" value="Meters">
+            <input type="number" name="length" value="Meters" max="10">
             <br>
             Height:<br>
-            <input type="text" name="height" value="Meters">
+            <input type="number" name="height" value="Meters" max="10">
             <br>
             Width:<br>
-            <input type="text" name="width" value="Meters">
+            <input type="number" name="width" value="Meters" max="10">
             <br>
             Would you like to build it yourself ?:<br>
-            <input type="text" name="assemble" value="0 for no 1 for yes">
+            <!-- <input type="number" name="width" value="enter 0 for no and 1 for yes"> !-->
+            <input type="checkbox" name="assemble">
             <br>
             <input type="submit" value="Submit">
         </form>
