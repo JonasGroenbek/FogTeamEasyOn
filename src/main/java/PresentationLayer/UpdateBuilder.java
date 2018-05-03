@@ -11,7 +11,7 @@ public class UpdateBuilder extends Command{
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {       
         LogicFacade.updateBuilder(Integer.parseInt(request.getParameter("orderId")),
                 Integer.parseInt(request.getParameter("builder")));
-        return "employeepage";
+    return "employeepage";
     }
     
 }
