@@ -1,6 +1,5 @@
 package PresentationLayer;
 
-import DBAccess.OrderMapper;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.Order;
@@ -11,13 +10,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class CreateOrder extends Command {
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
-
-        User user = (User) request.getSession().getAttribute("user");
+        HttpSession session = request.getSession(); 
+        User user = (User) session.getAttribute("user");
         String email = user.getEmail();
         int material = Integer.parseInt(request.getParameter("material"));
         int roof = Integer.parseInt(request.getParameter("roof"));
@@ -30,6 +30,9 @@ public class CreateOrder extends Command {
         
         Shed shed = new Shed(lengthShed, widthShed, 500);
         Order order = new Order(length, width, height);
+        
+        request.setAttribute("length", length);
+        request.setAttribute("width", width);
 
         LogicFacade.createShed(shed, email);
         try {

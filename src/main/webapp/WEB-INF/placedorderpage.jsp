@@ -9,7 +9,7 @@
         <h1>Thank you for your order, you will receive an email when your order has been shipped</h1>
         
         <svg width="1000" height="1000">
-        <rect x="20" y="20" width="<%=150 %>" height="<%=150 %>"
+        <rect x="20" y="20" width="<%=request.getParameter("width") %>" height="<%=request.getParameter("length") %>"
               style="fill:white;stroke:black;stroke-width:3;" />
         </svg>
         
