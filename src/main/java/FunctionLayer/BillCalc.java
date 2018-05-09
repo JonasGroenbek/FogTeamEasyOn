@@ -5,13 +5,13 @@ import java.util.ArrayList;
 
 public class BillCalc {
 
-    public ArrayList<Bill> createBill(int id) {
-        ArrayList<Bill> bill = new ArrayList();
+    public Bill createBill(int id) {
+
         //int height = OrderMapper.getOrder(id).getHeight();
         //int width = OrderMapper.getOrder(id).getWidth();
         //int length = OrderMapper.getOrder(id).getLength();
-        bill.add(new Bill(this.calscrews(), this.calcwood(), this.calccrackets()));
-        return bill;
+        return (new Bill(this.calscrews(), this.calcwood(), this.calccrackets()));
+        
     }
 
     private int calcwood() {
