@@ -189,7 +189,7 @@ public class OrderMapper {
         return Orders;
     }
     
-    public Order getOrder(int ID){
+    public static Order getOrder(int ID){
         Order order = null;
 
         try {

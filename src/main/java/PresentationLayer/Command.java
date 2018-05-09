@@ -17,6 +17,7 @@ abstract class Command {
         commands.put( "createorder", new CreateOrder() );
         commands.put( "updateorder", new UpdateOrder() );
         commands.put( "updateBuilder", new UpdateBuilder() );
+        commands.put( "makebill", new MakeBill() );
 
     }
 

@@ -33,6 +33,7 @@
                 <th>brede</th>
                 <th>tagID</th>
                 <th>skur</th>
+                <th>stykliste</th>
             </tr>
             
             <%
@@ -48,6 +49,7 @@
                 <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getWidth());%> </th>
                 <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getRoofID());%> </th>
                 <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getShed());%> </th>
+                <th><a href="FrontController?command=makebill" > se stykliste </a></th>
 
             </tr>
             <% }
