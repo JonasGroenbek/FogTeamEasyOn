@@ -40,16 +40,16 @@
                 for (int i = 0; i < OrderMapper.getUserOrders(user.getId()).size(); i++) {
             %> 
             <tr>
-                <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getId()); %> </th>
-                <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getUserID());%> </th>
-                <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getPrice());%> </th>
-                <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getMaterial());%> </th>
-                <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getHeight());%> </th>
-                <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getLength());%> </th>
-                <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getWidth());%> </th>
-                <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getRoofID());%> </th>
-                <th> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getShed());%> </th>
-                <th><a href="FrontController?command=makebill" > se stykliste </a></th>
+                <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getId()); %> </td>
+                <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getUserID());%> </td>
+                <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getPrice());%> </td>
+                <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getMaterial());%> </td>
+                <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getHeight());%> </td>
+                <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getLength());%> </td>
+                <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getWidth());%> </td>
+                <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getRoofID());%> </td>
+                <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getShed());%> </td>
+                <td><a href="FrontController?command=makebill?OrderID=<% out.println(OrderMapper.getUserOrders(user.getId()).get(i).getId()); %>" > se stykliste </a></td>
 
             </tr>
             <% }

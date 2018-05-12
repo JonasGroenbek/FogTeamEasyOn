@@ -15,14 +15,14 @@
         <table class="table table-striped">
             <tr>
                 <th>skruer</th>
-                <td><% out.println(bill.createBill(1).getScrews()); %></th>
+                <td><% out.println(bill.createBill(1).getScrews()); %></td>
 
 
             </tr>
 
             <tr>
                 <th>5 meter træ</th>
-                <td> <% out.println(bill.createBill(1).getWood()); %> </th>
+                <td> <% out.println(bill.createBill(1).getWood()); %> </td>
 
             </tr>
             <tr>
