@@ -63,7 +63,6 @@ public class UserMapper {
                 mail = rs.getString( "mail" );
             }
             } catch ( ClassNotFoundException | SQLException ex ) {
-            //TO-DO
         }
         return mail;
     }
