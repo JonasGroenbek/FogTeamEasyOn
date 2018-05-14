@@ -11,16 +11,7 @@
     <body>
         <h1>Thank you for your order, you will receive an email when your order has been shipped</h1>
         <% session = request.getSession();%>
-        <svg width="1050" height="1050" 
-        viewBox="0 0  <%=(int) session.getAttribute("width")+50%> <%=(int) session.getAttribute("length")+50    %>">
-        <rect x="20" y="20" width="<%=(int) session.getAttribute("width")%>" 
-              height="<%=(int) session.getAttribute("length")%>"
-              style="fill:white;stroke:black;stroke-width:3;"/>
-        <circle cx="27" cy="27" r="3" stroke="black" stroke-width="1" fill="white" />
-        <circle cx="<%=(int) (session.getAttribute("width")) + 13%>" cy="27" r="3" stroke="black" stroke-width="1" fill="white" />
-        <circle cx="27" cy="<%=(int) (session.getAttribute("length")) + 13%>" r="3" stroke="black" stroke-width="1" fill="white" />
-        <circle cx="<%=(int) (session.getAttribute("width")) + 13%>" cy="<%=(int) (session.getAttribute("length")) + 13%>" r="3" stroke="black" stroke-width="1" fill="white" />
-        </svg>
+        <%=session.getAttribute("svg")%>
 
     </body>
 </html>

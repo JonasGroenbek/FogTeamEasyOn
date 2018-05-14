@@ -24,8 +24,8 @@ public class LogicFacade {
         return OrderMapper.getShed(email);
     }
     
-    public static void createOrder(String email,int price, Order order, int matType, int roofType, Shed shed, int assemble) throws LoginSampleException {
-        OrderMapper.createOrder(email, price, order, matType, roofType, shed, assemble);
+    public static void createOrder(String email,int price, Order order, int matType, int roofType, Shed shed) throws LoginSampleException {
+        OrderMapper.createOrder(email, price, order, matType, roofType, shed);
     }
     public static void updateBuilder(int test, int test1){
     

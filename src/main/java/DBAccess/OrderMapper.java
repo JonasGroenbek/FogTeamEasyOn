@@ -84,7 +84,7 @@ public class OrderMapper {
         }
     }
 
-    public static void createOrder(String email, int price, Order order, int matType, int roofType, Shed shed, int assemble) throws LoginSampleException {
+    public static void createOrder(String email, int price, Order order, int matType, int roofType, Shed shed) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
             String SQL = "INSERT INTO orders (userID, price, materialD, height, length, width, roofID, shed, assembling) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -97,7 +97,7 @@ public class OrderMapper {
             ps.setInt(6, order.getWidth());
             ps.setInt(7, OrderMapper.getRoof(roofType).getId());
             ps.setInt(8, OrderMapper.getShed(email));
-            ps.setInt(9, assemble);
+            ps.setInt(9, 0);
             ps.executeUpdate();
             ResultSet ids = ps.getGeneratedKeys();
             ids.next();
