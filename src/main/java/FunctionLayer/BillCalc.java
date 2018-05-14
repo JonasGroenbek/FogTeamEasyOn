@@ -1,32 +1,49 @@
 package FunctionLayer;
 
-import DBAccess.OrderMapper;
-import java.util.ArrayList;
 
 public class BillCalc {
 
-    public Bill createBill(int id) {
-
-        //int height = OrderMapper.getOrder(id).getHeight();
-        //int width = OrderMapper.getOrder(id).getWidth();
-        //int length = OrderMapper.getOrder(id).getLength();
-        return (new Bill(this.calscrews(), this.calcwood(), this.calccrackets()));
+    public Bill createBill(Order order) {
+        int length = order.getLength();
+        int width = order.getWidth();
+        int posts = this.calcPost(length);
+        int brackets = this.calcbrackets(posts);
+        int screws = this.calscrews(brackets);
         
+        Bill bill = new Bill(screws, posts, brackets);
+
+        return bill;
+
     }
 
-    private int calcwood() {
+    private int calcPost(int length) {
+        int posts = 0;
+        int test = length / 250;
+        
 
-        return 1;
+        if (test < 1) {
+            posts = 4;
+            return posts;
+        } else if (test > 1) {
+            
+ 
+            return posts;
+        }
+
+        return posts;
     }
 
-    private int calscrews() {
-
-        return 1;
+    private int calscrews(int brackets) {
+        int screws = brackets * 6;
+        return screws;
     }
 
-    private int calccrackets() {
-
-        return 1;
+    private int calcbrackets(int posts) {
+        
+        int brackets = posts;
+        return brackets;
     }
+    
+    
 
 }

@@ -33,4 +33,9 @@ public class Bill {
         this.wood = wood;
         this.bracket = bracket;
     }
+
+    @Override
+    public String toString() {
+        return "Bill{" + "screws=" + screws + ", wood=" + wood + ", bracket=" + bracket + '}';
+    }
 }

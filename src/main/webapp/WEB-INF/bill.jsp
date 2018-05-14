@@ -1,3 +1,5 @@
+<%@page import="FunctionLayer.Order"%>
+<%@page import="DBAccess.OrderMapper"%>
 <%@page import="FunctionLayer.BillCalc"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,23 +13,25 @@
     </head>
     <body>
         <% BillCalc bill = new BillCalc(); %>
+        <% int id = Integer.parseInt(request.getAttribute("id").toString()); %>
+        <% Order order = OrderMapper.getOrder(id); %>
         <h1>Stykliste</h1>
         <table class="table table-striped">
             <tr>
                 <th>skruer</th>
-                <td><% out.println(bill.createBill(1).getScrews()); %></td>
+                <td><% out.println(bill.createBill(order).getScrews()); %></td>
 
 
             </tr>
 
             <tr>
                 <th>5 meter træ</th>
-                <td> <% out.println(bill.createBill(1).getWood()); %> </td>
+                <td> <% out.println(bill.createBill(order).getWood()); %> </td>
 
             </tr>
             <tr>
                 <th>beslaf</th>
-                <td> <% out.println(bill.createBill(1).getBracket());%> </td>
+                <td> <% out.println(bill.createBill(order).getBracket());%> </td>
             </tr>
 
         </table>
