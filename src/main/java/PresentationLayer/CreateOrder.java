@@ -23,16 +23,14 @@ public class CreateOrder extends Command {
         int length = Integer.parseInt(request.getParameter("length"));
         int width = Integer.parseInt(request.getParameter("width"));
         int height = 300;
-        int assemble = (request.getParameter("assemble") == null) ? 0 : 1;
+        SVGBuilder svg = new SVGBuilder(roof, length, width, lengthShed, widthShed, material);
+        session.setAttribute("svg", svg.buildSvg(svg));
         
         Shed shed = new Shed(lengthShed, widthShed, 500);
         Order order = new Order(length, width, height);
         
-        session.setAttribute("length", length);
-        session.setAttribute("width", width);
-        
         LogicFacade.createShed(shed, email);
-        LogicFacade.createOrder(user.getEmail(), 500, order, material, roof, shed, assemble);
+        LogicFacade.createOrder(user.getEmail(), 500, order, material, roof, shed);
         
         return "placedorderpage";
         
