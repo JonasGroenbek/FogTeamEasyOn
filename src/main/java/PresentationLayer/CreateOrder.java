@@ -27,7 +27,10 @@ public class CreateOrder extends Command {
 
         Order order = new Order(length, width, height);
         Shed shed = new Shed(lengthShed, widthShed, 500);
-        session.setAttribute("svg", svg.buildSvg(svg));
+        session.setAttribute("svg", svg.buildSvg(svg)); 
+        
+        session.setAttribute("length", length);
+        session.setAttribute("width", width);
 
         LogicFacade.createShed(shed, email);
         LogicFacade.createOrder(user.getEmail(), 500, order, material, roof, shed);

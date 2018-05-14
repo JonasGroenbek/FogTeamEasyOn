@@ -11,10 +11,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customer home page</title>
     </head>
-    <% User user = (User)session.getAttribute("user");%>
+    <% User user = (User) session.getAttribute("user");%>
     <body>
         <h1>Hello <%=request.getParameter("email")%> </h1>
-         <a href="FrontController?command=link" > tryk her for at bestille </a>
+        <a href="FrontController?command=link" > tryk her for at bestille </a>
         <%
             if (OrderMapper.getUserOrders(user.getId()).isEmpty()) {
         %>
@@ -35,27 +35,31 @@
                 <th>skur</th>
                 <th>stykliste</th>
             </tr>
-            
+
             <%
                 for (int i = 0; i < OrderMapper.getUserOrders(user.getId()).size(); i++) {
             %> 
-            <tr>
-                <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getId()); %> </td>
-                <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getUserID());%> </td>
-                <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getPrice());%> </td>
-                <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getMaterial());%> </td>
-                <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getHeight());%> </td>
-                <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getLength());%> </td>
-                <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getWidth());%> </td>
-                <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getRoofID());%> </td>
-                <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getShed());%> </td>
-                <td><a href="FrontController?command=makebill?OrderID=<% out.println(OrderMapper.getUserOrders(user.getId()).get(i).getId()); %>" > se stykliste </a></td>
+            <form name="bill" action="FrontController" method="POST">
+                <input type="hidden" name="command" value="makebill">
+                <input type="hidden" name="orderID" value="<% out.println(OrderMapper.getUserOrders(user.getId()).get(i).getId()); %>">
+                <tr>
+                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getId()); %> </td>
+                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getUserID());%> </td>
+                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getPrice());%> </td>
+                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getMaterial());%> </td>
+                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getHeight());%> </td>
+                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getLength());%> </td>
+                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getWidth());%> </td>
+                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getRoofID());%> </td>
+                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getShed());%> </td>
+                    <td><input type="submit" value="Se Stykliste"> </form></td>
 
-            </tr>
-            <% }
 
-                }
-            %>
-        </table>>
-    </body>
+    </tr>
+    <% }
+
+        }
+    %>
+</table>>
+</body>
 </html>
