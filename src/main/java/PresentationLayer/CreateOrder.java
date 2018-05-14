@@ -22,15 +22,14 @@ public class CreateOrder extends Command {
         int widthShed = Integer.parseInt(request.getParameter("widthShed"));
         int length = Integer.parseInt(request.getParameter("length"));
         int width = Integer.parseInt(request.getParameter("width"));
-        int height = Integer.parseInt(request.getParameter("height"));
-        //int assemble = Integer.parseInt(request.getParameter("assemble"));
+        int height = 300;
         int assemble = (request.getParameter("assemble") == null) ? 0 : 1;
         
         Shed shed = new Shed(lengthShed, widthShed, 500);
         Order order = new Order(length, width, height);
         
-        session.setAttribute("length", length * 100);
-        session.setAttribute("width", width * 100);
+        session.setAttribute("length", length);
+        session.setAttribute("width", width);
         
         LogicFacade.createShed(shed, email);
         LogicFacade.createOrder(user.getEmail(), 500, order, material, roof, shed, assemble);
