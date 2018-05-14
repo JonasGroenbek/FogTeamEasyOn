@@ -26,19 +26,96 @@
             </select>
             <br>
             Length of shed:<br>
-            <input type="number" name="lengthShed" value="Meters" max="5">
+            <select name="lengthShed">
+                <option value="0">Ønsker ikke redskabsrum</option>
+                <option value="150">150cm</option>
+                <option value="180">180cm</option>
+                <option value="210">210cm</option>
+                <option value="240">240cm</option>
+                <option value="270">270cm</option>
+                <option value="300">300cm</option>
+                <option value="330">330cm</option>
+                <option value="360">360cm</option>
+                <option value="390">390cm</option>
+                <option value="420">420cm</option>
+                <option value="450">450cm</option>
+                <option value="480">480cm</option>
+                <option value="510">510cm</option>
+                <option value="540">540cm</option>
+                <option value="570">570cm</option>
+                <option value="600">600cm</option>
+                <option value="630">630cm</option>
+                <option value="660">660cm</option>
+                <option value="690">690cm</option>
+            </select>
             <br>
             Width of shed:<br>
-            <input type="number" name="widthShed" value="Meters" max="5">
-            <br>
-            Length:<br>
-            <input type="number" name="length" value="Meters" max="10">
-            <br>
-            Height:<br>
-            <input type="number" name="height" value="Meters" max="10">
+            <select name="widthShed">
+                <option value="0">Ønsker ikke redskabsrum</option>
+                <option value="210">210cm</option>
+                <option value="240">240cm</option>
+                <option value="270">270cm</option>
+                <option value="300">300cm</option>
+                <option value="330">330cm</option>
+                <option value="360">360cm</option>
+                <option value="390">390cm</option>
+                <option value="420">420cm</option>
+                <option value="450">450cm</option>
+                <option value="480">480cm</option>
+                <option value="510">510cm</option>
+                <option value="540">540cm</option>
+                <option value="570">570cm</option>
+                <option value="600">600cm</option>
+                <option value="630">630cm</option>
+                <option value="660">660cm</option>
+                <option value="690">690cm</option>
+                <option value="720">720cm</option>
+            </select>
             <br>
             Width:<br>
-            <input type="number" name="width" value="Meters" max="10">
+            <select name="width">
+                <option value="240">240cm</option>
+                <option value="270">270cm</option>
+                <option value="300">300cm</option>
+                <option value="330">330cm</option>
+                <option value="360">360cm</option>
+                <option value="390">390cm</option>
+                <option value="420">420cm</option>
+                <option value="450">450cm</option>
+                <option value="480">480cm</option>
+                <option value="510">510cm</option>
+                <option value="540">540cm</option>
+                <option value="570">570cm</option>
+                <option value="600">600cm</option>
+                <option value="630">630cm</option>
+                <option value="660">660cm</option>
+                <option value="690">690cm</option>
+                <option value="720">720cm</option>
+                <option value="750">750cm</option>
+            </select>
+            <br>
+            Length:<br>
+            <select name="length">
+                <option value="240">240cm</option>
+                <option value="270">270cm</option>
+                <option value="300">300cm</option>
+                <option value="330">330cm</option>
+                <option value="360">360cm</option>
+                <option value="390">390cm</option>
+                <option value="420">420cm</option>
+                <option value="450">450cm</option>
+                <option value="480">480cm</option>
+                <option value="510">510cm</option>
+                <option value="540">540cm</option>
+                <option value="570">570cm</option>
+                <option value="600">600cm</option>
+                <option value="630">630cm</option>
+                <option value="660">660cm</option>
+                <option value="690">690cm</option>
+                <option value="720">720cm</option>
+                <option value="750">750cm</option>
+                <option value="780">780cm</option>
+            </select>
             <br>
             Would you like to build it yourself ?:<br>
             <!-- <input type="number" name="width" value="enter 0 for no and 1 for yes"> !-->
