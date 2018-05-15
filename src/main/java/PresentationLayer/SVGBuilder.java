@@ -34,13 +34,13 @@ public class SVGBuilder {
     }
 
     // x er width, y er length
-    public String buildSvg(SVGBuilder svg) {
+    public String buildSvgTopView(SVGBuilder svg) {
         int viewboxWidth = svg.width + firstX + 150;
         int viewboxLength = svg.length + firstY + 150;
         sb.append("<svg width=\"750\" height=\"750\" viewBox=\"0 0 ").append(viewboxWidth).append(" ").append(viewboxLength).append("\">\n");
-        sb.append(buildRectangle(svg));
-        sb.append(buildYArrow(svg));
-        sb.append(buildXArrow(svg));
+        buildRectangle(svg);
+        buildYArrow(svg);
+        buildXArrow(svg);
         buildRafter(svg);
         buildRem(svg);
         createShed(svg);
@@ -49,36 +49,37 @@ public class SVGBuilder {
         String res = sb.toString();
         return res;
     }
+    
+    public String buildSVGSideView(SVGBuilder svg){
+        return "";
+    }
 
-    private String buildRectangle(SVGBuilder svg) {
-        String res = " <rect x=\"" + firstX + "\" y=\"" + firstY + "\" width=\"" + svg.width + "\""
+    private void buildRectangle(SVGBuilder svg) {
+        sb.append(" <rect x=\"" + firstX + "\" y=\"" + firstY + "\" width=\"" + svg.width + "\""
                 + "height=\"" + svg.length + "\""
-                + "style=\"fill:white;stroke:black;stroke-width:3;\"/>\n";
-        return res;
+                + "style=\"fill:white;stroke:black;stroke-width:3;\"/>\n");
     }
 
     //The line going vertical
-    private String buildYArrow(SVGBuilder svg) {
+    private void buildYArrow(SVGBuilder svg) {
         int x = svg.width + firstX + 30; //it has to be a bit more to the right than the house to be visible.
         int y2 = svg.length + firstY;
-        String line = "<line x1=\"" + x + "\" y1=\"" + firstY + "\" x2=\"" + x + "\" y2=\"" + y2
-                + "\" stroke=\"#000\" stroke-width=\"2\"/> \n";
+        sb.append("<line x1=\"" + x + "\" y1=\"" + firstY + "\" x2=\"" + x + "\" y2=\"" + y2
+                + "\" stroke=\"#000\" stroke-width=\"2\"/> \n");
         int textX = x + 10;
         int textY = svg.length / 2 + firstY;
-        String res = line.concat("<text x=\"" + textX + "\" y=\"" + textY + "\" font-family=\"Verdana\" font-size=\"15\">\n"
+        sb.append("<text x=\"" + textX + "\" y=\"" + textY + "\" font-family=\"Verdana\" font-size=\"15\">\n"
                 + " " + svg.length + "cm\n </text>");
-        return res;
     }
 
-    private String buildXArrow(SVGBuilder svg) {
+    private void buildXArrow(SVGBuilder svg) {
         int x2 = svg.width + firstX;
         int y = svg.length + firstY + 30; // it has to be a bit lower than the house to be visible.
-        String line = "<line x1=\"" + firstX + "\" y1=\"" + y + "\" x2=\"" + x2 + "\" y2=\"" + y
-                + "\" stroke=\"#000\" stroke-width=\"2\"/> \n";
+        sb.append("<line x1=\"" + firstX + "\" y1=\"" + y + "\" x2=\"" + x2 + "\" y2=\"" + y
+                + "\" stroke=\"#000\" stroke-width=\"2\"/> \n");
         int textX = x2 / 2 - 10; //in the middle, and -10 more for the text to be centered
         int textY = y + 15; //a bit underneath the line
-        String res = line.concat("<text x=\"" + textX + "\" y=\"" + textY + "\" font-family=\"Verdana\" font-size=\"15\">\n" + svg.width + "cm\n </text>");
-        return res;
+        sb.append("<text x=\"" + textX + "\" y=\"" + textY + "\" font-family=\"Verdana\" font-size=\"15\">\n" + svg.width + "cm\n </text>");
     }
 
     private void buildRafter(SVGBuilder svg) { //spær
@@ -128,7 +129,7 @@ public class SVGBuilder {
         //int maxX = svg.getMaxX(svg);
         int textPlacementXtop = firstX - 40;
         int textPlacementYtop = firstY + roofOverhang / 2;
-        int textPlacementYbot = svg.getMaxY(svg) - roofOverhang/2;
+        int textPlacementYbot = svg.getMaxY(svg) - roofOverhang / 2;
         int textPlacementXbot = firstX - 40;
 
         sb.append("<rect x=\"" + firstX + "\" y=\"" + y + "\" width=\"" + svg.width + "\" height=\"4\"/>");
@@ -136,7 +137,7 @@ public class SVGBuilder {
         sb.append("<rect x=\"" + firstX + "\" y=\"" + maxY + "\" width=\"" + svg.width + "\" height=\"4\"/>");
 
         sb.append("<line x1=\"" + firstX + "\" y1=\"" + firstY + "\" x2=\"" + firstX + "\" y2=\"" + y + "\" stroke=\"#000\" stroke-width=\"2\"/> ");
-        sb.append("<text x=\"" + textPlacementXtop + "\" y=\"" + textPlacementYtop + "\" font-family=\"Verdana\" font-size=\"10\"> 35cm </text>\"");      
+        sb.append("<text x=\"" + textPlacementXtop + "\" y=\"" + textPlacementYtop + "\" font-family=\"Verdana\" font-size=\"10\"> 35cm </text>\"");
         sb.append("<text x=\"" + textPlacementXbot + "\" y=\"" + textPlacementYbot + "\" font-family=\"Verdana\" font-size=\"10\"> 35cm </text>\"");
     }
 
@@ -196,4 +197,9 @@ public class SVGBuilder {
             }
         }
     }
+    
+    
+    
+    
+    
 }

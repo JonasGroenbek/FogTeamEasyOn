@@ -26,7 +26,7 @@ public class CreateOrder extends Command {
         
         Shed shed = new Shed(lengthShed, widthShed, 500);
         SVGBuilder svg = new SVGBuilder(roof, length, width, shed, material);
-        session.setAttribute("svg", svg.buildSvg(svg));
+        session.setAttribute("svg", svg.buildSvgTopView(svg));
 
         Order order = new Order(length, width, height);
 
