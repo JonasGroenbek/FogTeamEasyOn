@@ -155,7 +155,7 @@ public class SVGBuilder {
         double minXPlusSpacing = firstX + spacing + rafter;
         double maxXMinusSpacing = svg.getMaxX(svg) - (spacing + rafter);
 
-        if (svg.shed.getLength() > 150) {
+        if (svg.shed.getLength() > 100) {
             int shedWidth = svg.shed.getWidth() + firstX;
             int shedLength = svg.shed.getLength() + firstY + roofOverhang;
             int middleOfShedX = firstX + svg.shed.getWidth() / 2;
@@ -170,7 +170,11 @@ public class SVGBuilder {
             sb.append("<circle cx=\"" + firstX + "\" cy=\"" + maxYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
             sb.append("<circle cx=\"" + svg.getMaxX(svg) + "\" cy=\"" + maxYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
             sb.append("<circle cx=\"" + svg.getMaxX(svg) + "\" cy=\"" + minYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
-
+            
+            sb.append("<line stroke-dasharray=\"5, 5, 1, 5\"  x1=\"" + shedWidth + "\" y1=\"" + minYPole + "\" x2=\"" + maxXMinusSpacing + "\" y2=\"" + shedLength
+                    + "\" stroke=\"#000\" stroke-width=\"2\"/> \n");
+            sb.append("<line stroke-dasharray=\"5, 5, 1, 5\"  x1=\"" + maxXMinusSpacing + "\" y1=\"" + minYPole + "\" x2=\"" + shedWidth + "\" y2=\"" + shedLength
+                    + "\" stroke=\"#000\" stroke-width=\"2\"/> \n");
             if (svg.width > 500) {
                 sb.append("<circle cx=\"" + middleOfX + "\" cy=\"" + maxYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
             }
