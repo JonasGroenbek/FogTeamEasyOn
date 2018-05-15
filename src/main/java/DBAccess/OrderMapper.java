@@ -16,25 +16,6 @@ import java.util.logging.Logger;
 
 public class OrderMapper {
 
-    public static int getCustomerId(String email) throws ClassNotFoundException, SQLException, LoginSampleException {
-        try {
-            Connection con = Connector.connection();
-            String SQL = "SELECT id from users where mail = ?";
-            PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setString(1, email);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-
-                int id = rs.getInt("id");
-                return id;
-            }
-            return 0;
-
-        } catch (ClassNotFoundException | SQLException ex) {
-            throw new LoginSampleException(ex.getMessage());
-        }
-    }
-
     public static Material getMaterial(int id) throws ClassNotFoundException, SQLException, LoginSampleException {
         try {
             Connection con = Connector.connection();
@@ -84,19 +65,19 @@ public class OrderMapper {
         }
     }
 
-    public static void createOrder(String email, int price, Order order, int matType, int roofType, Shed shed) throws LoginSampleException {
+    public static void createOrder(int userID, int price, Order order, int matType, int roofType, Shed shed) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
             String SQL = "INSERT INTO orders (userID, price, materialD, height, length, width, roofID, shed, assembling) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, OrderMapper.getCustomerId(email));
+            ps.setInt(1, userID);
             ps.setInt(2, price);
             ps.setInt(3, OrderMapper.getMaterial(matType).getId());
             ps.setInt(4, order.getHeight());
             ps.setInt(5, order.getLength());
             ps.setInt(6, order.getWidth());
             ps.setInt(7, OrderMapper.getRoof(roofType).getId());
-            ps.setInt(8, OrderMapper.getShed(email));
+            ps.setInt(8, OrderMapper.getShed(userID));
             ps.setInt(9, 0);
             ps.executeUpdate();
             ResultSet ids = ps.getGeneratedKeys();
@@ -109,7 +90,7 @@ public class OrderMapper {
         }
     }
 
-    public static void createShed(Shed shed, String email) throws LoginSampleException {
+    public static void createShed(Shed shed, int userID) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
             String SQL = "INSERT INTO shed (length, width, price, userid) VALUES (?, ?, ?, ?)";
@@ -117,7 +98,7 @@ public class OrderMapper {
             ps.setInt(1, shed.getLength());
             ps.setInt(2, shed.getWidth());
             ps.setInt(3, shed.getPrice());
-            ps.setInt(4, OrderMapper.getCustomerId(email));
+            ps.setInt(4, userID);
             ps.executeUpdate();
             ResultSet ids = ps.getGeneratedKeys();
             ids.next();
@@ -128,12 +109,12 @@ public class OrderMapper {
         }
     }
 
-    public static int getShedId(String email) throws ClassNotFoundException, SQLException, LoginSampleException {
+    public static int getShedId(int userID) throws ClassNotFoundException, SQLException, LoginSampleException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT * from shed where userid = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setInt(1, OrderMapper.getCustomerId(email));
+            ps.setInt(1, userID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
 
@@ -148,12 +129,12 @@ public class OrderMapper {
         }
     }
 
-    public static int getShed(String email) throws ClassNotFoundException, SQLException, LoginSampleException {
+    public static int getShed(int userID) throws ClassNotFoundException, SQLException, LoginSampleException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT id from shed where userid = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setInt(1, OrderMapper.getCustomerId(email));
+            ps.setInt(1, userID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
 

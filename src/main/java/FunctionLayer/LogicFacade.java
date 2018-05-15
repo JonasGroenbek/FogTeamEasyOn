@@ -16,16 +16,16 @@ public class LogicFacade {
         return user;
     }
     
-    public static void createShed(Shed shed, String email) throws LoginSampleException {
-        OrderMapper.createShed(shed, email);
+    public static void createShed(Shed shed, int userID) throws LoginSampleException {
+        OrderMapper.createShed(shed, userID);
     }
     
-    public static int getShed(String email) throws ClassNotFoundException, SQLException, LoginSampleException {
-        return OrderMapper.getShed(email);
+    public static int getShed(int userID) throws ClassNotFoundException, SQLException, LoginSampleException {
+        return OrderMapper.getShed(userID);
     }
     
-    public static void createOrder(String email,int price, Order order, int matType, int roofType, Shed shed) throws LoginSampleException {
-        OrderMapper.createOrder(email, price, order, matType, roofType, shed);
+    public static void createOrder(int userID,int price, Order order, int matType, int roofType, Shed shed) throws LoginSampleException {
+        OrderMapper.createOrder(userID, price, order, matType, roofType, shed);
     }
     public static void updateBuilder(int test, int test1){
     

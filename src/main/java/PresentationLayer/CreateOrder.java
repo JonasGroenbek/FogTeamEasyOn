@@ -15,7 +15,7 @@ public class CreateOrder extends Command {
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
         HttpSession session = request.getSession();        
         User user = (User) session.getAttribute("user");
-        String email = user.getEmail();
+        int userID = user.getId();
         int material = Integer.parseInt(request.getParameter("material"));
         int roof = Integer.parseInt(request.getParameter("roof"));
         int lengthShed = Integer.parseInt(request.getParameter("lengthShed"));
@@ -29,8 +29,8 @@ public class CreateOrder extends Command {
         Shed shed = new Shed(lengthShed, widthShed, 500);
         Order order = new Order(length, width, height);
         
-        LogicFacade.createShed(shed, email);
-        LogicFacade.createOrder(user.getEmail(), 500, order, material, roof, shed);
+        LogicFacade.createShed(shed, userID);
+        LogicFacade.createOrder(userID, 500, order, material, roof, shed);
         
         return "placedorderpage";
         
