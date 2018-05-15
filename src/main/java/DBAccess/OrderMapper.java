@@ -1,5 +1,6 @@
 package DBAccess;
 
+import FunctionLayer.Bill;
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.Material;
 import FunctionLayer.Order;
@@ -26,10 +27,11 @@ public class OrderMapper {
             while (rs.next()) {
                 int matId = rs.getInt("id");
                 String mat = rs.getString("type");
+                String name = rs.getString("name");
                 int price = rs.getInt("price");
                 String description = rs.getString("description");
 
-                Material material = new Material(id, mat, price, description);
+                Material material = new Material(id, mat, name, price, description);
 
                 return material;
             }
@@ -59,6 +61,30 @@ public class OrderMapper {
                 return roof;
             }
             return null;
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new LoginSampleException(ex.getMessage());
+        }
+    }
+    
+    public static ArrayList<Bill> getBill(int orderID) throws ClassNotFoundException, SQLException, LoginSampleException {
+        try {
+            ArrayList<Bill> list = new ArrayList<>();
+            Connection con = Connector.connection();
+            String SQL = "SELECT * from bom where order_id = ?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, orderID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                int materialID = rs.getInt("mat_id");
+                int amount = rs.getInt("amount");
+                int price = rs.getInt("price");
+
+                Bill bill = new Bill(materialID, amount, price);
+                list.add(bill);
+            }
+            return list;
 
         } catch (ClassNotFoundException | SQLException ex) {
             throw new LoginSampleException(ex.getMessage());

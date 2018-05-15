@@ -4,12 +4,14 @@ public class Material {
     
     private int id;
     private String type;
+    private String name;
     private int price;
     private String description;
 
-    public Material(int id, String type, int price, String description) {
+    public Material(int id, String type, String name, int price, String description) {
         this.id = id;
         this.type = type;
+        this.name = name;
         this.price = price;
         this.description = description;
     }
@@ -44,6 +46,14 @@ public class Material {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

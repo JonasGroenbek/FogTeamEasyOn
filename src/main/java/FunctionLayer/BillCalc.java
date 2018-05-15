@@ -2,18 +2,18 @@ package FunctionLayer;
 
 public class BillCalc {
 
-    public Bill createBill(Order order) {
-        int length = order.getLength();
-        int width = order.getWidth();
-        int posts = this.calcPost(length);
-        int brackets = this.calcbrackets(posts);
-        int screws = this.calscrews(brackets);
-
-        Bill bill = new Bill(screws, posts, brackets);
-
-        return bill;
-
-    }
+//    public Bill createBill(Order order) {
+//        int length = order.getLength();
+//        int width = order.getWidth();
+//        int posts = this.calcPost(length);
+//        int brackets = this.calcbrackets(posts);
+//        int screws = this.calscrews(brackets);
+//
+//        //Bill bill = new Bill(screws, posts, brackets);
+//
+//        return bill;
+//
+//    }
 
     private int calcPost(int length) {
         int posts = 0;

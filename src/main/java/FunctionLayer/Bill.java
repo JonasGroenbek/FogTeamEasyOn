@@ -1,41 +1,47 @@
 package FunctionLayer;
 public class Bill {
-    private int screws;
-    private int wood;
-    private int bracket;
+    
+    private int orderID;
+    private int materialID;
+    private int amount;
+    private int price;
 
-    public int getScrews() {
-        return screws;
+    public Bill(int materialID, int amount, int price) {
+        this.materialID = materialID;
+        this.amount = amount;
+        this.price = price;
     }
 
-    public void setScrews(int screws) {
-        this.screws = screws;
+    public int getOrderID() {
+        return orderID;
     }
 
-    public int getWood() {
-        return wood;
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
     }
 
-    public void setWood(int wood) {
-        this.wood = wood;
+    public int getMaterialID() {
+        return materialID;
     }
 
-    public int getBracket() {
-        return bracket;
+    public void setMaterialID(int materialID) {
+        this.materialID = materialID;
     }
 
-    public void setBracket(int bracket) {
-        this.bracket = bracket;
+    public int getAmount() {
+        return amount;
     }
 
-    public Bill(int screws, int wood, int bracket) {
-        this.screws = screws;
-        this.wood = wood;
-        this.bracket = bracket;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
-    @Override
-    public String toString() {
-        return "Bill{" + "screws=" + screws + ", wood=" + wood + ", bracket=" + bracket + '}';
+    public int getPrice() {
+        return price;
     }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+    
 }
