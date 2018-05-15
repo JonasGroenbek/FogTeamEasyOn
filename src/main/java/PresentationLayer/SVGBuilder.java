@@ -27,6 +27,7 @@ public class SVGBuilder {
         sb.append(buildRectangle(svg));
         sb.append(buildYArrow(svg));
         sb.append(buildXArrow(svg));
+        buildRafter(svg);
         sb.append("\n</svg>");
         String res = sb.toString();
 
@@ -48,21 +49,52 @@ public class SVGBuilder {
         int textX = x + 10;
         int textY = y2 / 2 - 10;
         String res = line.concat("<text x=\"" + textX + "\" y=\"" + textY + "\" font-family=\"Verdana\" font-size=\"15\">\n"
-                + " "+svg.length+"cm\n </text>");
+                + " " + svg.length + "cm\n </text>");
         return res;
     }
-    
-        private String buildXArrow(SVGBuilder svg) {
+
+    private String buildXArrow(SVGBuilder svg) {
         int x2 = svg.width + 20;
         int y = svg.length + 50;
-        String line = "<line x1=\"20\" y1=\""+y+"\" x2=\"" + x2 + "\" y2=\"" + y
+        String line = "<line x1=\"20\" y1=\"" + y + "\" x2=\"" + x2 + "\" y2=\"" + y
                 + "\" stroke=\"#000\" stroke-width=\"2\"/> \n";
         int textX = x2 / 2 - 10;
         int textY = y + 15;
         String res = line.concat("<text x=\"" + textX + "\" y=\"" + textY + "\" font-family=\"Verdana\" font-size=\"15\">\n"
-                + " "+svg.width+"cm\n </text>");
+                + " " + svg.width + "cm\n </text>");
         return res;
     }
+
+    private void buildRafter(SVGBuilder svg) { //spær
+        final double rafter = 4.5;
+        final int y1 = 20;
+        final int y2 = svg.length + 20;
+        double x = 24;
+        final int xe = svg.width + 16;
+        double spacing = calcSpacing(svg.width);
+        
+        
+        sb.append("<line x1=\"" + x + "\" y1=\"" + y1 + "\" x2=\"" + x + "\" y2=\"" + y2
+                + "\" stroke=\"#000\" stroke-width=\"2\"/> \n");
+        sb.append("<line x1=\"" + xe + "\" y1=\"" + y1 + "\" x2=\"" + xe + "\" y2=\"" + y2
+                + "\" stroke=\"#000\" stroke-width=\"2\"/> \n");
+   
+        for (double i = spacing*2+4.5; i < svg.width-9; i+= spacing) {
+            x+=spacing;
+            sb.append("<line x1=\"" + x + "\" y1=\"" + y1 + "\" x2=\"" + x + "\" y2=\"" + y2
+                    + "\" stroke=\"#000\" stroke-width=\"2\"/> \n");
+            x+=4.5;
+            sb.append("<line x1=\"" + x + "\" y1=\"" + y1 + "\" x2=\"" + x + "\" y2=\"" + y2
+                    + "\" stroke=\"#000\" stroke-width=\"2\"/> \n");
+
+        }
+    }
     
+    private double calcSpacing(int width){
+        //9 represents the size of the two outer rafters, which has to be considered 
+        //to get a precise spacing.
+        int amountOfRafters = (int) Math.ceil((width-9) / 64.5);
+        return (width-amountOfRafters*4.5) / amountOfRafters;
+    }
 
 }
