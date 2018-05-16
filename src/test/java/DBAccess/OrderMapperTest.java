@@ -5,6 +5,7 @@
  */
 package DBAccess;
 
+import FunctionLayer.Bill;
 import FunctionLayer.Material;
 import FunctionLayer.Order;
 import FunctionLayer.Roof;
@@ -69,7 +70,7 @@ public class OrderMapperTest {
     /**
      * Test of createOrder method, of class OrderMapper.
      */
-    /*@Test
+    @Test
     public void testCreateOrder() throws Exception {
         System.out.println("createOrder");
         int userID = 1;
@@ -86,30 +87,18 @@ public class OrderMapperTest {
     /**
      * Test of createShed method, of class OrderMapper.
      */
-    /*@Test
+    @Test
     public void testCreateShed() throws Exception {
         System.out.println("createShed");
         Shed shed = new Shed(300, 150, 1000);
         int userID = 1;
-        //OrderMapper.createShed(shed, userID);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int expResult = 0;
+        int result = 0;//OrderMapper.createShed(shed, userID);
+        assertEquals(expResult, result);
     }
     
-    /**
-     * Test of getShed method, of class OrderMapper.
-     */
-    /*@Test
-    public void testGetShed() throws Exception {
-        System.out.println("getShed");
-        int userID = 0;
-        int expResult = 0;
-        int result = OrderMapper.getShed(userID);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    */
+
+    
     /**
      * Test of getUserOrders method, of class OrderMapper.
      */
@@ -160,6 +149,32 @@ public class OrderMapperTest {
         boolean expResult = true;
         boolean result = instance.updateOrder(324, new Order(342, 4, 500, 1, 240, 240, 300, 1, 11));
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getBill method, of class OrderMapper.
+     */
+    @Test
+    public void testGetBill() throws Exception {
+        System.out.println("getBill");
+        int orderID = 0;
+        ArrayList<Bill> expResult = null;
+        ArrayList<Bill> result = OrderMapper.getBill(orderID);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getShed method, of class OrderMapper.
+     */
+    @Test
+    public void testGetShed() throws Exception {
+        System.out.println("getShed");
+        int shedID = 325;
+        Shed expResult = new Shed(325, 180, 270, 500);
+        Shed result = OrderMapper.getShed(shedID);
+        assertEquals(expResult.toString(), result.toString());
     }
     
 }

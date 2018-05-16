@@ -20,8 +20,8 @@ public class LogicFacade {
         return OrderMapper.createShed(shed, userID);
     }
     
-    public static int getShed(int userID) throws ClassNotFoundException, SQLException, LoginSampleException {
-        return OrderMapper.getShed(userID);
+    public static Shed getShed(int shedID) throws ClassNotFoundException, SQLException, LoginSampleException {
+        return OrderMapper.getShed(shedID);
     }
     
     public static void createOrder(int userID,int price, Order order, int matType, int roofType, int shed) throws LoginSampleException {
