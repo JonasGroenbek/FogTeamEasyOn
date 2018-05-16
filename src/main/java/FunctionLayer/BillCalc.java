@@ -51,6 +51,15 @@ public class BillCalc {
        }
        return 0; 
   }
+    
+    private int interTiesChedGabled (){
+        int interTies = 0;
+        return interTies;
+    }
+        private int interTiesChedSides (){
+        int interTies = 0;
+        return interTies;
+    }
     private int remsOnSides(int width, int OrderID) throws ClassNotFoundException, SQLException, LoginSampleException {
         if (OrderMapper.getOrder(OrderID).getShed() == 0) {
             int boards = width / 600;
@@ -125,13 +134,13 @@ public class BillCalc {
         return cladding;
     }
 
-    private int vandbaetOnSternSides(int length) {
-        int vandbreat = 0;
+    private int vandbaetOnSternSides(int overSternBoardsSides) {
+        int vandbreat = overSternBoardsSides;
         return vandbreat;
     }
 
-    private int vandbaetOnSternFront(int width) {
-        int vandbaet = 0;
+    private int vandbaetOnSternFront(int overSternBoardsFront) {
+        int vandbaet = overSternBoardsFront;
         return vandbaet;
     }
 
