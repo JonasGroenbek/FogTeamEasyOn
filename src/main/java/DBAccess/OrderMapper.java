@@ -240,28 +240,28 @@ public class OrderMapper {
             }
             if (order != null) {
                 if (order.getPrice() != newOrder.getPrice()) {
-                    SQL = "UPDATE `fog`.`orders` SET `price`=? WHERE `id`=?;";
+                    SQL = "UPDATE `orders` SET `price`=? WHERE `id`=?;";
                     ps = con.prepareStatement(SQL);
                     ps.setInt(1, newOrder.getPrice());
                     ps.setInt(2, ID);
                     ps.execute();
                 }
                 if (order.getHeight() != newOrder.getHeight()) {
-                    SQL = "UPDATE `fog`.`orders` SET `height`=? WHERE `id`=?;";
+                    SQL = "UPDATE `orders` SET `height`=? WHERE `id`=?;";
                     ps = con.prepareStatement(SQL);
                     ps.setInt(1, newOrder.getHeight());
                     ps.setInt(2, ID);
                     ps.execute();
                 }
                 if (order.getLength() != newOrder.getLength()) {
-                    SQL = "UPDATE `fog`.`orders` SET `length`=? WHERE `id`=?;";
+                    SQL = "UPDATE `orders` SET `length`=? WHERE `id`=?;";
                     ps = con.prepareStatement(SQL);
                     ps.setInt(1, newOrder.getLength());
                     ps.setInt(2, ID);
                     ps.execute();
                 }
                 if (order.getWidth() != newOrder.getWidth()) {
-                    SQL = "UPDATE `fog`.`orders` SET `width`=? WHERE `id`=?;";
+                    SQL = "UPDATE `orders` SET `width`=? WHERE `id`=?;";
                     ps = con.prepareStatement(SQL);
                     ps.setInt(1, newOrder.getWidth());
                     ps.setInt(2, ID);

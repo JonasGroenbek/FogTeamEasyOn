@@ -3,7 +3,7 @@ package PresentationLayer;
 import FunctionLayer.Shed;
 import java.text.DecimalFormat;
 
-public class SVGBuilder {
+public class SVGBuilderTop {
 
     private StringBuilder sb = new StringBuilder();
     private final int roofType;
@@ -17,7 +17,7 @@ public class SVGBuilder {
     final double rafter = 4.5;
     private double spacing;
 
-    public SVGBuilder(int roofType, int length, int width, Shed shed, int material) {
+    public SVGBuilderTop(int roofType, int length, int width, Shed shed, int material) {
         this.roofType = roofType;
         this.length = length;
         this.width = width;
@@ -25,16 +25,16 @@ public class SVGBuilder {
         this.material = material;
     }
 
-    private int getMaxY(SVGBuilder svg) {
+    private int getMaxY(SVGBuilderTop svg) {
         return svg.length + firstY;
     }
 
-    private int getMaxX(SVGBuilder svg) {
+    private int getMaxX(SVGBuilderTop svg) {
         return svg.width + firstX;
     }
 
     // x er width, y er length
-    public String buildSvgTopView(SVGBuilder svg) {
+    public String buildSvgTopView(SVGBuilderTop svg) {
         int viewboxWidth = svg.width + firstX + 150;
         int viewboxLength = svg.length + firstY + 150;
         sb.append("<svg width=\"750\" height=\"750\" viewBox=\"0 0 ").append(viewboxWidth).append(" ").append(viewboxLength).append("\">\n");
@@ -49,19 +49,15 @@ public class SVGBuilder {
         String res = sb.toString();
         return res;
     }
-    
-    public String buildSVGSideView(SVGBuilder svg){
-        return "";
-    }
 
-    private void buildRectangle(SVGBuilder svg) {
+    private void buildRectangle(SVGBuilderTop svg) {
         sb.append(" <rect x=\"" + firstX + "\" y=\"" + firstY + "\" width=\"" + svg.width + "\""
                 + "height=\"" + svg.length + "\""
                 + "style=\"fill:white;stroke:black;stroke-width:3;\"/>\n");
     }
 
     //The line going vertical
-    private void buildYArrow(SVGBuilder svg) {
+    private void buildYArrow(SVGBuilderTop svg) {
         int x = svg.width + firstX + 30; //it has to be a bit more to the right than the house to be visible.
         int y2 = svg.length + firstY;
         sb.append("<line x1=\"" + x + "\" y1=\"" + firstY + "\" x2=\"" + x + "\" y2=\"" + y2
@@ -72,7 +68,7 @@ public class SVGBuilder {
                 + " " + svg.length + "cm\n </text>");
     }
 
-    private void buildXArrow(SVGBuilder svg) {
+    private void buildXArrow(SVGBuilderTop svg) {
         int x2 = svg.width + firstX;
         int y = svg.length + firstY + 30; // it has to be a bit lower than the house to be visible.
         sb.append("<line x1=\"" + firstX + "\" y1=\"" + y + "\" x2=\"" + x2 + "\" y2=\"" + y
@@ -82,7 +78,7 @@ public class SVGBuilder {
         sb.append("<text x=\"" + textX + "\" y=\"" + textY + "\" font-family=\"Verdana\" font-size=\"15\">\n" + svg.width + "cm\n </text>");
     }
 
-    private void buildRafter(SVGBuilder svg) { //spær
+    private void buildRafter(SVGBuilderTop svg) { //spær
         final int y2 = svg.length + firstY;
         double x = firstX + rafter; //this is the leftmost rafter which has to be placed before any others
         double xe = svg.width + firstX - rafter; //this is the rightmost rafter which has to be placed before any others
@@ -113,7 +109,7 @@ public class SVGBuilder {
         return ((width - rafter) - amountOfRafters * rafter) / amountOfRafters;
     }
 
-    private void spacingMarkers(double spacing, SVGBuilder svg) {
+    private void spacingMarkers(double spacing, SVGBuilderTop svg) {
         for (double i = 0 + spacing; i < svg.width; i += spacing + rafter) {
             DecimalFormat numberFormat = new DecimalFormat("#.00");
             int textPlacementY = firstY - 20;
@@ -123,7 +119,7 @@ public class SVGBuilder {
         }
     }
 
-    private void buildRem(SVGBuilder svg) {
+    private void buildRem(SVGBuilderTop svg) {
         int y = firstY + roofOverhang;
         int maxY = svg.getMaxY(svg) - (roofOverhang + 5);
         //int maxX = svg.getMaxX(svg);
@@ -141,13 +137,13 @@ public class SVGBuilder {
         sb.append("<text x=\"" + textPlacementXbot + "\" y=\"" + textPlacementYbot + "\" font-family=\"Verdana\" font-size=\"10\"> 35cm </text>\"");
     }
 
-    private void createShed(SVGBuilder svg) {
+    private void createShed(SVGBuilderTop svg) {
         int y = firstY + roofOverhang;
         sb.append("<rect x=\"" + firstX + "\" y=\"" + y + "\" width=\"" + svg.shed.getWidth() + "\" "
                 + "height=\"" + svg.shed.getLength() + "\" stroke-width= \"4\"; stroke=\"black\" fill= \"none\";/>");
     }
 
-    private void createPosts(SVGBuilder svg) {
+    private void createPosts(SVGBuilderTop svg) {
         int middleOfY = firstY + svg.length / 2;
         int middleOfX = firstX + svg.width / 2;
         int minYPole = firstY + roofOverhang;
@@ -170,7 +166,7 @@ public class SVGBuilder {
             sb.append("<circle cx=\"" + firstX + "\" cy=\"" + maxYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
             sb.append("<circle cx=\"" + svg.getMaxX(svg) + "\" cy=\"" + maxYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
             sb.append("<circle cx=\"" + svg.getMaxX(svg) + "\" cy=\"" + minYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
-            
+
             sb.append("<line stroke-dasharray=\"5, 5, 1, 5\"  x1=\"" + shedWidth + "\" y1=\"" + minYPole + "\" x2=\"" + maxXMinusSpacing + "\" y2=\"" + shedLength
                     + "\" stroke=\"#000\" stroke-width=\"2\"/> \n");
             sb.append("<line stroke-dasharray=\"5, 5, 1, 5\"  x1=\"" + maxXMinusSpacing + "\" y1=\"" + minYPole + "\" x2=\"" + shedWidth + "\" y2=\"" + shedLength
@@ -200,10 +196,6 @@ public class SVGBuilder {
                 sb.append("<circle cx=\"" + firstX + "\" cy=\"" + middleOfY + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
             }
         }
+
     }
-    
-    
-    
-    
-    
 }
