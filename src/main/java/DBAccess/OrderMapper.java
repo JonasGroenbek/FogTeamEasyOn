@@ -135,26 +135,6 @@ public class OrderMapper {
         }
     }
 
-    public static int getShedId(int userID) throws ClassNotFoundException, SQLException, LoginSampleException {
-        try {
-            Connection con = Connector.connection();
-            String SQL = "SELECT * from shed where userid = ?";
-            PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setInt(1, userID);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-
-                int id = rs.getInt("id");
-
-                return id;
-            }
-            return 0;
-
-        } catch (ClassNotFoundException | SQLException ex) {
-            throw new LoginSampleException(ex.getMessage());
-        }
-    }
-
     public static int getShed(int userID) throws ClassNotFoundException, SQLException, LoginSampleException {
         try {
             Connection con = Connector.connection();

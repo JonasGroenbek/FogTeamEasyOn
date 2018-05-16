@@ -2,46 +2,28 @@ package FunctionLayer;
 
 public class BillCalc {
 
-//    public Bill createBill(Order order) {
-//        int length = order.getLength();
-//        int width = order.getWidth();
-//        int posts = this.calcPost(length);
-//        int brackets = this.calcbrackets(posts);
-//        int screws = this.calscrews(brackets);
-//
-//        //Bill bill = new Bill(screws, posts, brackets);
-//
-//        return bill;
-//
-//    }
-
-    private int calcPost(int length) {
-        int posts = 0;
-        int test = length / 250;
-
-        if (test < 1) {
-            posts = 4;
-            return posts;
-        } else if (test > 1) {
-            posts=4;
-            while (test != 0) {
-                posts += 2;
-                test--;
-            }
+    
+    public static void main(String[] args) {
+        BillCalc bill = new BillCalc();
+        int width = 480;
+        System.out.println(bill.overSterBoardsFront(width));
+    }
+    private int underSternBoardFrontAndBack(int width) {
+        int boards = width/360*2;
+        
+        return boards;
+    }
+    private int underSternBoardSides(int length){
+        int boards = length/540*2;
+        
+        return boards;
+    }
+    private int overSterBoardsFront(int width){
+        int boards = width/360;
+        if(width%360 != 0){
+        boards++;
         }
-
-        return posts;
+    return boards;
     }
-
-    private int calscrews(int brackets) {
-        int screws = brackets * 6;
-        return screws;
-    }
-
-    private int calcbrackets(int posts) {
-
-        int brackets = posts;
-        return brackets;
-    }
-
+    
 }
