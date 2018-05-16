@@ -30,8 +30,8 @@ public class CreateOrder extends Command {
 
         Order order = new Order(length, width, height);
 
-        LogicFacade.createShed(shed, userID);
-        LogicFacade.createOrder(userID, 500, order, material, roof, shed);
+        int shedID = LogicFacade.createShed(shed, userID);
+        LogicFacade.createOrder(userID, 500, order, material, roof, shedID);
 
         return "placedorderpage";
 
