@@ -1,47 +1,58 @@
 package FunctionLayer;
 
+import DBAccess.OrderMapper;
+
 public class BillCalc {
 
-//    public Bill createBill(Order order) {
-//        int length = order.getLength();
-//        int width = order.getWidth();
-//        int posts = this.calcPost(length);
-//        int brackets = this.calcbrackets(posts);
-//        int screws = this.calscrews(brackets);
-//
-//        //Bill bill = new Bill(screws, posts, brackets);
-//
-//        return bill;
-//
-//    }
+    public static void main(String[] args) {
+        BillCalc bill = new BillCalc();
+        int width = 480;
+        System.out.println(bill.overSterBoardsFront(width));
+    }
 
-    private int calcPost(int length) {
-        int posts = 0;
-        int test = length / 250;
+    private int underSternBoardFrontAndBack(int width) {
+        int boards = width / 360;
+        if (width % 360 != 0) {
+            boards++;
+        }
+        return boards * 2;
+    }
 
-        if (test < 1) {
-            posts = 4;
-            return posts;
-        } else if (test > 1) {
-            posts=4;
-            while (test != 0) {
-                posts += 2;
-                test--;
-            }
+    private int underSternBoardSides(int length) {
+        int boards = length / 540;
+        if (length % 540 != 0) {
+            boards++;
         }
 
-        return posts;
+        return boards;
     }
 
-    private int calscrews(int brackets) {
-        int screws = brackets * 6;
-        return screws;
+    private int overSterBoardFront(int width) {
+        int boards = width / 360;
+        if (width % 360 != 0) {
+            boards++;
+        }
+        return boards * 2;
+    }
+    
+    private int overSternBoardSides(int length){
+        int boards = length / 540;
+        if (length % 540 != 0) {
+            boards++;
+        }
+
+        return boards;
     }
 
-    private int calcbrackets(int posts) {
-
-        int brackets = posts;
-        return brackets;
+//    private int zOnDoor(int id){
+//       if(OrderMapper.getOrder(id).getShed() != 0)
+//       return 0; 
+//    }
+    
+    private int remsOnSides(int length){
+        if (OrderMapper.getOrder(1).getShed() = 0){}
     }
-
+    
+    
 }
+
