@@ -10,35 +10,57 @@ import FunctionLayer.Material;
 import FunctionLayer.Order;
 import FunctionLayer.Roof;
 import FunctionLayer.Shed;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import static java.util.Collections.singleton;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import DBAccess.Connector;
 
-/**
- *
- * @author stgre
- */
 public class OrderMapperTest {
-    
+  
+    private static final String URLTEST = "jdbc:mysql://159.65.56.14/fogtest";
+    private static final String USERNAME = "crud";
+    private static final String PASSWORD = "crud42";
+
+    private static Connection testDB;
+
+    public static void setConnection(Connection con) {
+        testDB = con;
+    }
+
+    public static Connection connection() throws ClassNotFoundException, SQLException {
+        if (testDB == null) {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            testDB = DriverManager.getConnection(URLTEST, USERNAME, PASSWORD);
+        }
+        return testDB;
+    }
+
     public OrderMapperTest() {
     }
-    
+
     @BeforeClass
-    public static void setUpClass() {
+    public static void setUpClass() throws ClassNotFoundException, SQLException {
+        Connector.setConnection(testDB);
     }
-    
+
     @AfterClass
-    public static void tearDownClass() {
+    public static void tearDownClass() throws ClassNotFoundException, SQLException {
+       Connector.connection(); 
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -96,9 +118,7 @@ public class OrderMapperTest {
         int result = 0;//OrderMapper.createShed(shed, userID);
         assertEquals(expResult, result);
     }
-    
 
-    
     /**
      * Test of getUserOrders method, of class OrderMapper.
      */
@@ -176,5 +196,5 @@ public class OrderMapperTest {
         Shed result = OrderMapper.getShed(shedID);
         assertEquals(expResult.toString(), result.toString());
     }
-    
+
 }

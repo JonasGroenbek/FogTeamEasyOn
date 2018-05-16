@@ -7,7 +7,7 @@ public class BillCalc {
     public static void main(String[] args) {
         BillCalc bill = new BillCalc();
         int width = 480;
-        System.out.println(bill.overSterBoardsFront(width));
+        System.out.println(bill. overSterBoardFront(width));
     }
 
     private int underSternBoardFrontAndBack(int width) {
@@ -34,8 +34,8 @@ public class BillCalc {
         }
         return boards * 2;
     }
-    
-    private int overSternBoardSides(int length){
+
+    private int overSternBoardSides(int length) {
         int boards = length / 540;
         if (length % 540 != 0) {
             boards++;
@@ -48,11 +48,10 @@ public class BillCalc {
 //       if(OrderMapper.getOrder(id).getShed() != 0)
 //       return 0; 
 //    }
-    
-    private int remsOnSides(int length){
-        if (OrderMapper.getOrder(1).getShed() = 0){}
+    private int remsOnSides(int length) {
+        if (OrderMapper.getOrder(1).getShed() == 0) {
+        }
+        return 0;
     }
-    
-    
-}
 
+}

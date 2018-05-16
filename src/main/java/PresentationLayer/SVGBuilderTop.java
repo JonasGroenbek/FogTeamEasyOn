@@ -14,6 +14,7 @@ public class SVGBuilderTop {
     private final int firstX = 80; //if below 45 then the text for rafterspacers will be messed up
     private final int firstY = 90;
     private final int roofOverhang = 35;
+    private final int firstXRoofOverhang = firstX + roofOverhang;
     final double rafter = 4.5;
     private double spacing;
 
@@ -138,12 +139,15 @@ public class SVGBuilderTop {
     }
 
     private void createShed(SVGBuilderTop svg) {
+        int innerMostX = firstX + roofOverhang;
         int y = firstY + roofOverhang;
-        sb.append("<rect x=\"" + firstX + "\" y=\"" + y + "\" width=\"" + svg.shed.getWidth() + "\" "
+        sb.append("<rect x=\"" + innerMostX + "\" y=\"" + y + "\" width=\"" + svg.shed.getWidth() + "\" "
                 + "height=\"" + svg.shed.getLength() + "\" stroke-width= \"4\"; stroke=\"black\" fill= \"none\";/>");
     }
 
     private void createPosts(SVGBuilderTop svg) {
+        int outerMostX = firstX + svg.getMaxX(svg) - roofOverhang;
+        int innerMostX = firstX + roofOverhang;
         int middleOfY = firstY + svg.length / 2;
         int middleOfX = firstX + svg.width / 2;
         int minYPole = firstY + roofOverhang;
@@ -152,20 +156,20 @@ public class SVGBuilderTop {
         double maxXMinusSpacing = svg.getMaxX(svg) - (spacing + rafter);
 
         if (svg.shed.getLength() > 100) {
-            int shedWidth = svg.shed.getWidth() + firstX;
+            int shedWidth = svg.shed.getWidth() + firstX + roofOverhang;
             int shedLength = svg.shed.getLength() + firstY + roofOverhang;
-            int middleOfShedX = firstX + svg.shed.getWidth() / 2;
+            int middleOfShedX = firstX + roofOverhang + svg.shed.getWidth() / 2;
 
-            sb.append("<circle cx=\"" + firstX + "\" cy=\"" + minYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
-            sb.append("<circle cx=\"" + firstX + "\" cy=\"" + shedLength + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
+            sb.append("<circle cx=\"" + innerMostX + "\" cy=\"" + minYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
+            sb.append("<circle cx=\"" + innerMostX + "\" cy=\"" + shedLength + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
             sb.append("<circle cx=\"" + shedWidth + "\" cy=\"" + minYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
             sb.append("<circle cx=\"" + shedWidth + "\" cy=\"" + shedLength + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
             sb.append("<circle cx=\"" + middleOfShedX + "\" cy=\"" + minYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
             sb.append("<circle cx=\"" + middleOfShedX + "\" cy=\"" + shedLength + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
 
-            sb.append("<circle cx=\"" + firstX + "\" cy=\"" + maxYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
-            sb.append("<circle cx=\"" + svg.getMaxX(svg) + "\" cy=\"" + maxYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
-            sb.append("<circle cx=\"" + svg.getMaxX(svg) + "\" cy=\"" + minYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
+            sb.append("<circle cx=\"" + innerMostX + "\" cy=\"" + maxYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
+            sb.append("<circle cx=\"" + maxXMinusSpacing + "\" cy=\"" + maxYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
+            sb.append("<circle cx=\"" + maxXMinusSpacing + "\" cy=\"" + minYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
 
             sb.append("<line stroke-dasharray=\"5, 5, 1, 5\"  x1=\"" + shedWidth + "\" y1=\"" + minYPole + "\" x2=\"" + maxXMinusSpacing + "\" y2=\"" + shedLength
                     + "\" stroke=\"#000\" stroke-width=\"2\"/> \n");
@@ -174,14 +178,12 @@ public class SVGBuilderTop {
             if (svg.width > 500) {
                 sb.append("<circle cx=\"" + middleOfX + "\" cy=\"" + maxYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
             }
-            if (svg.length > 500) {
-                sb.append("<circle cx=\"" + svg.getMaxX(svg) + "\" cy=\"" + middleOfY + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
-            }
         } else { //setting up the poles markers, without a shed.
-            sb.append("<circle cx=\"" + firstX + "\" cy=\"" + maxYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
-            sb.append("<circle cx=\"" + firstX + "\" cy=\"" + minYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
-            sb.append("<circle cx=\"" + svg.getMaxX(svg) + "\" cy=\"" + maxYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
-            sb.append("<circle cx=\"" + svg.getMaxX(svg) + "\" cy=\"" + minYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
+            double firstPoles = firstX + spacing + rafter;
+            sb.append("<circle cx=\"" + firstPoles + "\" cy=\"" + maxYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
+            sb.append("<circle cx=\"" + firstPoles + "\" cy=\"" + minYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
+            sb.append("<circle cx=\"" + maxXMinusSpacing + "\" cy=\"" + maxYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
+            sb.append("<circle cx=\"" + maxXMinusSpacing + "\" cy=\"" + minYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
             //creating 
             sb.append("<line stroke-dasharray=\"5, 5, 1, 5\"  x1=\"" + minXPlusSpacing + "\" y1=\"" + minYPole + "\" x2=\"" + maxXMinusSpacing + "\" y2=\"" + maxYPole
                     + "\" stroke=\"#000\" stroke-width=\"2\"/> \n");
@@ -192,8 +194,7 @@ public class SVGBuilderTop {
                 sb.append("<circle cx=\"" + middleOfX + "\" cy=\"" + minYPole + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
             }
             if (svg.length > 500) {
-                sb.append("<circle cx=\"" + svg.getMaxX(svg) + "\" cy=\"" + middleOfY + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
-                sb.append("<circle cx=\"" + firstX + "\" cy=\"" + middleOfY + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
+                sb.append("<circle cx=\"" + firstPoles + "\" cy=\"" + middleOfY + "\" r=\"4\" stroke=\"black\" stroke-width=\"1\" fill=\"white\"/>");
             }
         }
 

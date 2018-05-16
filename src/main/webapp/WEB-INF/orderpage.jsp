@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Order Page</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -28,7 +28,6 @@
             Length of shed:<br>
             <select name="lengthShed">
                 <option value="0">Ønsker ikke redskabsrum</option>
-                <option value="150">150cm</option>
                 <option value="180">180cm</option>
                 <option value="210">210cm</option>
                 <option value="240">240cm</option>
@@ -47,11 +46,13 @@
                 <option value="630">630cm</option>
                 <option value="660">660cm</option>
                 <option value="690">690cm</option>
+                <option value="720">720cm</option>
             </select>
             <br>
             Width of shed:<br>
             <select name="widthShed">
                 <option value="0">Ønsker ikke redskabsrum</option>
+                <option value="18=">180cm</option>
                 <option value="210">210cm</option>
                 <option value="240">240cm</option>
                 <option value="270">270cm</option>
@@ -69,7 +70,6 @@
                 <option value="630">630cm</option>
                 <option value="660">660cm</option>
                 <option value="690">690cm</option>
-                <option value="720">720cm</option>
             </select>
             <br>
             Width:<br>
