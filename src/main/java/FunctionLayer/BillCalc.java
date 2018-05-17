@@ -42,35 +42,22 @@ public class BillCalc {
         int boards = length / 540;
         if (length % 540 != 0) {
         }
-    }
-
-    
-
-    private int overSternBoardSides(int width) {
-        int boards = width / 540;
-        if (width % 540 != 0) {
-            boards++;
-        }
-
         return boards;
     }
 
-//    private int zOnDoor(int id){
-//       if(OrderMapper.getOrder(id).getShed() != 0)
-//       return 0; 
-//    }
+
+    private int zOnDoor(int id){
+       if(OrderMapper.getOrder(id).getShed() != 0){
+       return 1; 
+       }
+       return 0;
+   }
     private int remsOnSides(int length) {
         if (OrderMapper.getOrder(1).getShed() == 0) {
         }
         return 0;
     }
 
-    private int zOnDoor(int id) {
-        if (OrderMapper.getOrder(id).getShed() != 0) {
-            return 1;
-        }
-        return 0;
-    }
 
     private int interTiesChedGabled() {
         int interTies = 0;
