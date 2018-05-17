@@ -44,8 +44,6 @@ public class BillCalc {
         }
     }
 
-    
-
     private int overSternBoardSides(int width) {
         int boards = width / 540;
         if (width % 540 != 0) {

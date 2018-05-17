@@ -26,7 +26,7 @@
             </select>
             <br>
             Length of shed:<br>
-            <select name="lengthShed">
+            <select id="lengthShed" name="lengthShed">
                 <option value="0">Ønsker ikke redskabsrum</option>
                 <option value="180">180cm</option>
                 <option value="210">210cm</option>
@@ -50,7 +50,7 @@
             </select>
             <br>
             Width of shed:<br>
-            <select name="widthShed">
+            <select id="widthShed" name="widthShed">
                 <option value="0">Ønsker ikke redskabsrum</option>
                 <option value="18=">180cm</option>
                 <option value="210">210cm</option>
@@ -73,7 +73,7 @@
             </select>
             <br>
             Width:<br>
-            <select name="width">
+            <select id="widthCarport" name="width">
                 <option value="240">240cm</option>
                 <option value="270">270cm</option>
                 <option value="300">300cm</option>
@@ -95,7 +95,7 @@
             </select>
             <br>
             Length:<br>
-            <select name="length">
+            <select id="lengthCarport" name="length">
                 <option value="240">240cm</option>
                 <option value="270">270cm</option>
                 <option value="300">300cm</option>
@@ -123,6 +123,20 @@
             <br>
             <input type="submit" value="Submit">
         </form>
+
+        <script>
+            let button = document.getElementById(buttonID);
+            button.onclick = function () {
+                if (document.getElementById(lengthShed).value == 0 && document.getElementById(widthShed).value != 0) {
+                    alert("Shed must be given both dimensions")
+                }
+                if (document.getElementById(widthShed).value == 0 && document.getElementById(lengthShed).value != 0) {
+                    alert("Shed must be given both dimensions")
+                }
+
+
+            }
+        </script>
 
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
