@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DBAccess;
 
 import FunctionLayer.Bill;
@@ -10,22 +5,19 @@ import FunctionLayer.Material;
 import FunctionLayer.Order;
 import FunctionLayer.Roof;
 import FunctionLayer.Shed;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import static java.util.Collections.singleton;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import DBAccess.Connector;
 
 public class OrderMapperTest {
-  
+
     private static final String URLTEST = "jdbc:mysql://159.65.56.14/fogtest";
     private static final String USERNAME = "crud";
     private static final String PASSWORD = "crud42";
@@ -54,7 +46,7 @@ public class OrderMapperTest {
 
     @AfterClass
     public static void tearDownClass() throws ClassNotFoundException, SQLException {
-       Connector.connection(); 
+        Connector.connection();
     }
 
     @Before
@@ -65,9 +57,6 @@ public class OrderMapperTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of getMaterial method, of class OrderMapper.
-     */
     @Test
     public void testGetMaterial() throws Exception {
         System.out.println("getMaterial");
@@ -77,9 +66,6 @@ public class OrderMapperTest {
         assertEquals(result.toString(), expResult.toString());
     }
 
-    /**
-     * Test of getRoof method, of class OrderMapper.
-     */
     @Test
     public void testGetRoof() throws Exception {
         System.out.println("getRoof");
@@ -89,10 +75,7 @@ public class OrderMapperTest {
         assertEquals(expResult.toString(), result.toString());
     }
 
-    /**
-     * Test of createOrder method, of class OrderMapper.
-     */
-    @Test
+    //@Test
     public void testCreateOrder() throws Exception {
         System.out.println("createOrder");
         int userID = 1;
@@ -106,9 +89,6 @@ public class OrderMapperTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of createShed method, of class OrderMapper.
-     */
     @Test
     public void testCreateShed() throws Exception {
         System.out.println("createShed");
@@ -119,9 +99,6 @@ public class OrderMapperTest {
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of getUserOrders method, of class OrderMapper.
-     */
     @Test
     public void testGetUserOrders() throws Exception {
         System.out.println("getUserOrders");
@@ -132,9 +109,6 @@ public class OrderMapperTest {
         assertEquals(expResult, result.size());
     }
 
-    /**
-     * Test of getOrder method, of class OrderMapper.
-     */
     @Test
     public void testGetOrder() {
         System.out.println("getOrder");
@@ -144,10 +118,7 @@ public class OrderMapperTest {
         assertEquals(expResult.toString(), result.toString());
     }
 
-    /**
-     * Test of getAllOrders method, of class OrderMapper.
-     */
-    @Test
+    //@Test
     public void testGetAllOrders() {
         System.out.println("getAllOrders");
         OrderMapper instance = new OrderMapper();
@@ -157,9 +128,6 @@ public class OrderMapperTest {
         assertEquals(expResult, result.size());
     }
 
-    /**
-     * Test of updateOrder method, of class OrderMapper.
-     */
     @Test
     public void testUpdateOrder() {
         System.out.println("updateOrder");
@@ -171,10 +139,7 @@ public class OrderMapperTest {
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of getBill method, of class OrderMapper.
-     */
-    @Test
+    //@Test
     public void testGetBill() throws Exception {
         System.out.println("getBill");
         int orderID = 0;
@@ -185,9 +150,6 @@ public class OrderMapperTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of getShed method, of class OrderMapper.
-     */
     @Test
     public void testGetShed() throws Exception {
         System.out.println("getShed");
@@ -196,5 +158,4 @@ public class OrderMapperTest {
         Shed result = OrderMapper.getShed(shedID);
         assertEquals(expResult.toString(), result.toString());
     }
-
 }

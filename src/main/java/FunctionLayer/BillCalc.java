@@ -45,7 +45,6 @@ public class BillCalc {
         return boards;
     }
 
-
     private int zOnDoor(int id){
        if(OrderMapper.getOrder(id).getShed() != 0){
        return 1; 
