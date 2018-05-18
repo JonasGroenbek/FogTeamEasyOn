@@ -29,7 +29,7 @@ public class BillCalc {
         return boards;
     }
 
-    private int overSterBoardFront(int length) {
+    private int overSternBoardFront(int length) {
         int boards = length / 360;
         if (length % 360 != 0) {
             boards++;
@@ -52,7 +52,7 @@ public class BillCalc {
         return 0;
     }
 
-    private int interTiesChedGabled(int ID) throws ClassNotFoundException, SQLException, LoginSampleException {
+    private int interTiesShedGabled(int ID) throws ClassNotFoundException, SQLException, LoginSampleException {
         Order order = OrderMapper.getOrder(ID);
         Shed shed = OrderMapper.getShed(order.getShed());
         int shedLength = shed.getLength();
@@ -163,24 +163,25 @@ public class BillCalc {
     }
 
     private int bigRoofPlates(int length) {
-        int plates = length/10;
-        if(length%10 != 0){
-        plates++;
+        int plates = length / 10;
+        if (length % 10 != 0) {
+            plates++;
         }
         return plates;
     }
 
     private int SmallRoofPlates(int length) {
-        int plates = length/10;
-        if(length%10 != 0){
-        plates++;
+        int plates = length / 10;
+        if (length % 10 != 0) {
+            plates++;
         }
         return plates;
     }
+
     private int roofScrews(int roofplates) {
-        int screws = roofplates/2;
-        if(roofplates % 2 != 0){
-        screws++;
+        int screws = roofplates / 2;
+        if (roofplates % 2 != 0) {
+            screws++;
         }
         return screws;
     }
@@ -199,33 +200,42 @@ public class BillCalc {
         int brackets = rafters;
         return brackets;
     }
+    
+    private int screwsVandbraetAndStern(int underSternFrontAndBack, int underSternSides, int overSternFront, int overSternSides ){
+     int screws = (overSternFront+overSternSides)*2+underSternFrontAndBack+underSternSides*10/200;
+     if((overSternFront+overSternSides)*2+underSternFrontAndBack+underSternSides*10%200 != 0){
+     screws++;
+     }
+     return screws;
+    }
 
     private int screwsForUniAndBand(int uniBrackets) {
-        int screws = 250/(uniBrackets*2+2)/3;
-        if(250%(uniBrackets*2+2)/3 != 0){
-        screws++;
+        int screws = 250 / (uniBrackets * 2 + 2) / 3;
+        if (250 % (uniBrackets * 2 + 2) / 3 != 0) {
+            screws++;
         }
         return screws;
     }
 
-    private int carriageBolt() {
-        int bolt = 0;
-        return 0;
+    private int carriageBolt(int posts, int id) {
+        int screws = posts*2;
+        if (OrderMapper.getOrder(id).getShed() != 0) {
+            screws -= 4;
+        }
+        return screws;
     }
 
-    private int squareSlices() {
-        int slices = 0;
+    private int squareSlices(int posts) {
+        int slices = posts;
         return slices;
     }
 
-    private int claddingScrewsExternal() {
-        int screws = 0;
-        return screws;
+    private int claddingScrewsExternal(int cladding) {
+        return cladding / 100;
     }
 
-    private int claddingScrewsInternal() {
-        int screws = 0;
-        return screws;
+    private int claddingScrewsInternal(int cladding) {
+        return cladding / 100;
     }
 
     private int handle(int id) {
@@ -243,8 +253,8 @@ public class BillCalc {
         }
     }
 
-    private int angelBrackets() {
-        int brackets = 0;
+    private int angleBrackets(int interTiesGabel, int interTiesSides) {
+        int brackets = (interTiesGabel + interTiesSides) * 2;
         return brackets;
     }
 }
