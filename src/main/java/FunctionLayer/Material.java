@@ -4,11 +4,11 @@ public class Material {
     
     private int id;
     private String description;
-    private String length;
+    private int length;
     private String unit;
     private String desc;
     private int price;
-    public Material(int id, String description, String length, String unit, String desc, int price) {
+    public Material(int id, String description, int length, String unit, String desc, int price) {
         this.id = id;
         this.description = description;
         this.length = length;
@@ -33,11 +33,11 @@ public class Material {
         this.description = description;
     }
 
-    public String getLength() {
+    public int getLength() {
         return length;
     }
 
-    public void setLength(String length) {
+    public void setLength(int length) {
         this.length = length;
     }
 

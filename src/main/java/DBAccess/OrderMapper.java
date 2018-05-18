@@ -26,12 +26,14 @@ public class OrderMapper {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int matId = rs.getInt("id");
-                String mat = rs.getString("type");
-                String name = rs.getString("name");
+                String name = rs.getString("description");
+                int length = rs.getInt("length");
+                String unit = rs.getString("unit");
+                String description = rs.getString("desc");
                 int price = rs.getInt("price");
-                String description = rs.getString("description");
+                
 
-                Material material = new Material(id, mat, name, price, description);
+                Material material = new Material(id, name, length, unit, description, price);
 
                 return material;
             }
