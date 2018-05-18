@@ -52,7 +52,7 @@
             Width of shed:<br>
             <select id="widthShed" name="widthShed">
                 <option value="0">Ønsker ikke redskabsrum</option>
-                <option value="18=">180cm</option>
+                <option value="180">180cm</option>
                 <option value="210">210cm</option>
                 <option value="240">240cm</option>
                 <option value="270">270cm</option>
