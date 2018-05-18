@@ -61,7 +61,7 @@ public class OrderMapperTest {
     public void testGetMaterial() throws Exception {
         System.out.println("getMaterial");
         int id = 1;
-        Material expResult = new Material(1, "bræt", "25x200", 50, "25x200 mm. trykimp. bræt");
+        Material expResult = new Material(1, "25x200 mm. trykimp. Brædt", "25x200", 50, "25x200 mm. trykimp. bræt");
         Material result = OrderMapper.getMaterial(id);
         assertEquals(result.toString(), expResult.toString());
     }
