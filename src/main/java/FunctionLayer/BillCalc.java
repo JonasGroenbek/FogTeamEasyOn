@@ -8,9 +8,8 @@ public class BillCalc {
     public static void main(String[] args) throws ClassNotFoundException, SQLException, LoginSampleException {
         BillCalc bill = new BillCalc();
         int width = 480;
-        System.out.println(bill.overSterBoardFront(width));
 
-        System.out.println(bill.posts(600, 370, 780));
+        System.out.println(bill.screwsForUniAndBand(15));
     }
 
     private int underSternBoardFrontAndBack(int length) {
@@ -30,7 +29,7 @@ public class BillCalc {
         return boards;
     }
 
-    private int overSterBoardFront(int length) {
+    private int overSternBoardFront(int length) {
         int boards = length / 360;
         if (length % 360 != 0) {
             boards++;
@@ -38,29 +37,12 @@ public class BillCalc {
         return boards * 2;
     }
 
-//    private int overSternBoardSides(int length) {
-//        int boards = length / 540;
-//        if (length % 540 != 0) {
-//        }
-//    }
-
-    private int overSternBoardSides(int width) {
-        int boards = width / 540;
-        if (width % 540 != 0) {
+    private int overSternBoardSides(int length) {
+        int boards = length / 540;
+        if (length % 540 != 0) {
             boards++;
         }
-
         return boards;
-    }
-
-//    private int zOnDoor(int id){
-//       if(OrderMapper.getOrder(id).getShed() != 0)
-//       return 0; 
-//    }
-    private int remsOnSides(int length) {
-        if (OrderMapper.getOrder(1).getShed() == 0) {
-        }
-        return 0;
     }
 
     private int zOnDoor(int id) {
@@ -70,14 +52,27 @@ public class BillCalc {
         return 0;
     }
 
-    private int interTiesChedGabled() {
-        int interTies = 0;
-        return interTies;
+    private int interTiesShedGabled(int ID) throws ClassNotFoundException, SQLException, LoginSampleException {
+        Order order = OrderMapper.getOrder(ID);
+        Shed shed = OrderMapper.getShed(order.getShed());
+        int shedLength = shed.getLength();
+        int interTies = (shedLength / 270);
+        if (shedLength % 270 != 0) {
+            interTies++;
+        }
+        interTies *= 2;
+        return interTies * 2;
     }
 
-    private int interTiesChedSides() {
-        int interTies = 0;
-        return interTies;
+    private int interTiesChedSides(int ID) throws ClassNotFoundException, SQLException, LoginSampleException {
+        Order order = OrderMapper.getOrder(ID);
+        Shed shed = OrderMapper.getShed(order.getShed());
+        int shedWidth = shed.getWidth();
+        int interTies = shedWidth / 240;
+        if (shedWidth % 240 != 0) {
+            interTies++;
+        }
+        return interTies * 2;
     }
 
     private int remsOnSides(int width, int OrderID) throws ClassNotFoundException, SQLException, LoginSampleException {
@@ -148,9 +143,12 @@ public class BillCalc {
         return posts;
     }
 
-    private int cladding(int ID) {
-        int cladding = 0;
-
+    private int cladding(int shedWidth, int shedLength) throws ClassNotFoundException, SQLException, LoginSampleException {
+        int circumference = (shedLength * 2) + (shedWidth * 2);
+        int cladding = circumference / 6;
+        if (circumference % 6 != 0) {
+            cladding++;
+        }
         return cladding;
     }
 
@@ -164,23 +162,32 @@ public class BillCalc {
         return vandbaet;
     }
 
-    private int SmallRoofPlates() {
-        int plates = 0;
+    private int bigRoofPlates(int length) {
+        int plates = length / 10;
+        if (length % 10 != 0) {
+            plates++;
+        }
         return plates;
     }
 
-    private int bigRoofPlates() {
-        int plates = 0;
+    private int SmallRoofPlates(int length) {
+        int plates = length / 10;
+        if (length % 10 != 0) {
+            plates++;
+        }
         return plates;
     }
 
-    private int roofScrews() {
-        int screws = 0;
+    private int roofScrews(int roofplates) {
+        int screws = roofplates / 2;
+        if (roofplates % 2 != 0) {
+            screws++;
+        }
         return screws;
     }
 
     private int holebant() {
-        int holeband = 0;
+        int holeband = 2;
         return holeband;
     }
 
@@ -193,30 +200,42 @@ public class BillCalc {
         int brackets = rafters;
         return brackets;
     }
+    
+    private int screwsVandbraetAndStern(int underSternFrontAndBack, int underSternSides, int overSternFront, int overSternSides ){
+     int screws = (overSternFront+overSternSides)*2+underSternFrontAndBack+underSternSides*10/200;
+     if((overSternFront+overSternSides)*2+underSternFrontAndBack+underSternSides*10%200 != 0){
+     screws++;
+     }
+     return screws;
+    }
 
-    private int screwsForUniAndBand() {
-        int screws = 0;
+    private int screwsForUniAndBand(int uniBrackets) {
+        int screws = 250 / (uniBrackets * 2 + 2) / 3;
+        if (250 % (uniBrackets * 2 + 2) / 3 != 0) {
+            screws++;
+        }
         return screws;
     }
 
-    private int carriageBolt() {
-        int bolt = 0;
-        return 0;
+    private int carriageBolt(int posts, int id) {
+        int screws = posts*2;
+        if (OrderMapper.getOrder(id).getShed() != 0) {
+            screws -= 4;
+        }
+        return screws;
     }
 
-    private int squareSlices() {
-        int slices = 0;
+    private int squareSlices(int posts) {
+        int slices = posts;
         return slices;
     }
 
-    private int claddingScrewsExternal() {
-        int screws = 0;
-        return screws;
+    private int claddingScrewsExternal(int cladding) {
+        return cladding / 100;
     }
 
-    private int claddingScrewsInternal() {
-        int screws = 0;
-        return screws;
+    private int claddingScrewsInternal(int cladding) {
+        return cladding / 100;
     }
 
     private int handle(int id) {
@@ -226,13 +245,16 @@ public class BillCalc {
         return 0;
     }
 
-    private int tbracket() {
-        int brackets = 0;
-        return brackets;
+    private int tHinge(int id) {
+        if (OrderMapper.getOrder(id).getShed() != 0) {
+            return 2;
+        } else {
+            return 0;
+        }
     }
 
-    private int angelBrackets() {
-        int brackets = 0;
+    private int angleBrackets(int interTiesGabel, int interTiesSides) {
+        int brackets = (interTiesGabel + interTiesSides) * 2;
         return brackets;
     }
 }

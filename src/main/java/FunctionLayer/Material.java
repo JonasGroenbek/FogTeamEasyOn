@@ -3,17 +3,18 @@ package FunctionLayer;
 public class Material {
     
     private int id;
-    private String type;
-    private String name;
-    private int price;
     private String description;
-
-    public Material(int id, String type, String name, int price, String description) {
+    private int length;
+    private String unit;
+    private String desc;
+    private int price;
+    public Material(int id, String description, int length, String unit, String desc, int price) {
         this.id = id;
-        this.type = type;
-        this.name = name;
-        this.price = price;
         this.description = description;
+        this.length = length;
+        this.unit = unit;
+        this.desc = desc;
+        this.price = price;
     }
 
     public int getId() {
@@ -24,12 +25,36 @@ public class Material {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public String getDescription() {
+        return description;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public int getPrice() {
@@ -40,25 +65,11 @@ public class Material {
         this.price = price;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+   
 
     @Override
     public String toString() {
-        return "Material{" + "id=" + id + ", type=" + type + ", price=" + price + ", description=" + description + '}';
+        return "Material{" + "id=" + id + ", type=" + description + ", price=" + price + ", description=" + desc + '}';
     }
     
 }

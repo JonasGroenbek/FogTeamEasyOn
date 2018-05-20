@@ -26,12 +26,14 @@ public class OrderMapper {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int matId = rs.getInt("id");
-                String mat = rs.getString("type");
-                String name = rs.getString("name");
+                String name = rs.getString("description");
+                int length = rs.getInt("length");
+                String unit = rs.getString("unit");
+                String description = rs.getString("desc");
                 int price = rs.getInt("price");
-                String description = rs.getString("description");
+                
 
-                Material material = new Material(id, mat, name, price, description);
+                Material material = new Material(id, name, length, unit, description, price);
 
                 return material;
             }
@@ -273,4 +275,22 @@ public class OrderMapper {
         }
         return false;
     }
+    
+    public static void createBill(int orderID, int matID, int amount, int price ) throws LoginSampleException {
+        try {
+            Connection con = Connector.connection();
+            String SQL = "INSERT INTO bom (order_id, mat_id, amount, price) VALUES (?, ?, ?, ?)";
+            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, orderID);
+            ps.setInt(2, matID);
+            ps.setInt(3, amount);
+            ps.setInt(4, price);
+            ps.executeUpdate();
+            ResultSet ids = ps.getGeneratedKeys();
+            ids.next();
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new LoginSampleException(ex.getMessage());
+        }
+    }
+
 }
