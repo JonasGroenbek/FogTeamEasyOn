@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 
 public class SVGBuilderTop {
 
-    private StringBuilder sb = new StringBuilder();
+    private final StringBuilder sb = new StringBuilder();
     private final int roofType;
     private final int length;
     private final int width;

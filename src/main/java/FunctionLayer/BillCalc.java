@@ -38,11 +38,11 @@ public class BillCalc {
         return boards * 2;
     }
 
-    private int overSternBoardSides(int length) {
-        int boards = length / 540;
-        if (length % 540 != 0) {
-        }
-    }
+//    private int overSternBoardSides(int length) {
+//        int boards = length / 540;
+//        if (length % 540 != 0) {
+//        }
+//    }
 
     private int overSternBoardSides(int width) {
         int boards = width / 540;

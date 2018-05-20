@@ -118,27 +118,26 @@
             </select>
             <br>
             Would you like to build it yourself ?:<br>
-            <!-- <input type="number" name="width" value="enter 0 for no and 1 for yes"> !-->
-            <input type="checkbox" name="assemble">
+         
             <br>
-            <input type="submit" value="Submit">
+            <input type="submit" onclick="myfunction()" value="Submit" id="submitId">
         </form>
 
         <script>
-            let button = document.getElementById(buttonID);
-            button.onclick = function () {
-                if (document.getElementById(lengthShed).value == 0 && document.getElementById(widthShed).value != 0) {
+            let button = document.getElementById("submitId");
+            function myfunction() {
+                if (document.getElementById("lengthShed").value == 0 && document.getElementById("widthShed").value != 0) {
                     alert("Shed must be given both dimensions")
                 }
-                if (document.getElementById(widthShed).value == 0 && document.getElementById(lengthShed).value != 0) {
+                if (document.getElementById("widthShed").value == 0 && document.getElementById("lengthShed").value != 0) {
                     alert("Shed must be given both dimensions")
                 }
-
-
-            }
+                if (document.getElementById("lengthShed").value > document.getElementById("lengthCarport").value + 70) {
+                    alert("The shed has to be atleast 70cm shorter in length than the ")
+                }
+            }          
         </script>
-
-
+        
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

@@ -94,7 +94,7 @@ public class OrderMapper {
     public static void createOrder(int userID, int price, Order order, int matType, int roofType, int shed) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
-            String SQL = "INSERT INTO orders (userID, price, materialD, height, length, width, roofID, shed, assembling) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String SQL = "INSERT INTO orders (userID, price, materialD, height, length, width, roofID, shed) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, userID);
             ps.setInt(2, price);
@@ -104,7 +104,6 @@ public class OrderMapper {
             ps.setInt(6, order.getWidth());
             ps.setInt(7, OrderMapper.getRoof(roofType).getId());
             ps.setInt(8, shed);
-            ps.setInt(9, 0);
             ps.executeUpdate();
             ResultSet ids = ps.getGeneratedKeys();
             ids.next();
