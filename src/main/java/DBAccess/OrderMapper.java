@@ -31,7 +31,6 @@ public class OrderMapper {
                 String unit = rs.getString("unit");
                 String description = rs.getString("desc");
                 int price = rs.getInt("price");
-                
 
                 Material material = new Material(id, name, length, unit, description, price);
 
@@ -68,7 +67,7 @@ public class OrderMapper {
             throw new LoginSampleException(ex.getMessage());
         }
     }
-    
+
     public static ArrayList<Bill> getBill(int orderID) throws ClassNotFoundException, SQLException, LoginSampleException {
         try {
             ArrayList<Bill> list = new ArrayList<>();
@@ -118,26 +117,27 @@ public class OrderMapper {
     }
 
     public static int createShed(Shed shed, int userID) throws LoginSampleException {
-        if(shed.getLength() != 0 && shed.getWidth() != 0){
-        try {
-            Connection con = Connector.connection();
-            String SQL = "INSERT INTO shed (length, width, price, userid) VALUES (?, ?, ?, ?)";
-            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, shed.getLength());
-            ps.setInt(2, shed.getWidth());
-            ps.setInt(3, shed.getPrice());
-            ps.setInt(4, userID);
-            ps.executeUpdate();
-            ResultSet ids = ps.getGeneratedKeys();
-            ids.next();
-            int id = ids.getInt(1);
-            shed.setId(id);
-            return shed.getId();
-        } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+        if (shed.getLength() != 0 && shed.getWidth() != 0) {
+            try {
+                Connection con = Connector.connection();
+                String SQL = "INSERT INTO shed (length, width, price, userid) VALUES (?, ?, ?, ?)";
+                PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+                ps.setInt(1, shed.getLength());
+                ps.setInt(2, shed.getWidth());
+                ps.setInt(3, shed.getPrice());
+                ps.setInt(4, userID);
+                ps.executeUpdate();
+                ResultSet ids = ps.getGeneratedKeys();
+                ids.next();
+                int id = ids.getInt(1);
+                shed.setId(id);
+                return shed.getId();
+            } catch (SQLException | ClassNotFoundException ex) {
+                throw new LoginSampleException(ex.getMessage());
+            }
+        } else {
+            return 0;
         }
-    }else
-        return 0;
     }
 
     public static Shed getShed(int shedID) throws ClassNotFoundException, SQLException, LoginSampleException {
@@ -149,7 +149,7 @@ public class OrderMapper {
             Shed shed = null;
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                shed = new Shed (rs.getInt("id"), rs.getInt("length"), rs.getInt("width"), rs.getInt("price"));
+                shed = new Shed(rs.getInt("id"), rs.getInt("length"), rs.getInt("width"), rs.getInt("price"));
             }
             return shed;
 
@@ -275,8 +275,8 @@ public class OrderMapper {
         }
         return false;
     }
-    
-    public static void createBill(int orderID, int matID, int amount, int price ) throws LoginSampleException {
+
+    public static void createBill(int orderID, int matID, int amount, int price) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
             String SQL = "INSERT INTO bom (order_id, mat_id, amount, price) VALUES (?, ?, ?, ?)";

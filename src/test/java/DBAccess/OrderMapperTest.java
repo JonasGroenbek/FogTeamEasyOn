@@ -57,14 +57,14 @@ public class OrderMapperTest {
     public void tearDown() {
     }
 
-    @Test
-    public void testGetMaterial() throws Exception {
-        System.out.println("getMaterial");
-        int id = 1;
-        Material expResult = new Material(1, "25x200 mm. trykimp. Brædt", "25x200", 50, "25x200 mm. trykimp. bræt");
-        Material result = OrderMapper.getMaterial(id);
-        assertEquals(result.toString(), expResult.toString());
-    }
+    //@Test
+//    public void testGetMaterial() throws Exception {
+//        System.out.println("getMaterial");
+//        int id = 1;
+//        Material expResult = new Material(1, "25x200 mm. trykimp. Brædt", "25x200", 50, "25x200 mm. trykimp. bræt");
+//        Material result = OrderMapper.getMaterial(id);
+//        assertEquals(result.toString(), expResult.toString());
+//    }
 
     @Test
     public void testGetRoof() throws Exception {
