@@ -2,57 +2,55 @@ package FunctionLayer;
 
 import DBAccess.OrderMapper;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class BillCalc {
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException, LoginSampleException {
-        BillCalc bill = new BillCalc();
-        int width = 480;
+private ArrayList<Integer> list = new ArrayList();
+    
 
-        System.out.println(bill.screwsForUniAndBand(15));
-    }
-
-    private int underSternBoardFrontAndBack(int length) {
+    private void underSternBoardFrontAndBack(int length) {
         int boards = length / 360;
         if (length % 360 != 0) {
             boards++;
         }
-        return boards * 2;
+        list.add(boards * 2);
     }
 
-    private int underSternBoardSides(int width) {
+    private void underSternBoardSides(int width) {
         int boards = width / 540;
         if (width % 540 != 0) {
             boards++;
         }
 
-        return boards;
+         list.add(boards);
     }
 
-    private int overSternBoardFront(int length) {
+    private void overSternBoardFront(int length) {
         int boards = length / 360;
         if (length % 360 != 0) {
             boards++;
         }
-        return boards * 2;
+        list.add(boards*2);
     }
 
-    private int overSternBoardSides(int length) {
+    private void overSternBoardSides(int length) {
         int boards = length / 540;
         if (length % 540 != 0) {
             boards++;
         }
-        return boards;
+        list.add(boards);
     }
 
-    private int zOnDoor(int id) {
+    private void zOnDoor(int id) {
+        int door = 0;
         if (OrderMapper.getOrder(id).getShed() != 0) {
-            return 1;
+            door = 1;
         }
-        return 0;
+        list.add(door);
     }
 
-    private int interTiesShedGabled(int ID) throws ClassNotFoundException, SQLException, LoginSampleException {
+    private void interTiesShedGabled(int ID) throws ClassNotFoundException, SQLException, LoginSampleException {
         Order order = OrderMapper.getOrder(ID);
         Shed shed = OrderMapper.getShed(order.getShed());
         int shedLength = shed.getLength();
@@ -61,10 +59,10 @@ public class BillCalc {
             interTies++;
         }
         interTies *= 2;
-        return interTies * 2;
+        list.add(interTies *= 2);
     }
 
-    private int interTiesChedSides(int ID) throws ClassNotFoundException, SQLException, LoginSampleException {
+    private void interTiesChedSides(int ID) throws ClassNotFoundException, SQLException, LoginSampleException {
         Order order = OrderMapper.getOrder(ID);
         Shed shed = OrderMapper.getShed(order.getShed());
         int shedWidth = shed.getWidth();
@@ -72,16 +70,16 @@ public class BillCalc {
         if (shedWidth % 240 != 0) {
             interTies++;
         }
-        return interTies * 2;
+        list.add(interTies * 2);
     }
 
-    private int remsOnSides(int width, int OrderID) throws ClassNotFoundException, SQLException, LoginSampleException {
+    private void remsOnSides(int width, int OrderID) throws ClassNotFoundException, SQLException, LoginSampleException {
         if (OrderMapper.getOrder(OrderID).getShed() == 0) {
             int boards = width / 600;
             if (width % 600 != 0) {
                 boards++;
+                list.add(boards * 2);
             }
-            return boards * 2;
         }
         if (OrderMapper.getOrder(OrderID).getShed() != 0) {
             Order order = OrderMapper.getOrder(OrderID);
@@ -90,171 +88,176 @@ public class BillCalc {
             int boards = (width - shedLength) / 600;
             if ((width - shedLength) % 600 != 0) {
                 boards++;
+                list.add(boards * 2);
             }
-            return boards * 2;
         }
 
-        return 0;
+        
     }
 
-    private int remsOnShed(int shedWidth) {
+    private void remsOnShed(int shedWidth) {
         int boards = shedWidth / 480;
         if (shedWidth % 480 != 0) {
             boards++;
         }
         if (shedWidth / 2 <= 480) {
-            return boards;
+            list.add(boards);
         } else {
-            return boards * 2;
+            list.add(boards * 2);
         }
 
     }
 
-    private int rafter(int width, int length) {
+    private void rafter(int width, int length) {
         int rafter = 0;
         if (length <= 600) {
             rafter = (width - rafter * 2) / (60 + rafter) + 2;
-            return rafter;
+            list.add(rafter);
         } else {
             int rest = length - 600;
             rafter = (width - rafter * 2) / (60 + rafter) + 2 + (600 / rest);
+            list.add(rafter);
         }
-        return rafter;
     }
 
-    private int posts(int width, int ID, int length) throws ClassNotFoundException, SQLException, LoginSampleException {
+    private void posts(int width, int ID, int length) throws ClassNotFoundException, SQLException, LoginSampleException {
         int posts = 1;
         Order order = OrderMapper.getOrder(ID);
         Shed shed = OrderMapper.getShed(order.getShed());
         int shedLength = shed.getLength();
         if (OrderMapper.getOrder(ID).getShed() == 0) {
             posts += (width / 250) * 2 + (length / 250);
-            return posts;
+            list.add(posts);
         } else if (length - 70 == shed.getLength()) {
             posts += (width / 250) * 2 + (length / 250) + 3;
-            return posts;
+            list.add(posts);
         } else if ((length - 70) / 2 == shed.getLength()) {
             posts += (width / 250) * 2 + (length / 250) + 2;
-            return posts;
+            list.add(posts);
         } else {
             posts += (width / 250) * 2 + (length / 250) + 3;
+            list.add(posts);
         }
-
-        return posts;
     }
 
-    private int cladding(int shedWidth, int shedLength) throws ClassNotFoundException, SQLException, LoginSampleException {
+    private void cladding(int shedWidth, int shedLength) throws ClassNotFoundException, SQLException, LoginSampleException {
         int circumference = (shedLength * 2) + (shedWidth * 2);
         int cladding = circumference / 6;
         if (circumference % 6 != 0) {
             cladding++;
         }
-        return cladding;
+        list.add(cladding);
     }
 
-    private int vandbaetOnSternSides(int overSternBoardsSides) {
+    private void vandbraetOnSternSides(int overSternBoardsSides) {
         int vandbreat = overSternBoardsSides;
-        return vandbreat;
+        list.add(vandbreat);
     }
 
-    private int vandbaetOnSternFront(int overSternBoardsFront) {
-        int vandbaet = overSternBoardsFront;
-        return vandbaet;
+    private void vandbraetOnSternFront(int overSternBoardsFront) {
+        int vandbraet = overSternBoardsFront;
+        list.add(vandbraet);
     }
 
-    private int bigRoofPlates(int length) {
+    private void bigRoofPlates(int length) {
         int plates = length / 10;
         if (length % 10 != 0) {
             plates++;
         }
-        return plates;
+        list.add(plates);
     }
 
-    private int SmallRoofPlates(int length) {
+    private void SmallRoofPlates(int length) {
         int plates = length / 10;
         if (length % 10 != 0) {
             plates++;
         }
-        return plates;
+        list.add(plates);
     }
 
-    private int roofScrews(int roofplates) {
+    private void roofScrews(int roofplates) {
         int screws = roofplates / 2;
         if (roofplates % 2 != 0) {
             screws++;
         }
-        return screws;
+        list.add(screws);
     }
 
-    private int holebant() {
+    private void holeband() {
         int holeband = 2;
-        return holeband;
+        list.add(holeband);
     }
 
-    private int rafterBracketRight(int rafters) {
+    private void rafterBracketRight(int rafters) {
         int brackets = rafters;
-        return brackets;
+        list.add(brackets);
     }
 
-    private int rafterBracketLeft(int rafters) {
+    private void rafterBracketLeft(int rafters) {
         int brackets = rafters;
-        return brackets;
+        list.add(brackets);
     }
     
-    private int screwsVandbraetAndStern(int underSternFrontAndBack, int underSternSides, int overSternFront, int overSternSides ){
+    private void screwsVandbraetAndStern(int underSternFrontAndBack, int underSternSides, int overSternFront, int overSternSides ){
      int screws = (overSternFront+overSternSides)*2+underSternFrontAndBack+underSternSides*10/200;
      if((overSternFront+overSternSides)*2+underSternFrontAndBack+underSternSides*10%200 != 0){
      screws++;
      }
-     return screws;
+     list.add(screws);
     }
 
-    private int screwsForUniAndBand(int uniBrackets) {
+    private void screwsForUniAndBand(int uniBrackets) {
         int screws = 250 / (uniBrackets * 2 + 2) / 3;
         if (250 % (uniBrackets * 2 + 2) / 3 != 0) {
             screws++;
         }
-        return screws;
+        list.add(screws);
     }
 
-    private int carriageBolt(int posts, int id) {
+    private void carriageBolt(int posts, int id) {
         int screws = posts*2;
         if (OrderMapper.getOrder(id).getShed() != 0) {
             screws -= 4;
         }
-        return screws;
+        list.add(screws);
     }
 
-    private int squareSlices(int posts) {
+    private void squareSlices(int posts) {
         int slices = posts;
-        return slices;
+        list.add(slices);
     }
 
-    private int claddingScrewsExternal(int cladding) {
-        return cladding / 100;
+    private void claddingScrewsExternal(int cladding) {
+        list.add(cladding / 100);
     }
 
-    private int claddingScrewsInternal(int cladding) {
-        return cladding / 100;
+    private void claddingScrewsInternal(int cladding) {
+        list.add(cladding / 100);
     }
 
-    private int handle(int id) {
+    private void handle(int id) {
+        int handle = 0;
         if (OrderMapper.getOrder(id).getShed() != 0) {
-            return 1;
+            handle = 1;
         }
-        return 0;
+        list.add(handle);
     }
 
-    private int tHinge(int id) {
+    private void tHinge(int id) {
+        int hinge = 0;
         if (OrderMapper.getOrder(id).getShed() != 0) {
-            return 2;
-        } else {
-            return 0;
-        }
+            hinge = 2;
+        } 
+        list.add(hinge);
     }
 
-    private int angleBrackets(int interTiesGabel, int interTiesSides) {
+    private void angleBrackets(int interTiesGabel, int interTiesSides) {
         int brackets = (interTiesGabel + interTiesSides) * 2;
-        return brackets;
+        list.add(brackets);
     }
+
+    public ArrayList<Integer> getList() {
+        return list;
+    }
+    
 }
