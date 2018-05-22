@@ -239,7 +239,8 @@ public class OrderMapper {
             ps.setInt(1, userID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Orders.add(new Order(rs.getInt("id"), rs.getInt("userID"), rs.getInt("price"), rs.getInt("bomID"), rs.getInt("height"), rs.getInt("length"), rs.getInt("width"), rs.getInt("roofID"), rs.getInt("shed")));
+                Orders.add(new Order(rs.getInt("id"), rs.getInt("userID"), 
+                        rs.getInt("price"), rs.getInt("bomID"), rs.getInt("height"), rs.getInt("length"), rs.getInt("width"), rs.getInt("roofID"), rs.getInt("shed")));
             }
             return Orders;
         } catch (ClassNotFoundException ex) {
@@ -260,7 +261,7 @@ public class OrderMapper {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 order = new Order(rs.getInt("id"), rs.getInt("userID"),
-                        rs.getInt("price"), rs.getInt("materialD"),
+                        rs.getInt("price"), rs.getInt("bomID"),
                         rs.getInt("height"), rs.getInt("length"),
                         rs.getInt("width"), rs.getInt("roofID"),
                         rs.getInt("shed"));
@@ -271,7 +272,7 @@ public class OrderMapper {
         return order;
     }
 
-    public ArrayList<Order> getAllOrders() {
+    public static ArrayList<Order> getAllOrders() {
         ArrayList<Order> Orders = new ArrayList();
 
         try {
@@ -281,11 +282,11 @@ public class OrderMapper {
             PreparedStatement ps = con.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Orders.add(new Order(rs.getInt("id"), rs.getInt("userID"),
-                        rs.getInt("price"), rs.getInt("materialD"),
-                        rs.getInt("height"), rs.getInt("length"),
-                        rs.getInt("width"), rs.getInt("roofID"),
-                        rs.getInt("shed")));
+                Orders.add(new Order(rs.getInt("id"), rs.getInt("userID"), 
+                        rs.getInt("price"), rs.getInt("bomID"), 
+                        rs.getInt("height"), rs.getInt("length"), 
+                        rs.getInt("width"), 
+                        rs.getInt("roofID"), rs.getInt("shed")));
             }
         } catch (SQLException | ClassNotFoundException ex) {
             //TO-DO
@@ -293,7 +294,7 @@ public class OrderMapper {
         return Orders;
     }
 
-    public boolean updateOrder(int ID, Order newOrder) {
+    public static boolean updateOrder(int ID, Order newOrder) {
         try {
             Order order = null;
             Connection con;
