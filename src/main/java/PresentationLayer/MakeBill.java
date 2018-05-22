@@ -1,6 +1,7 @@
 package PresentationLayer;
 
 import DBAccess.OrderMapper;
+import FunctionLayer.Bill;
 import FunctionLayer.BillCalc;
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.Material;
@@ -24,15 +25,16 @@ public class MakeBill extends Command{
             int id = Integer.parseInt(request.getParameter("orderID").trim());
             request.setAttribute("id", id);
             Order order = OrderMapper.getOrder(id);
-            ArrayList <Integer> list = new ArrayList();
-            list.add(calc.underSternBoardFrontAndBack(order.getLength()));
-            
-            request.setAttribute("list", list);
-            
+        try {
+            ArrayList <Bill> list = OrderMapper.getBom(id);
+            request.setAttribute("bill", list);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MakeBill.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MakeBill.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
             return "bill";
-
-
+            
+            }
     }
-    
-    
-}

@@ -43,6 +43,11 @@ public class Bill {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "Bill{" + "orderID=" + orderID + ", materialID=" + materialID + ", amount=" + amount + ", price=" + price + '}';
+    }
     
     
     
