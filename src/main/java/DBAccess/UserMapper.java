@@ -2,6 +2,8 @@ package DBAccess;
 
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.User;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +18,8 @@ public class UserMapper {
             String SQL = "INSERT INTO users (mail, password, roleID) VALUES (?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, user.getEmail());
-            ps.setString(2, user.getPassword());
+            ps.setString(2, PasswordSecurity.hashPassword(user.getPassword()));
+            String x = PasswordSecurity.hashPassword(user.getPassword());
             ps.setInt(3, user.getRole());
             ps.executeUpdate();
             ResultSet ids = ps.getGeneratedKeys();
@@ -24,7 +27,6 @@ public class UserMapper {
             int id = ids.getInt(1);
             user.setId(id);
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
         }
     }
 
@@ -32,12 +34,12 @@ public class UserMapper {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT id, roleID FROM users "
-                    + "WHERE mail=? AND password=?";
+                    + "WHERE mail=?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, email);
-            ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            if (PasswordSecurity.checkPassword(password, getStoredPassword(email))
+                    && rs.next()) {
                 int role = rs.getInt("roleID");
                 int id = rs.getInt("id");
                 User user = new User(email, password, role);
@@ -50,19 +52,35 @@ public class UserMapper {
             throw new LoginSampleException(ex.getMessage());
         }
     }
-    
-    public String getMail(int userID){
+
+    private static String getStoredPassword(String email) {
+        String password = null;
+        try {
+            Connection con = Connector.connection();
+            String SQL = "SELECT password FROM users WHERE mail=?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                password = rs.getString("password");
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+        }
+        return password;
+    }
+
+    public String getMail(int userID) {
         String mail = null;
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT mail FROM users WHERE id=?";
-            PreparedStatement ps = con.prepareStatement( SQL );
-            ps.setInt( 1, userID );
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, userID);
             ResultSet rs = ps.executeQuery();
-            if ( rs.next() ) {
-                mail = rs.getString( "mail" );
+            if (rs.next()) {
+                mail = rs.getString("mail");
             }
-            } catch ( ClassNotFoundException | SQLException ex ) {
+        } catch (ClassNotFoundException | SQLException ex) {
         }
         return mail;
     }

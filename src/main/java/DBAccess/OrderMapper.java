@@ -17,10 +17,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class OrderMapper {
-    
+
     public static void createBill(int orderID, int matID, int iterator, int matIndex) throws LoginSampleException {
         try {
-            BillCalc calc =  new BillCalc();
+            BillCalc calc = new BillCalc();
             int amount = calc.getList().get(iterator);
             Connection con = Connector.connection();
             String SQL = "INSERT INTO orders (order_id, mat_id, amount, price) VALUES (?, ?, ?, ?)";
@@ -40,18 +40,18 @@ public class OrderMapper {
 
     public static ArrayList<Bill> getBom(int orderID) throws ClassNotFoundException, SQLException, LoginSampleException {
         try {
-            ArrayList<Bill> list = new ArrayList();
+            DK ArrayList<Bill> list = new ArrayList();
             Connection con = Connector.connection();
             String SQL = "SELECT * from bom where order_id = ?";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, orderID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                
+
                 int mat_id = rs.getInt("mat_id");
                 int amount = rs.getInt("amount");
                 int price = rs.getInt("price");
-                
+
                 list.add(new Bill(mat_id, amount, price));
             }
             return list;
@@ -60,7 +60,7 @@ public class OrderMapper {
             throw new LoginSampleException(ex.getMessage());
         }
     }
-    
+
     public static Material getMaterial(int id) throws ClassNotFoundException, SQLException, LoginSampleException {
         try {
             Connection con = Connector.connection();
