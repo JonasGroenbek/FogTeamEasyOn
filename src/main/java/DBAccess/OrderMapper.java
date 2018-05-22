@@ -18,25 +18,25 @@ import java.util.logging.Logger;
 
 public class OrderMapper {
     
-    public static void createBill(int orderID, int matID, int iterator, int matIndex) throws LoginSampleException {
-        try {
-            BillCalc calc =  new BillCalc();
-            int amount = calc.getList().get(iterator);
-            Connection con = Connector.connection();
-            String SQL = "INSERT INTO orders (order_id, mat_id, amount, price) VALUES (?, ?, ?, ?)";
-            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, orderID);
-            ps.setInt(2, matID);
-            ps.setInt(3, calc.getList().get(iterator));
-            ps.setInt(4, OrderMapper.getMaterial(matIndex).getPrice() * amount);
-            ps.executeUpdate();
-            ResultSet ids = ps.getGeneratedKeys();
-            ids.next();
-
-        } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
-        }
-    }
+//    public static void createBill(int orderID, int matID, int iterator, int matIndex) throws LoginSampleException {
+//        try {
+//            BillCalc calc =  new BillCalc();
+//            int amount = calc.getList().get(iterator);
+//            Connection con = Connector.connection();
+//            String SQL = "INSERT INTO orders (order_id, mat_id, amount, price) VALUES (?, ?, ?, ?)";
+//            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+//            ps.setInt(1, orderID);
+//            ps.setInt(2, matID);
+//            ps.setInt(3, calc.getList().get(iterator));
+//            ps.setInt(4, OrderMapper.getMaterial(matIndex).getPrice() * amount);
+//            ps.executeUpdate();
+//            ResultSet ids = ps.getGeneratedKeys();
+//            ids.next();
+//
+//        } catch (SQLException | ClassNotFoundException ex) {
+//            throw new LoginSampleException(ex.getMessage());
+//        }
+//    }
 
     public static ArrayList<Bill> getBom(int orderID) throws ClassNotFoundException, SQLException, LoginSampleException {
         try {
