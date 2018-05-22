@@ -87,6 +87,32 @@ public class OrderMapper {
             throw new LoginSampleException(ex.getMessage());
         }
     }
+    
+        public static ArrayList<Material> getAllMaterials() throws ClassNotFoundException, SQLException, LoginSampleException {
+        try {
+            ArrayList<Material> list = new ArrayList();
+            Connection con = Connector.connection();
+            String SQL = "SELECT * from materials";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int matId = rs.getInt("id");
+                String name = rs.getString("description");
+                int length = rs.getInt("length");
+                String unit = rs.getString("unit");
+                String description = rs.getString("desc");
+                int price = rs.getInt("price");
+                
+
+                Material material = new Material(0, name, length, unit, description, price);
+                list.add(material);
+            }
+            return list;
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new LoginSampleException(ex.getMessage());
+        }
+    }
 
     public static Roof getRoof(int id) throws ClassNotFoundException, SQLException, LoginSampleException {
         try {
