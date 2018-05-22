@@ -1,6 +1,7 @@
 package DBAccess;
 
 import FunctionLayer.Bill;
+import FunctionLayer.BillCalc;
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.Material;
 import FunctionLayer.Order;
@@ -16,7 +17,50 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class OrderMapper {
+    
+    public static void createBill(int orderID, int matID, int iterator, int matIndex) throws LoginSampleException {
+        try {
+            BillCalc calc =  new BillCalc();
+            int amount = calc.getList().get(iterator);
+            Connection con = Connector.connection();
+            String SQL = "INSERT INTO orders (order_id, mat_id, amount, price) VALUES (?, ?, ?, ?)";
+            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, orderID);
+            ps.setInt(2, matID);
+            ps.setInt(3, calc.getList().get(iterator));
+            ps.setInt(4, OrderMapper.getMaterial(matIndex).getPrice() * amount);
+            ps.executeUpdate();
+            ResultSet ids = ps.getGeneratedKeys();
+            ids.next();
 
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new LoginSampleException(ex.getMessage());
+        }
+    }
+
+    public static ArrayList<Bill> getBom(int orderID) throws ClassNotFoundException, SQLException, LoginSampleException {
+        try {
+            ArrayList<Bill> list = new ArrayList();
+            Connection con = Connector.connection();
+            String SQL = "SELECT * from bom where order_id = ?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, orderID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                
+                int mat_id = rs.getInt("mat_id");
+                int amount = rs.getInt("amount");
+                int price = rs.getInt("price");
+                
+                list.add(new Bill(mat_id, amount, price));
+            }
+            return list;
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new LoginSampleException(ex.getMessage());
+        }
+    }
+    
     public static Material getMaterial(int id) throws ClassNotFoundException, SQLException, LoginSampleException {
         try {
             Connection con = Connector.connection();
@@ -95,7 +139,7 @@ public class OrderMapper {
     public static void createOrder(int userID, int price, Order order, int matType, int roofType, int shed) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
-            String SQL = "INSERT INTO orders (userID, price, materialD, height, length, width, roofID, shed) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String SQL = "INSERT INTO orders (userID, price, bomID, height, length, width, roofID, shed) VALUES (?, ?, ?, ?, ?, ?, ?, ?    )";
             PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, userID);
             ps.setInt(2, price);
@@ -164,12 +208,12 @@ public class OrderMapper {
         try {
             Connection con;
             con = Connector.connection();
-            String SQL = "SELECT id, userID, price, materialD, height, length, width, roofID, shed FROM orders WHERE userID=?;";
+            String SQL = "SELECT id, userID, price, bomID, height, length, width, roofID, shed FROM orders WHERE userID=?;";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, userID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Orders.add(new Order(rs.getInt("id"), rs.getInt("userID"), rs.getInt("price"), rs.getInt("materialD"), rs.getInt("height"), rs.getInt("length"), rs.getInt("width"), rs.getInt("roofID"), rs.getInt("shed")));
+                Orders.add(new Order(rs.getInt("id"), rs.getInt("userID"), rs.getInt("price"), rs.getInt("bomID"), rs.getInt("height"), rs.getInt("length"), rs.getInt("width"), rs.getInt("roofID"), rs.getInt("shed")));
             }
             return Orders;
         } catch (ClassNotFoundException ex) {
