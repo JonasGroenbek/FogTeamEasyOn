@@ -286,7 +286,7 @@ public class OrderMapper {
                         rs.getInt("price"), rs.getInt("bomID"), 
                         rs.getInt("height"), rs.getInt("length"), 
                         rs.getInt("width"), 
-                        rs.getInt("roofID"), rs.getInt("shedID")));
+                        rs.getInt("roofID"), rs.getInt("shed")));
             }
         } catch (SQLException | ClassNotFoundException ex) {
             //TO-DO

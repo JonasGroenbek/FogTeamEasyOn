@@ -15,44 +15,26 @@
     <body>
         <h1>Hello <%=request.getParameter("email")%> </h1>
         You are now logged in as a ADMIN of our wonderful site.
-        <%
-        List<Order> orders = OrderMapper.getAllOrders();
-if(orders.size()<1){ %> <p>Der ingen ordre i systemet.</p> <%
-            } 
-            else{
-            %>
-            <table>
-                <tr>
-                <th>Ordre ID</th>
-                <th>Kunde mail</th>
-                <th>Pris</th>
-                <th>Højde</th>
-                <th>Længde</th> 
-                <th>Bredde</th>
-                <th>Tag</th>
-                <th>Skur</th>
-                </tr>
-                <tr>
-                <%
-                    for(Order o : orders){
-                        out.println("<form name=\"updateorder\" action=\"FrontController\" method=\"POST\">");
-                        out.println("<input type=\"hidden\" name=\"command\" value=\"updateorder\">");
-                        out.println("<th>"+o.getId()+"</th>");
-                        out.println("<th>"+UserMapper.getMail(o.getUserID())+"</th>");
-                        out.println("<th><input type=\"text\" name=\"price\" value=\""+o.getPrice() + "\">DKK</th>");
-                        out.println("<th><input type=\"text\" name=\"height\" value=\""+o.getHeight()+ "\">cm</th>");
-                        out.println("<th><input type=\"text\" name=\"length\" value=\""+o.getLength()+"\">cm</th>");
-                        out.println("<th><input type=\"text\" name=\"width\" value=\""+o.getWidth()+"\">cm</th>");
-                        out.println("<th>"+o.getRoofID()+"</th>");
-                        out.println("<th>"+o.getShed()+"</th>");
-                        out.println("<th><input type=\"hidden\" name=\"orderID\" value=\""+o.getId()+"\">");
-                        ///"<input type=\"submit\" name=\"update\" value=\"Gem\"></form></th></tr>");
-                        
-                        out.println("<th><input type=\"submit\" value=\"Submit\"></th></tr> ");
-                    }}
-                    %>
-                
-            </table>
-                
+        <table>
+    <tr>
+        <th>Mail:</th>
+    </tr>
+    <tr>
+        <th><input type="text" name = "username"></th>
+        <th><input type="button" name = "SearchUserName" value = "search"></th>
+    </tr>
+    <tr>
+        <th>Order ID:</th>
+    </tr>
+    <tr>
+    <form name="searchID" action="FrontController" method="POST">
+        <th><input type="number" name = "orderID"></th>
+        <th><input type="button" name = "SearchID" value = "Search"></th>
+        <th><input type="button" name = "ShowAll" value = "Show all"></th>
+        
+    </form>
+    </tr>
+    </table>
+        <%@include file="ShowAllOrders.jsp" %>
     </body>
 </html>
