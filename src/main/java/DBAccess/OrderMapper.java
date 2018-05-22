@@ -305,7 +305,7 @@ public class OrderMapper {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 order = new Order(rs.getInt("id"), rs.getInt("userID"),
-                        rs.getInt("price"), rs.getInt("materialD"),
+                        rs.getInt("price"), rs.getInt("bomID"),
                         rs.getInt("height"), rs.getInt("length"),
                         rs.getInt("width"), rs.getInt("roofID"),
                         rs.getInt("shed"));
