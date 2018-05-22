@@ -51,7 +51,7 @@ public class UserMapper {
         }
     }
     
-    public String getMail(int userID){
+    public static String getMail(int userID){
         String mail = null;
         try {
             Connection con = Connector.connection();

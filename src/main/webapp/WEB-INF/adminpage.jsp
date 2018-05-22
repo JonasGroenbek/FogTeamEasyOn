@@ -15,10 +15,9 @@
     <body>
         <h1>Hello <%=request.getParameter("email")%> </h1>
         You are now logged in as a ADMIN of our wonderful site.
-        <% OrderMapper om = new OrderMapper();
-        UserMapper um = new UserMapper();
-        List<Order> orders = om.getAllOrders();
-        if(orders.size()<1){ %> Der ingen ordre i systemet. <%
+        <%
+        List<Order> orders = OrderMapper.getAllOrders();
+if(orders.size()<1){ %> <p>Der ingen ordre i systemet.</p> <%
             } 
             else{
             %>
@@ -39,7 +38,7 @@
                         out.println("<form name=\"updateorder\" action=\"FrontController\" method=\"POST\">");
                         out.println("<input type=\"hidden\" name=\"command\" value=\"updateorder\">");
                         out.println("<th>"+o.getId()+"</th>");
-                        out.println("<th>"+um.getMail(o.getUserID())+"</th>");
+                        out.println("<th>"+UserMapper.getMail(o.getUserID())+"</th>");
                         out.println("<th><input type=\"text\" name=\"price\" value=\""+o.getPrice() + "\">DKK</th>");
                         out.println("<th><input type=\"text\" name=\"height\" value=\""+o.getHeight()+ "\">cm</th>");
                         out.println("<th><input type=\"text\" name=\"length\" value=\""+o.getLength()+"\">cm</th>");
