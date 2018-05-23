@@ -20,6 +20,7 @@
         <h1>Hello <%=user.getEmail()%> </h1>
         You are now logged in as a EMPLOYEE of our wonderful site.
          
+        <%@include file="OrderSearchMenu.jsp" %>
         
         <form name="updateBuilder" action="FrontController" method="POST">
                 <input type="hidden" name="command" value="updateBuilder">

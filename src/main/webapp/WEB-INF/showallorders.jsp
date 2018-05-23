@@ -36,10 +36,10 @@
                     for(Order o : orders){
                         out.println("<th>"+o.getId()+"</th>");
                         out.println("<th>"+UserMapper.getMail(o.getUserID())+"</th>");
-                        out.println("<th>"+o.getPrice() + "\">DKK</th>");
-                        out.println("<th>"+o.getHeight()+ "\">cm</th>");
-                        out.println("<th>"+o.getLength()+"\">cm</th>");
-                        out.println("<th>"+o.getWidth()+"\">cm</th>");
+                        out.println("<th>"+o.getPrice() + "DKK</th>");
+                        out.println("<th>"+o.getHeight()+ "cm</th>");
+                        out.println("<th>"+o.getLength()+"cm</th>");
+                        out.println("<th>"+o.getWidth()+"cm</th>");
                         out.println("<th>"+o.getRoofID()+"</th>");
                         out.println("<th>"+o.getShed()+"</th>");
                         out.println("</tr> ");
