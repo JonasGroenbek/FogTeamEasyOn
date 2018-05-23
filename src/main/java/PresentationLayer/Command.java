@@ -18,6 +18,9 @@ abstract class Command {
         commands.put( "updateorder", new UpdateOrder() );
         commands.put( "updateBuilder", new UpdateBuilder() );
         commands.put( "makebill", new MakeBill() );
+        commands.put( "showorders", new ShowOrders() );
+        /*commands.put( "searchuserorders", new SearchUserOrders() );
+        commands.put( "searchorderid", new SearchOrderID() );*/
 
     }
 

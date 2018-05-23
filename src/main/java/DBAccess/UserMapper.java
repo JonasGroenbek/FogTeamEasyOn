@@ -66,4 +66,19 @@ public class UserMapper {
         }
         return mail;
     }
+    public static int getID(String mail){
+        int id = 0;
+        try {
+            Connection con = Connector.connection();
+            String SQL = "SELECT id FROM users WHERE mail=?";
+            PreparedStatement ps = con.prepareStatement( SQL );
+            ps.setString( 1, mail );
+            ResultSet rs = ps.executeQuery();
+            if ( rs.next() ) {
+                id = rs.getInt( "id" );
+            }
+            } catch ( ClassNotFoundException | SQLException ex ) {
+        }
+        return id;
+    }
 }

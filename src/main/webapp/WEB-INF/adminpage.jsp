@@ -15,26 +15,7 @@
     <body>
         <h1>Hello <%=request.getParameter("email")%> </h1>
         You are now logged in as a ADMIN of our wonderful site.
-        <table>
-    <tr>
-        <th>Mail:</th>
-    </tr>
-    <tr>
-        <th><input type="text" name = "username"></th>
-        <th><input type="button" name = "SearchUserName" value = "search"></th>
-    </tr>
-    <tr>
-        <th>Order ID:</th>
-    </tr>
-    <tr>
-    <form name="searchID" action="FrontController" method="POST">
-        <th><input type="number" name = "orderID"></th>
-        <th><input type="button" name = "SearchID" value = "Search"></th>
-        <th><input type="button" name = "ShowAll" value = "Show all"></th>
         
-    </form>
-    </tr>
-    </table>
-        <%@include file="ShowAllOrders.jsp" %>
+        <%@include file="OrderSearchMenu.jsp" %>
     </body>
 </html>

@@ -9,7 +9,6 @@ public class UpdateOrder extends Command{
 
     @Override
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
-       // OrderUpdate ou = new OrderUpdate();
         new OrderUpdate(
                 Integer.parseInt(request.getParameter("orderID")), 
                 Integer.parseInt(request.getParameter("price")),
