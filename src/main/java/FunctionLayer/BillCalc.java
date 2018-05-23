@@ -4,12 +4,12 @@ import DBAccess.OrderMapper;
 import java.sql.SQLException;
 
 public class BillCalc {
-
-
     
+    public static void main(String[] args) {
+    }
 
     public int underSternBoardFrontAndBack(int length) {
-        int boards = length / 360;
+        int boards =  length/360;
         if (length % 360 != 0) {
             boards++;
         }
@@ -17,12 +17,12 @@ public class BillCalc {
     }
 
     public int underSternBoardSides(int width) {
-        int boards = width / 540;
+        int boards = width/540;
         if (width % 540 != 0) {
             boards++;
         }
 
-         return boards;
+        return boards*2;
     }
 
     public int overSternBoardFront(int length) {
@@ -30,7 +30,7 @@ public class BillCalc {
         if (length % 360 != 0) {
             boards++;
         }
-        return boards*2;
+        return boards * 2;
     }
 
     public int overSternBoardSides(int length) {
@@ -41,70 +41,64 @@ public class BillCalc {
         return boards;
     }
 
-    public int zOnDoor(int id) {
+    public int zOnDoor(int shedl, int shedw) {
         int door = 0;
-        if (OrderMapper.getOrder(id).getShed() != 0) {
+        if (shedl != 0 || shedw != 0) {
             door = 1;
         }
         return door;
     }
 
-    public int interTiesShedGabled(int ID) throws ClassNotFoundException, SQLException, LoginSampleException {
-        Order order = OrderMapper.getOrder(ID);
-        Shed shed = OrderMapper.getShed(order.getShed());
-        int shedLength = shed.getLength();
-        int interTies = (shedLength / 270);
-        if (shedLength % 270 != 0) {
+    public int interTiesShedGabled(int shedl) {
+        int interTies = (shedl / 270);
+        if (shedl % 270 != 0) {
             interTies++;
         }
         interTies *= 2;
         return interTies *= 2;
     }
 
-    public int interTiesChedSides(int ID) throws ClassNotFoundException, SQLException, LoginSampleException {
-        Order order = OrderMapper.getOrder(ID);
-        Shed shed = OrderMapper.getShed(order.getShed());
-        int shedWidth = shed.getWidth();
-        int interTies = shedWidth / 240;
-        if (shedWidth % 240 != 0) {
+    public int interTiesChedSides(int shedw) {
+
+        int interTies = shedw / 240;
+        if (shedw % 240 != 0) {
             interTies++;
         }
         return interTies * 2;
     }
 
-    public int remsOnSides(int width, int OrderID) throws ClassNotFoundException, SQLException, LoginSampleException {
-        if (OrderMapper.getOrder(OrderID).getShed() == 0) {
+    public int remsOnSides(int width, int shedl) {
+        if (shedl == 0) {
             int boards = width / 600;
             if (width % 600 != 0) {
                 boards++;
                 return boards * 2;
             }
-        }
-        if (OrderMapper.getOrder(OrderID).getShed() != 0) {
-            Order order = OrderMapper.getOrder(OrderID);
-            Shed shed = OrderMapper.getShed(order.getShed());
-            int shedLength = shed.getLength();
-            int boards = (width - shedLength) / 600;
-            if ((width - shedLength) % 600 != 0) {
+        } else {
+            int boards = (width - shedl) / 600;
+            if ((width - shedl) % 600 != 0) {
                 boards++;
                 return boards * 2;
             }
         }
         return 0;
-        
+
     }
 
     public int remsOnShed(int shedWidth) {
-        int boards = shedWidth / 480;
-        if (shedWidth % 480 != 0) {
-            boards++;
-        }
-        if (shedWidth / 2 <= 480) {
-            return boards;
+        if (shedWidth == 0) {
+            return 0;
         } else {
-            return boards * 2;
+            int boards = shedWidth / 480;
+            if (shedWidth % 480 != 0) {
+                boards++;
+            }
+            if (shedWidth / 2 <= 480) {
+                return boards;
+            } else {
+                return boards * 2;
+            }
         }
-
     }
 
     public int rafter(int width, int length) {
@@ -119,18 +113,15 @@ public class BillCalc {
         }
     }
 
-    public int posts(int width, int ID, int length) throws ClassNotFoundException, SQLException, LoginSampleException {
+    public int posts(int width, int length, int shedl){
         int posts = 1;
-        Order order = OrderMapper.getOrder(ID);
-        Shed shed = OrderMapper.getShed(order.getShed());
-        int shedLength = shed.getLength();
-        if (OrderMapper.getOrder(ID).getShed() == 0) {
+        if (shedl == 0) {
             posts += (width / 250) * 2 + (length / 250);
             return posts;
-        } else if (length - 70 == shed.getLength()) {
+        } else if (length - 70 == shedl){
             posts += (width / 250) * 2 + (length / 250) + 3;
             return posts;
-        } else if ((length - 70) / 2 == shed.getLength()) {
+        } else if ((length - 70) / 2 == shedl) {
             posts += (width / 250) * 2 + (length / 250) + 2;
             return posts;
         } else {
@@ -139,7 +130,7 @@ public class BillCalc {
         }
     }
 
-    public int cladding(int shedWidth, int shedLength) throws ClassNotFoundException, SQLException, LoginSampleException {
+    public int cladding(int shedWidth, int shedLength){
         int circumference = (shedLength * 2) + (shedWidth * 2);
         int cladding = circumference / 6;
         if (circumference % 6 != 0) {
@@ -196,13 +187,13 @@ public class BillCalc {
         int brackets = rafters;
         return brackets;
     }
-    
-    public int screwsVandbraetAndStern(int underSternFrontAndBack, int underSternSides, int overSternFront, int overSternSides ){
-     int screws = (overSternFront+overSternSides)*2+underSternFrontAndBack+underSternSides*10/200;
-     if((overSternFront+overSternSides)*2+underSternFrontAndBack+underSternSides*10%200 != 0){
-     screws++;
-     }
-     return screws;
+
+    public int screwsVandbraetAndStern(int underSternFrontAndBack, int underSternSides, int overSternFront, int overSternSides) {
+        int screws = (overSternFront + overSternSides) * 2 + underSternFrontAndBack + underSternSides * 10 / 200;
+        if ((overSternFront + overSternSides) * 2 + underSternFrontAndBack + underSternSides * 10 % 200 != 0) {
+            screws++;
+        }
+        return screws;
     }
 
     public int screwsForUniAndBand(int uniBrackets) {
@@ -213,12 +204,9 @@ public class BillCalc {
         return screws;
     }
 
-    public int carriageBolt(int posts, int id) {
-        int screws = posts*2;
-        if (OrderMapper.getOrder(id).getShed() != 0) {
-            screws -= 4;
-        }
-        return screws;
+    public int carriageBolt(int posts) {
+        int bolts = posts;
+        return bolts;
     }
 
     public int squareSlices(int posts) {
@@ -234,19 +222,19 @@ public class BillCalc {
         return cladding / 100;
     }
 
-    public int handle(int id) {
+    public int handle(int shedw, int shedl) {
         int handle = 0;
-        if (OrderMapper.getOrder(id).getShed() != 0) {
+        if (shedl != 0 && shedl != 0 ) {
             handle = 1;
         }
         return handle;
     }
 
-    public int tHinge(int id) {
+    public int tHinge(int shedw, int shedl) {
         int hinge = 0;
-        if (OrderMapper.getOrder(id).getShed() != 0) {
+        if (shedl != 0 && shedl != 0) {
             hinge = 2;
-        } 
+        }
         return hinge;
     }
 
@@ -255,6 +243,4 @@ public class BillCalc {
         return brackets;
     }
 
-
-    
 }

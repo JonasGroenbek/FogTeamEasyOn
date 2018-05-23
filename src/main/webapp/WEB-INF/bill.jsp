@@ -16,7 +16,7 @@
     <body>
         <h1>Stykliste</h1>
         <table class="table table-striped">
-            <% ArrayList list = (ArrayList) request.getAttribute("list"); %>
+            <% ArrayList<Bill> list = (ArrayList) request.getAttribute("bill"); %>
             <tr>
                 <th>beskrivelse:</th>
                 <th>længde:</th>
@@ -29,7 +29,7 @@
             <tr>
                 <td><% out.println(OrderMapper.getAllMaterials().get(i).getDescription()); %></td>
                 <td><% out.println(OrderMapper.getAllMaterials().get(i).getLength()); %></td>
-                <td> <% System.out.println(list.get(0).toString()); %> </td>
+                <td> <% out.println(list.get(i).getAmount()); %> </td>
                 <td><% out.println(OrderMapper.getAllMaterials().get(i).getUnit()); %></td>
                 <td><% out.println(OrderMapper.getAllMaterials().get(i).getDesc()); %></td>
             </tr>
