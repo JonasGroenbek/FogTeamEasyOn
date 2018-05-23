@@ -87,7 +87,7 @@ public class UserMapper {
         return password;
     }
 
-    public String getMail(int userID) {
+    public static String getMail(int userID) {
         String mail = null;
         try {
             Connection con = Connector.connection();
