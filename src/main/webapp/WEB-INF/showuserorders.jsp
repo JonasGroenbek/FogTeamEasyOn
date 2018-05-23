@@ -84,7 +84,7 @@
                         out.println("<th><input type=\"submit\" value=\"Submit\"></th></tr> ");
                     }}
                 break;
-				default:
+		default:
                 out.println("<p>Permission denied</P>");
                 break;
         }
