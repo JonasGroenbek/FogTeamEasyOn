@@ -197,7 +197,7 @@ public class OrderMapper {
     }
 
     public static int createShed(Shed shed, int userID) throws LoginSampleException {
-        if (shed.getLength() != 0 && shed.getWidth() != 0) {
+        if (shed.getLength() != 0 || shed.getWidth() != 0) {
             try {
                 Connection con = Connector.connection();
                 String SQL = "INSERT INTO shed (length, width, price, userid) VALUES (?, ?, ?, ?)";
