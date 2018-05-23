@@ -33,10 +33,6 @@
                                             <label for="lg_password" class="sr-only">Password</label>
                                             <input type="password" class="form-control" id="lg_password" name="password" placeholder="password">
                                         </div>
-                                        <div class="form-group login-group-checkbox">
-                                            <input type="checkbox" id="lg_remember" name="lg_remember">
-                                            <label for="lg_remember">remember</label>
-                                        </div>
                                     </div>
                                     <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
                                 </div>
@@ -78,6 +74,20 @@
                         <!-- end:Main Form -->
                     </div></div>
             </div>
+            
+                <div class="footer">
+      <div class="container">
+              <a href='#'><i class="fa fa-twitch fa-3x fa-fw"></i></a>
+              <a href='#'><i class="fa fa-facebook fa-3x fa-fw"></i></a>
+              <a href='#'><i class="fa fa-twitter fa-3x fa-fw"></i></a>
+              <a href='#'><i class="fa fa-youtube-play fa-3x fa-fw"></i></a>
+              <a href='#'><i class="fa fa-rss fa-3x fa-fw"></i></a>
+              <a href='#'><i class="fa fa-vine fa-3x fa-fw"></i></a>
+              <a href='#'><i class="fa fa-flickr fa-3x fa-fw"></i></a>
+              <a href='#'><i class="fa fa-linkedin fa-3x fa-fw"></i></a>
+            </span>
+      </div>
+    </div>
 
 
             <% String error = (String) request.getAttribute("error");
