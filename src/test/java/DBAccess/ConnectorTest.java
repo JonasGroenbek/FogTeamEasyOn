@@ -31,10 +31,10 @@ public class ConnectorTest {
     @After
     public void tearDown() {
     }
-    @Test
-    public void testConnection() throws Exception {
-        
-        assertTrue(Connector.connection() != null);
-    }
+//    @Test
+//    public void testConnection() throws Exception {
+//        
+//        assertTrue(Connector.connection() != null);
+//    }
     
 }

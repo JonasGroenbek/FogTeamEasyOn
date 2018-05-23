@@ -254,9 +254,8 @@ public class OrderMapper {
                 Orders.add(new Order(rs.getInt("id"), rs.getInt("userID"),
                         rs.getInt("price"), rs.getInt("bomID"), rs.getInt("height"), rs.getInt("length"), rs.getInt("width"), rs.getInt("roofID"), rs.getInt("shed")));
             }
-            return Orders;
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(OrderMapper.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         return Orders;
     }
@@ -359,4 +358,20 @@ public class OrderMapper {
         return false;
     }
 
+//    public static void createBill(int orderID, int matID, int amount, int price) throws LoginSampleException {
+//        try {
+//            Connection con = Connector.connection();
+//            String SQL = "INSERT INTO bom (order_id, mat_id, amount, price) VALUES (?, ?, ?, ?)";
+//            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+//            ps.setInt(1, orderID);
+//            ps.setInt(2, matID);
+//            ps.setInt(3, amount);
+//            ps.setInt(4, price);
+//            ps.executeUpdate();
+//            ResultSet ids = ps.getGeneratedKeys();
+//            ids.next();
+//        } catch (SQLException | ClassNotFoundException ex) {
+//            throw new LoginSampleException(ex.getMessage());
+//        }
+//    }
 }
