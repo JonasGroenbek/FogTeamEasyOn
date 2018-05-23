@@ -14,12 +14,9 @@ public class PasswordSecurity {
     }
 
     public static boolean checkPassword(String password_plaintext, String stored_hash) throws LoginSampleException {
-        if (null == stored_hash || !stored_hash.startsWith("$2a$")) {
-            throw new LoginSampleException("Username and password does not match");
-        }
-        if (BCrypt.checkpw(password_plaintext, stored_hash)) {
+        if ((null == stored_hash || !stored_hash.startsWith("$2a$") || BCrypt.checkpw(password_plaintext, stored_hash))) {
             return (BCrypt.checkpw(password_plaintext, stored_hash));
-        } else {
+        }  else {
             throw new LoginSampleException("Username and password does not match");
         }
 

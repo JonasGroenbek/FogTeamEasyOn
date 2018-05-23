@@ -119,10 +119,6 @@
 
         <script>
             function myfunction() {
-                var document.getElementById("widthShed") + 90;
-                var document.getElementById("lengthShed") + 90;
-                var document.getElementById("widthCarport");
-                var document.getElementById("lengthCarport");
                 if (document.getElementById("lengthShed").value === 0 && document.getElementById("widthShed").value !== 0) {
                     alert("Shed must be given both dimensions");
                     return false;
