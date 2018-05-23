@@ -2,14 +2,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Order Page</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
-
-        <form name="createorder" action="FrontController" method="POST">
+        <form name="createorder" action="FrontController" method="POST" onsubmit="return myfunction()">
             <input type="hidden" name="command" value="createorder">
             Choose Material:
             <br>
@@ -116,28 +114,36 @@
                 <option value="750">750cm</option>
                 <option value="780">780cm</option>
             </select>
-            <br>
-            Would you like to build it yourself ?:<br>
-         
-            <br>
-            <input type="submit" onclick="myfunction()" value="Submit" id="submitId">
+            <input type="submit" value="Submit" id="submitId">
         </form>
 
         <script>
-            let button = document.getElementById("submitId");
             function myfunction() {
-                if (document.getElementById("lengthShed").value == 0 && document.getElementById("widthShed").value != 0) {
-                    alert("Shed must be given both dimensions")
+                var document.getElementById("widthShed") + 90;
+                var document.getElementById("lengthShed") + 90;
+                var document.getElementById("widthCarport");
+                var document.getElementById("lengthCarport");
+                if (document.getElementById("lengthShed").value === 0 && document.getElementById("widthShed").value !== 0) {
+                    alert("Shed must be given both dimensions");
+                    return false;
                 }
-                if (document.getElementById("widthShed").value == 0 && document.getElementById("lengthShed").value != 0) {
-                    alert("Shed must be given both dimensions")
+                if (document.getElementById("widthShed").value === 0 && document.getElementById("lengthShed").value !== 0) {
+                    alert("Shed must be given both dimensions");
+                    return false;
                 }
-                if (document.getElementById("lengthShed").value > document.getElementById("lengthCarport").value + 70) {
-                    alert("The shed has to be atleast 70cm shorter in length than the ")
+                if (document.getElementById("lengthShed").value + 90 > document.getElementById("lengthCarport").value) {
+                    alert("The shed has to be atleast 90cm shorter in length than the carport");
+                    return false;
                 }
-            }          
+                if (document.getElementById("widthShed").value + 90 > document.getElementById("widthCarport").value) {
+                    alert("The shed has to be atleast 90cm shorter in width than the carport");
+                    return false;
+                }
+                
+                return true;
+            }
         </script>
-        
+
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

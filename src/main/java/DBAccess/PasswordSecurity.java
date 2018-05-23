@@ -1,8 +1,6 @@
 package DBAccess;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
+import FunctionLayer.LoginSampleException;
 
 public class PasswordSecurity {
 
@@ -15,13 +13,16 @@ public class PasswordSecurity {
         return (hashed_password);
     }
 
-    public static boolean checkPassword(String password_plaintext, String stored_hash) {
-        boolean password_verified = false;
+    public static boolean checkPassword(String password_plaintext, String stored_hash) throws LoginSampleException {
         if (null == stored_hash || !stored_hash.startsWith("$2a$")) {
-            throw new java.lang.IllegalArgumentException("Invalid hash provided for comparison");
+            throw new LoginSampleException("Username and password does not match");
         }
-        password_verified = BCrypt.checkpw(password_plaintext, stored_hash);
-        return (password_verified);
+        if (BCrypt.checkpw(password_plaintext, stored_hash)) {
+            return (BCrypt.checkpw(password_plaintext, stored_hash));
+        } else {
+            throw new LoginSampleException("Username and password does not match");
+        }
+
     }
 
 }
