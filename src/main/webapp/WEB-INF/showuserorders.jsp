@@ -1,3 +1,8 @@
+<%-- 
+    Document   : showuserorders
+    Created on : 23-May-2018, 10:44:39
+    Author     : stgre
+--%>
 <%@page import="java.util.List"%>
 <%@page import="DBAccess.OrderMapper"%>
 <%@page import="DBAccess.UserMapper"%>
@@ -7,15 +12,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>orders</title>
     </head>
     <body>
-        <h1>List of all orders</h1>
-<% 
-            List<Order> orders;
+        <h1><% out.println(request.getParameter("mail")); %>'s orders</h1>
+        <%
+        List<Order> orders;
             switch ((Integer) session.getAttribute("role")) {
             case 2:
-        orders = OrderMapper.getAllOrders();
+        orders = OrderMapper.getUserOrders(UserMapper.getID((String)request.getParameter("mail")));
         if(orders.size()<1){ %> Der ingen ordre i systemet. <%
             } 
             else{
@@ -46,7 +51,7 @@
                     }}
                 break;
             case 3:
-        orders = OrderMapper.getAllOrders();
+        orders = OrderMapper.getUserOrders(UserMapper.getID((String)request.getParameter("mail")));
         if(orders.size()<1){ %> Der ingen ordre i systemet. <%
             } 
             else{
@@ -84,6 +89,5 @@
                 break;
         }
         %>
-        
     </body>
 </html>
