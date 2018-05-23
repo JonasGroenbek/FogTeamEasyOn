@@ -18,49 +18,48 @@ import java.util.logging.Logger;
 
 public class OrderMapper {
 
-    public static void createBill(int orderID, int matID, int iterator, int matIndex) throws LoginSampleException {
-        try {
-            BillCalc calc = new BillCalc();
-            int amount = calc.getList().get(iterator);
-            Connection con = Connector.connection();
-            String SQL = "INSERT INTO orders (order_id, mat_id, amount, price) VALUES (?, ?, ?, ?)";
-            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, orderID);
-            ps.setInt(2, matID);
-            ps.setInt(3, calc.getList().get(iterator));
-            ps.setInt(4, OrderMapper.getMaterial(matIndex).getPrice() * amount);
-            ps.executeUpdate();
-            ResultSet ids = ps.getGeneratedKeys();
-            ids.next();
-
-        } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
-        }
-    }
-
-    public static ArrayList<Bill> getBom(int orderID) throws ClassNotFoundException, SQLException, LoginSampleException {
-        try {
-            DK ArrayList<Bill> list = new ArrayList();
-            Connection con = Connector.connection();
-            String SQL = "SELECT * from bom where order_id = ?";
-            PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setInt(1, orderID);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-
-                int mat_id = rs.getInt("mat_id");
-                int amount = rs.getInt("amount");
-                int price = rs.getInt("price");
-
-                list.add(new Bill(mat_id, amount, price));
-            }
-            return list;
-
-        } catch (ClassNotFoundException | SQLException ex) {
-            throw new LoginSampleException(ex.getMessage());
-        }
-    }
-
+//    public static void createBill(int orderID, int matID, int iterator, int matIndex) throws LoginSampleException {
+//        try {
+//            BillCalc calc = new BillCalc();
+//            int amount = calc.getList().get(iterator);
+//            Connection con = Connector.connection();
+//            String SQL = "INSERT INTO orders (order_id, mat_id, amount, price) VALUES (?, ?, ?, ?)";
+//            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+//            ps.setInt(1, orderID);
+//            ps.setInt(2, matID);
+//            ps.setInt(3, calc.getList().get(iterator));
+//            ps.setInt(4, OrderMapper.getMaterial(matIndex).getPrice() * amount);
+//            ps.executeUpdate();
+//            ResultSet ids = ps.getGeneratedKeys();
+//            ids.next();
+//
+//        } catch (SQLException | ClassNotFoundException ex) {
+//            throw new LoginSampleException(ex.getMessage());
+//        }
+//    }
+//    public static ArrayList<Bill> getBom(int orderID) throws ClassNotFoundException, SQLException, LoginSampleException {
+//        try {
+//            DK ArrayList
+//            <Bill > list = new ArrayList();
+//            Connection con = Connector.connection();
+//            String SQL = "SELECT * from bom where order_id = ?";
+//            PreparedStatement ps = con.prepareStatement(SQL);
+//            ps.setInt(1, orderID);
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//
+//                int mat_id = rs.getInt("mat_id");
+//                int amount = rs.getInt("amount");
+//                int price = rs.getInt("price");
+//
+//                list.add(new Bill(mat_id, amount, price));
+//            }
+//            return list;
+//
+//        } catch (ClassNotFoundException | SQLException ex) {
+//            throw new LoginSampleException(ex.getMessage());
+//        }
+//    }
     public static Material getMaterial(int id) throws ClassNotFoundException, SQLException, LoginSampleException {
         try {
             Connection con = Connector.connection();
@@ -81,6 +80,31 @@ public class OrderMapper {
                 return material;
             }
             return null;
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new LoginSampleException(ex.getMessage());
+        }
+    }
+
+    public static ArrayList<Material> getAllMaterials() throws ClassNotFoundException, SQLException, LoginSampleException {
+        try {
+            ArrayList<Material> list = new ArrayList();
+            Connection con = Connector.connection();
+            String SQL = "SELECT * from materials";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int matId = rs.getInt("id");
+                String name = rs.getString("description");
+                int length = rs.getInt("length");
+                String unit = rs.getString("unit");
+                String description = rs.getString("desc");
+                int price = rs.getInt("price");
+
+                Material material = new Material(0, name, length, unit, description, price);
+                list.add(material);
+            }
+            return list;
 
         } catch (ClassNotFoundException | SQLException ex) {
             throw new LoginSampleException(ex.getMessage());
@@ -213,11 +237,11 @@ public class OrderMapper {
             ps.setInt(1, userID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Orders.add(new Order(rs.getInt("id"), rs.getInt("userID"), rs.getInt("price"), rs.getInt("bomID"), rs.getInt("height"), rs.getInt("length"), rs.getInt("width"), rs.getInt("roofID"), rs.getInt("shed")));
+                Orders.add(new Order(rs.getInt("id"), rs.getInt("userID"),
+                        rs.getInt("price"), rs.getInt("bomID"), rs.getInt("height"), rs.getInt("length"), rs.getInt("width"), rs.getInt("roofID"), rs.getInt("shed")));
             }
-            return Orders;
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(OrderMapper.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         return Orders;
     }
@@ -234,7 +258,7 @@ public class OrderMapper {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 order = new Order(rs.getInt("id"), rs.getInt("userID"),
-                        rs.getInt("price"), rs.getInt("materialD"),
+                        rs.getInt("price"), rs.getInt("bomID"),
                         rs.getInt("height"), rs.getInt("length"),
                         rs.getInt("width"), rs.getInt("roofID"),
                         rs.getInt("shed"));
@@ -245,7 +269,7 @@ public class OrderMapper {
         return order;
     }
 
-    public ArrayList<Order> getAllOrders() {
+    public static ArrayList<Order> getAllOrders() {
         ArrayList<Order> Orders = new ArrayList();
 
         try {
@@ -256,10 +280,10 @@ public class OrderMapper {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Orders.add(new Order(rs.getInt("id"), rs.getInt("userID"),
-                        rs.getInt("price"), rs.getInt("materialD"),
+                        rs.getInt("price"), rs.getInt("bomID"),
                         rs.getInt("height"), rs.getInt("length"),
-                        rs.getInt("width"), rs.getInt("roofID"),
-                        rs.getInt("shed")));
+                        rs.getInt("width"),
+                        rs.getInt("roofID"), rs.getInt("shed")));
             }
         } catch (SQLException | ClassNotFoundException ex) {
             //TO-DO
@@ -267,7 +291,7 @@ public class OrderMapper {
         return Orders;
     }
 
-    public boolean updateOrder(int ID, Order newOrder) {
+    public static boolean updateOrder(int ID, Order newOrder) {
         try {
             Order order = null;
             Connection con;
@@ -278,7 +302,7 @@ public class OrderMapper {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 order = new Order(rs.getInt("id"), rs.getInt("userID"),
-                        rs.getInt("price"), rs.getInt("materialD"),
+                        rs.getInt("price"), rs.getInt("bomID"),
                         rs.getInt("height"), rs.getInt("length"),
                         rs.getInt("width"), rs.getInt("roofID"),
                         rs.getInt("shed"));
@@ -320,21 +344,20 @@ public class OrderMapper {
         return false;
     }
 
-    public static void createBill(int orderID, int matID, int amount, int price) throws LoginSampleException {
-        try {
-            Connection con = Connector.connection();
-            String SQL = "INSERT INTO bom (order_id, mat_id, amount, price) VALUES (?, ?, ?, ?)";
-            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, orderID);
-            ps.setInt(2, matID);
-            ps.setInt(3, amount);
-            ps.setInt(4, price);
-            ps.executeUpdate();
-            ResultSet ids = ps.getGeneratedKeys();
-            ids.next();
-        } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
-        }
-    }
-
+//    public static void createBill(int orderID, int matID, int amount, int price) throws LoginSampleException {
+//        try {
+//            Connection con = Connector.connection();
+//            String SQL = "INSERT INTO bom (order_id, mat_id, amount, price) VALUES (?, ?, ?, ?)";
+//            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+//            ps.setInt(1, orderID);
+//            ps.setInt(2, matID);
+//            ps.setInt(3, amount);
+//            ps.setInt(4, price);
+//            ps.executeUpdate();
+//            ResultSet ids = ps.getGeneratedKeys();
+//            ids.next();
+//        } catch (SQLException | ClassNotFoundException ex) {
+//            throw new LoginSampleException(ex.getMessage());
+//        }
+//    }
 }

@@ -14,7 +14,7 @@ public class LogicFacade {
 
     public static User createUser(String email, String password) throws LoginSampleException, NoSuchAlgorithmException, NoSuchProviderException {
         User user = new User(email, password, 1);
-        UserMapper.createUser(user);
+        user = UserMapper.createUser(user);
         return user;
     }
 
