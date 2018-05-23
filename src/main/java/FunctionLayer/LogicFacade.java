@@ -2,32 +2,35 @@ package FunctionLayer;
 
 import DBAccess.OrderMapper;
 import DBAccess.UserMapper;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.sql.SQLException;
 
 public class LogicFacade {
 
-    public static User login( String email, String password ) throws LoginSampleException {
-        return UserMapper.login( email, password );
-    } 
+    public static User login(String email, String password) throws LoginSampleException {
+        return UserMapper.login(email, password);
+    }
 
-    public static User createUser( String email, String password ) throws LoginSampleException {
+    public static User createUser(String email, String password) throws LoginSampleException, NoSuchAlgorithmException, NoSuchProviderException {
         User user = new User(email, password, 1);
-        UserMapper.createUser( user );
+        user = UserMapper.createUser(user);
         return user;
     }
-    
+
     public static int createShed(Shed shed, int userID) throws LoginSampleException {
         return OrderMapper.createShed(shed, userID);
     }
-    
+
     public static Shed getShed(int shedID) throws ClassNotFoundException, SQLException, LoginSampleException {
         return OrderMapper.getShed(shedID);
     }
-    
-    public static void createOrder(int userID,int price, Order order, int matType, int roofType, int shed) throws LoginSampleException {
+
+    public static void createOrder(int userID, int price, Order order, int matType, int roofType, int shed) throws LoginSampleException {
         OrderMapper.createOrder(userID, price, order, matType, roofType, shed);
     }
-    public static void updateBuilder(int test, int test1){
-    
+
+    public static void updateBuilder(int test, int test1) {
+
     }
 }

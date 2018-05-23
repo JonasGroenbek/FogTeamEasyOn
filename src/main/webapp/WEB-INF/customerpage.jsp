@@ -1,4 +1,6 @@
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="FunctionLayer.Order"%>
 <%@page import="FunctionLayer.User"%>
 <%@page import="DBAccess.OrderMapper"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -28,7 +30,7 @@
                 <th>userID</th> 
                 <th>pris</th>
                 <th>materialeID</th>
-                <th>højde</th>
+                <th>højde</tsomeone@nowhere.comh>
                 <th>længde</th> 
                 <th>brede</th>
                 <th>tagID</th>
