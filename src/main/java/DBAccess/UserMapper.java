@@ -55,7 +55,6 @@ public class UserMapper {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             String x = getStoredPassword(email);
-            boolean b = PasswordSecurity.checkPassword(password, x);
             if (PasswordSecurity.checkPassword(password, getStoredPassword(email))
                     && rs.next()) {
                 int role = rs.getInt("roleID");
@@ -64,14 +63,14 @@ public class UserMapper {
                 user.setId(id);
                 return user;
             } else {
-                throw new LoginSampleException("Could not validate user");
+                throw new LoginSampleException("Password and username does not match");
             }
         } catch (ClassNotFoundException | SQLException ex) {
             throw new LoginSampleException(ex.getMessage());
         }
     }
 
-    private static String getStoredPassword(String email) {
+    private static String getStoredPassword(String email) throws LoginSampleException {
         String password = null;
         try {
             Connection con = Connector.connection();
@@ -81,8 +80,11 @@ public class UserMapper {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 password = rs.getString("password");
+            } else {
+                throw new LoginSampleException("something went wrong with validation");
             }
         } catch (ClassNotFoundException | SQLException ex) {
+            throw new LoginSampleException("something went wrong with validation");
         }
         return password;
     }

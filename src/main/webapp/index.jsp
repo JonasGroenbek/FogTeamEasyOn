@@ -10,9 +10,9 @@
         <title>Welcome page</title>
     </head>
     <body>
-<div class="jumbotron">
-    <img src="/images/fogcccc.jpg">
-</div>
+        <div class="jumbotron">
+            <img src="/images/fogcccc.jpg">
+        </div>
         <h1>Welcome to Sem 2</h1>
         <table>
             <tr><td>Login</td>
