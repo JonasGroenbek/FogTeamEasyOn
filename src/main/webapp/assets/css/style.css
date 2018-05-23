@@ -1,0 +1,16 @@
+#SVGSideView{
+    float: right;
+}
+
+#SVGTopView{
+    float:left;
+}
+
+.jumbotron{    
+background-color: #014785;
+background-image: url('../images/fog.jpg');
+background-repeat: no-repeat;
+height: 200px;
+background-size: 300px 200px;
+background-position: center;
+}
