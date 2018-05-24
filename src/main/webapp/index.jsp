@@ -14,10 +14,10 @@
     </head>
     <body>
 
-        <div class="jumbotron" id="jens">
+        <div class="jumbotron">
             <div class="row">
                 <div class="col-sm-6" id="venstre"><div class="text-center" style="padding:200px 0">
-                        <div class="logo">login</div>
+                        <div class="logo">Login</div>
                         <!-- Main Form -->
                         <div class="login-form-1">
                             <form class="text-left" name="login" action="FrontController" method="POST">
@@ -40,13 +40,12 @@
                         </div>
                         <!-- end:Main Form -->
                     </div></div>
-                <div class="col-sm-6" id="hojre"><!-- Where all the magic happens -->
-                    <!-- LOGIN FORM -->
+                <div class="col-sm-6" id="hojre">
 
 
                     <!-- REGISTRATION FORM -->
                     <div class="text-center" style="padding:200px 0">
-                        <div class="logo">register</div>
+                        <div class="logo">Register</div>
                         <!-- Main Form -->
                         <div class="login-form-1">
                             <form class="text-left" name="register" action="FrontController" method="POST">
@@ -75,19 +74,7 @@
                     </div></div>
             </div>
 
-            <div class="footer">
-                <div class="container">
-                    <a href='#'><i class="fa fa-twitch fa-3x fa-fw"></i></a>
-                    <a href='#'><i class="fa fa-facebook fa-3x fa-fw"></i></a>
-                    <a href='#'><i class="fa fa-twitter fa-3x fa-fw"></i></a>
-                    <a href='#'><i class="fa fa-youtube-play fa-3x fa-fw"></i></a>
-                    <a href='#'><i class="fa fa-rss fa-3x fa-fw"></i></a>
-                    <a href='#'><i class="fa fa-vine fa-3x fa-fw"></i></a>
-                    <a href='#'><i class="fa fa-flickr fa-3x fa-fw"></i></a>
-                    <a href='#'><i class="fa fa-linkedin fa-3x fa-fw"></i></a>
-                    </span>
-                </div>
-            </div>
+            <jsp:include page="includes/footer.jsp"/>
 
 
             <% String error = (String) request.getAttribute("error");

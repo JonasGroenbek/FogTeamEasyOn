@@ -1,4 +1,3 @@
-
 <%@page import="java.util.ArrayList"%>
 <%@page import="FunctionLayer.Order"%>
 <%@page import="FunctionLayer.User"%>
@@ -8,23 +7,26 @@
 <html>
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customer home page</title>
     </head>
     <% User user = (User) session.getAttribute("user");%>
     <body>
-        <h1>Hello <%=request.getParameter("email")%> </h1>
-        <a href="FrontController?command=link" > tryk her for at bestille </a>
+        <div class="jumbotron">
+        </div>
+        <h1 id="hello"> Welcome <%=request.getParameter("email")%> </h1>
+        <a id="bestil" href="FrontController?command=link" > TRYK HER FOR AT BESTILLE </a>
         <%
             if (OrderMapper.getUserOrders(user.getId()).isEmpty()) {
         %>
-        <p>du har ingen tideligere ordere</p>>
+        <h2 id="noorder">DU HAR INGEN TIDLIGERE ORDRE</h2 >
         <%
         } else {
         %>
-        <table class="table table-striped">
+        <table class="table table-striped" id="customertable">
             <tr>
                 <th>ordre id</th>
                 <th>userID</th> 
@@ -55,13 +57,14 @@
                     <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getRoofID());%> </td>
                     <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getShed());%> </td>
                     <td><input type="submit" value="Se Stykliste"> </form></td>
-
-
     </tr>
+    
+
     <% }
 
         }
     %>
-</table>>
+</table>
+    <jsp:include page="../includes/footer.jsp"/>
 </body>
 </html>

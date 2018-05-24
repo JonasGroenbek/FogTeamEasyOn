@@ -1,3 +1,4 @@
+<div id="test">
 <table>
     <tr>
         <th>Mail:</th>
@@ -26,3 +27,4 @@
     </form>
     </tr>
     </table>
+</div>
