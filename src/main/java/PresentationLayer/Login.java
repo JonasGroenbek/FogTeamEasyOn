@@ -18,6 +18,7 @@ public class Login extends Command {
         user.getEmail();
         session.setAttribute("user", user);
         session.setAttribute("role", user.getRole());
+        session.setAttribute("email", email);
         switch (user.getRole()) {
             case 1:
                 return "customerpage";

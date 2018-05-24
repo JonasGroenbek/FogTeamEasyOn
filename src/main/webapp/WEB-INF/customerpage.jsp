@@ -19,7 +19,7 @@
         <div class="jumbotron" id="jens">
         </div>
         <%@include file="../includes/navbar.jsp" %>
-        <h1>Hello <%=request.getParameter("email")%> </h1>
+        <h1>Hello <% out.println(session.getAttribute("email")); %> </h1>
 
         <a href="FrontController?command=link" > tryk her for at bestille </a>
         <%
