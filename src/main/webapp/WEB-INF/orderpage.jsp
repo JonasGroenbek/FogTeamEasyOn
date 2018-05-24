@@ -114,16 +114,16 @@
                 <option value="750">750cm</option>
                 <option value="780">780cm</option>
             </select>
-            <input type="submit" value="Submit" id="submitId">
+            <input type="submit" value="Submit">
         </form>
 
         <script>
             function myfunction() {
-                if (document.getElementById("lengthShed").value === 0 && document.getElementById("widthShed").value !== 0) {
+                if (document.getElementById("lengthShed").value == 0 && document.getElementById("widthShed").value != 0) {
                     alert("Shed must be given both dimensions");
                     return false;
                 }
-                if (document.getElementById("widthShed").value === 0 && document.getElementById("lengthShed").value !== 0) {
+                if (document.getElementById("widthShed").value == 0 && document.getElementById("lengthShed").value != 0) {
                     alert("Shed must be given both dimensions");
                     return false;
                 }
@@ -135,7 +135,7 @@
                     alert("The shed has to be atleast 90cm shorter in width than the carport");
                     return false;
                 }
-                
+
                 return true;
             }
         </script>
