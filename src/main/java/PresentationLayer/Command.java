@@ -23,6 +23,7 @@ abstract class Command {
         commands.put( "showorderbyid", new ShowOrderByID() );
         commands.put("showDrawing", new Drawing());
         commands.put("BillDrawing", new BillDrawing());
+        commands.put("logout", new Logout());
 
     }
 
