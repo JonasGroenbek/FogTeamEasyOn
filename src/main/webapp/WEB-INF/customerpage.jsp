@@ -76,7 +76,7 @@
 
             }
         %>
-    </table>>
+    </table>
     <div class="footer">
         <div class="container">
             <a href='#'><i class="fa fa-twitch fa-3x fa-fw"></i></a>

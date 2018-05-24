@@ -114,7 +114,7 @@
                 <option value="750">750cm</option>
                 <option value="780">780cm</option>
             </select>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" onclick="alert('tak din bestillign er registreret, vi er glade for at du handlede hos os. du vil blive vidresendt til din ordre side')" >
         </form>
 
         <script>
