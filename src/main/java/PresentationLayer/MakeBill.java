@@ -34,7 +34,6 @@ public class MakeBill extends Command{
             Logger.getLogger(MakeBill.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-            return "bill";
-            
+            return "bill";            
             }
     }

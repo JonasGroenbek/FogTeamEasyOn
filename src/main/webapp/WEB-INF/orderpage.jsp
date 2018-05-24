@@ -121,17 +121,20 @@
             </select>
             <br>
             <input type="submit" value="Submit" id="submitId">
+
+            <input type="submit" value="Submit" onclick="alert('tak din bestillign er registreret, vi er glade for at du handlede hos os. du vil blive vidresendt til din ordre side')" >
+
         </form>
         
         <jsp:include page="../includes/footer.jsp"/>
 
         <script>
             function myfunction() {
-                if (document.getElementById("lengthShed").value === 0 && document.getElementById("widthShed").value !== 0) {
+                if (document.getElementById("lengthShed").value == 0 && document.getElementById("widthShed").value != 0) {
                     alert("Shed must be given both dimensions");
                     return false;
                 }
-                if (document.getElementById("widthShed").value === 0 && document.getElementById("lengthShed").value !== 0) {
+                if (document.getElementById("widthShed").value == 0 && document.getElementById("lengthShed").value != 0) {
                     alert("Shed must be given both dimensions");
                     return false;
                 }
@@ -143,7 +146,7 @@
                     alert("The shed has to be atleast 90cm shorter in width than the carport");
                     return false;
                 }
-                
+
                 return true;
             }
         </script>

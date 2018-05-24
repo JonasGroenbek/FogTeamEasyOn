@@ -11,17 +11,25 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <title>Customer home page</title>
     </head>
     <% User user = (User) session.getAttribute("user");%>
     <body>
+
         <div class="jumbotron">
         </div>
-        <h1 id="hello"> Welcome <%=request.getParameter("email")%> </h1>
+        
+
+        <%@include file="../includes/navbar.jsp" %>
+        <h1>Hello <% out.println(session.getAttribute("email")); %> </h1>
         <a id="bestil" href="FrontController?command=link" > TRYK HER FOR AT BESTILLE </a>
+
+
         <%
             if (OrderMapper.getUserOrders(user.getId()).isEmpty()) {
         %>
+        
         <h2 id="noorder">DU HAR INGEN TIDLIGERE ORDRE</h2 >
         <%
         } else {
@@ -32,12 +40,13 @@
                 <th>userID</th> 
                 <th>pris</th>
                 <th>materialeID</th>
-                <th>højde</tsomeone@nowhere.comh>
+                <th>højde</tsomeone@nowhere.comh </th>
                 <th>længde</th> 
                 <th>brede</th>
                 <th>tagID</th>
                 <th>skur</th>
                 <th>stykliste</th>
+                <th>tegning</th>
             </tr>
 
             <%
@@ -46,6 +55,7 @@
             <form name="bill" action="FrontController" method="POST">
                 <input type="hidden" name="command" value="makebill">
                 <input type="hidden" name="orderID" value="<% out.println(OrderMapper.getUserOrders(user.getId()).get(i).getId()); %>">
+
                 <tr>
                     <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getId()); %> </td>
                     <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getUserID());%> </td>
@@ -56,6 +66,7 @@
                     <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getWidth());%> </td>
                     <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getRoofID());%> </td>
                     <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getShed());%> </td>
+
                     <td><input type="submit" value="Se Stykliste"> </form></td>
     </tr>
     
@@ -66,5 +77,6 @@
     %>
 </table>
     <jsp:include page="../includes/footer.jsp"/>
+
 </body>
 </html>
