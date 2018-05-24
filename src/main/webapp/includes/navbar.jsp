@@ -1,17 +1,13 @@
-<%-- 
-    Document   : navbar
-    Created on : 23-05-2018, 14:38:33
-    Author     : sebastian
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">Page 1</a></li>
+      <li><a href="#">Page 2</a></li>
+      <li><a href="#">Page 3</a></li>
+    </ul>
+  </div>
+</nav>

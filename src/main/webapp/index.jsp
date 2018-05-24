@@ -15,6 +15,7 @@
     <body>
 
         <div class="jumbotron" id="jens">
+        </div>
             <div class="row">
                 <div class="col-sm-6" id="venstre"><div class="text-center" style="padding:200px 0">
                         <div class="logo">login</div>
@@ -75,19 +76,7 @@
                     </div></div>
             </div>
 
-            <div class="footer">
-                <div class="container">
-                    <a href='#'><i class="fa fa-twitch fa-3x fa-fw"></i></a>
-                    <a href='#'><i class="fa fa-facebook fa-3x fa-fw"></i></a>
-                    <a href='#'><i class="fa fa-twitter fa-3x fa-fw"></i></a>
-                    <a href='#'><i class="fa fa-youtube-play fa-3x fa-fw"></i></a>
-                    <a href='#'><i class="fa fa-rss fa-3x fa-fw"></i></a>
-                    <a href='#'><i class="fa fa-vine fa-3x fa-fw"></i></a>
-                    <a href='#'><i class="fa fa-flickr fa-3x fa-fw"></i></a>
-                    <a href='#'><i class="fa fa-linkedin fa-3x fa-fw"></i></a>
-                    </span>
-                </div>
-            </div>
+
 
 
             <% String error = (String) request.getAttribute("error");
@@ -96,5 +85,6 @@
             <p><%= error%>
                 <% }
                 %>
+                <%@include file="../includes/footer.jsp" %>
                 </body>
                 </html>
