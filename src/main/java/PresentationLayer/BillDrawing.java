@@ -28,8 +28,12 @@ public class BillDrawing extends Command {
             Shed shed;
             try {
                 shed = LogicFacade.getShed(order.getShed());
-                int material = order.getMaterial();
+                int material = order.getMaterial();               
                 int roof = order.getRoofID();
+                int lengthX = shed.getLength();
+                int widthX = shed.getLength();
+                shed.setLength(widthX);
+                shed.setWidth(lengthX);               
 //                int lengthShed = shed.getLength();
 //                int widthShed = shed.getWidth();
                 int width = order.getLength();

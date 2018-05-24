@@ -63,7 +63,6 @@
                     <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getShed());%> </td>
                     <td>
                         <input type="submit" name="site" value="bill" </td>
-
                     <td>
                         <input type="submit" name="site" value="drawing"> 
                     </td>
