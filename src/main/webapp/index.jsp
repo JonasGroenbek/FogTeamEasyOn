@@ -13,13 +13,12 @@
         <title>Welcome page</title>
     </head>
     <body>
-
-
+        
         <div class="jumbotron" id="jens">
         </div>
 
         <div class="row">
-            <div class="col-sm-6" id="venstre"><div class="text-center" style="padding:200px 0">
+            <div class="col-sm-6" id="venstre"><div class="text-center" style="padding:20px 0">
                     <div class="logo">Login</div>
                     <!-- Main Form -->
                     <div class="login-form-1">
@@ -47,7 +46,7 @@
 
 
                 <!-- REGISTRATION FORM -->
-                <div class="text-center" style="padding:200px 0">
+                <div class="text-center" style="padding:20px 0">
                     <div class="logo">Register</div>
                     <!-- Main Form -->
                     <div class="login-form-1">
@@ -86,6 +85,5 @@
         <p><%= error%>
             <% }
             %>
-            <%@include file="../includes/footer.jsp" %>
     </body>
 </html>
