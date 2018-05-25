@@ -29,6 +29,10 @@ public class LogicFacade {
     public static void createOrder(int userID, int price, Order order, int matType, int roofType, int shed) throws LoginSampleException {
         OrderMapper.createOrder(userID, price, order, matType, roofType, shed);
     }
+    
+    public static Order getOrder(int orderID){
+        return OrderMapper.getOrder(orderID);
+    }
 
     public static void updateBuilder(int test, int test1) {
 
