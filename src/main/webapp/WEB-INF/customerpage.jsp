@@ -54,10 +54,10 @@
                 for (int i = 0; i < OrderMapper.getUserOrders(user.getId()).size(); i++) {
             %> 
             <form name="bill" action="FrontController" method="POST">
-                <input type="hidden" name="command" value="makebill">
+                <input type="hidden" name="command" value="billdrawing">
                 <input type="hidden" name="orderID" value="<% out.println(OrderMapper.getUserOrders(user.getId()).get(i).getId()); %>">
+S
 
-                <tr>
                     <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getId()); %> </td>
                     <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getUserID());%> </td>
                     <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getPrice());%> </td>
@@ -67,8 +67,9 @@
                     <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getWidth());%> </td>
                     <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getRoofID());%> </td>
                     <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getShed());%> </td>
+                    <td><input type="submit" name="site" value="Se Stykliste"> </td>
+                    <td><input type="submit" name="site" value="tegning"> </form></td>
 
-                    <td><input type="submit" value="Se Stykliste"> </form></td>
     </tr>
     
 
