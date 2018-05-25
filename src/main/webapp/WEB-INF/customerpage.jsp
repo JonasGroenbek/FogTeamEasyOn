@@ -1,3 +1,4 @@
+<%@page import="FunctionLayer.LogicFacade"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="FunctionLayer.Order"%>
 <%@page import="FunctionLayer.User"%>
@@ -57,15 +58,15 @@
                 <input type="hidden" name="orderID" value="<% out.println(OrderMapper.getUserOrders(user.getId()).get(i).getId()); %>">
 
                 <tr>
-                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getId()); %> </td>
-                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getUserID());%> </td>
-                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getPrice());%> </td>
-                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getMaterial());%> </td>
-                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getHeight());%> </td>
-                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getLength());%> </td>
-                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getWidth());%> </td>
-                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getRoofID());%> </td>
-                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getShed());%> </td>
+                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getId()); %> </td>
+                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getUserID());%> </td>
+                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getPrice());%> </td>
+                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getMaterial());%> </td>
+                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getHeight());%> </td>
+                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getLength());%> </td>
+                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getWidth());%> </td>
+                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getRoofID());%> </td>
+                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getShed());%> </td>
 
                     <td><input type="submit" value="Se Stykliste"> </form></td>
     </tr>

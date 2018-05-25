@@ -5,6 +5,7 @@ import DBAccess.UserMapper;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class LogicFacade {
 
@@ -36,5 +37,8 @@ public class LogicFacade {
     
     public static Order getOrder(int orderId){
         return OrderMapper.getOrder(orderId);
+    }
+    public static ArrayList<Order> getUserOrders(int userId) throws SQLException{
+    return OrderMapper.getUserOrders(userId);
     }
 }
