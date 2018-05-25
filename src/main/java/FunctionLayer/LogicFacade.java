@@ -37,8 +37,5 @@ public class LogicFacade {
     public static void updateBuilder(int test, int test1) {
 
     }
-    
-    public static Order getOrder(int orderId){
-        return OrderMapper.getOrder(orderId);
-    }
+
 }

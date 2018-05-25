@@ -43,10 +43,10 @@ public class LogicFacadeTest {
     @Test
     public void testCreateUser() throws Exception {
         System.out.println("createUser");
-        String email = "testtest";
+        String email = "testtest12";
         String password = "test";
-        User expResult = new User("testtest", "test", 1);
-        expResult.setId(58);
+        User expResult = new User(email, password, 1);
+        expResult.setId(77);
         User result = LogicFacade.createUser(email, password);
         assertEquals(expResult.toString(), result.toString());
     }
@@ -59,7 +59,7 @@ public class LogicFacadeTest {
         System.out.println("login");
         String email = "testtest";
         String password = "test";
-        User expResult = new User("testtest", "test", 1);
+        User expResult = new User(email, password, 1);
         expResult.setId(59);
         User result = LogicFacade.login(email, password);
         assertEquals(expResult.toString(), result.toString());
@@ -74,7 +74,7 @@ public class LogicFacadeTest {
         System.out.println("createShed");
         Shed shed = new Shed(180, 180, 250);
         int userID = 59;
-        int expResult = 471;
+        int expResult = 477;
         int result = LogicFacade.createShed(shed, userID);
         assertEquals(expResult, result);
     }
@@ -103,7 +103,7 @@ public class LogicFacadeTest {
         int matType = 1;
         int roofType = 1;
         int shed = 0;
-        int orderID = 537;
+        int orderID = 545;
         LogicFacade.createOrder(userID, price, order, matType, roofType, shed);
         testGetOrder(orderID);
     }
