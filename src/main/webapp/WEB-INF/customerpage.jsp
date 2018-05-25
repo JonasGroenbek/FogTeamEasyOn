@@ -53,7 +53,7 @@
                 for (int i = 0; i < OrderMapper.getUserOrders(user.getId()).size(); i++) {
             %> 
             <form name="bill" action="FrontController" method="POST">
-                <input type="hidden" name="command" value="makebill">
+                <input type="hidden" name="command" value="billdrawing">
                 <input type="hidden" name="orderID" value="<% out.println(OrderMapper.getUserOrders(user.getId()).get(i).getId()); %>">
 
                 <tr>
@@ -66,8 +66,8 @@
                     <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getWidth());%> </td>
                     <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getRoofID());%> </td>
                     <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getShed());%> </td>
-
-                    <td><input type="submit" value="Se Stykliste"> </form></td>
+                    <td><input type="submit" name="site" value="Se Stykliste"> </td>
+                    <td><input type="submit" name="site" value="tegning"> </form></td>
     </tr>
     
 
