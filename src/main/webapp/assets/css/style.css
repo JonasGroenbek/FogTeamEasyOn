@@ -23,6 +23,13 @@ background-position: center;
     padding-right: 450px;
 }
 
+h1{
+    text-align: center;
+}
+
+h2{
+    text-align: center;
+}
 /*------------------------------------------------------------------
 [Master Stylesheet]
 
@@ -49,6 +56,9 @@ body {
   background: #efefef;
   padding: 0px;
   font-family: 'Varela Round';
+  min-height: 400px;
+  margin-bottom: 100px;
+  clear: both;
 }
 /*=== 2. Anchor Link ===*/
 a {
@@ -312,7 +322,7 @@ label:hover:before {
 }
 
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   height: 100px;
@@ -368,4 +378,33 @@ label:hover:before {
     opacity: 1;
     transition: 1s;
     -webkit-transition: 1s;
+}
+
+#hello{
+    text-align: center;
+}
+
+#empform{
+    text-align: center;
+}
+
+#emptable{
+    width: 50%;
+}
+
+td, th { 
+  padding: 6px; 
+  text-align: center; 
+}
+
+#bestil{
+    font-size: 35px;
+    color: #014785;
+    display:block;
+    text-align:center;
+}
+
+#order{
+    display:block;
+    text-align: center;
 }

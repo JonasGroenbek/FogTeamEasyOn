@@ -4,10 +4,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Order Page</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
     </head>
     <body>
-        <form name="createorder" action="FrontController" method="POST" onsubmit="return myfunction()">
+        <div class="jumbotron">
+        </div>
+        <h1>PLACE YOUR ORDER</h1>
+        <form id="order" name="createorder" action="FrontController" method="POST" onsubmit="return myfunction()">
             <input type="hidden" name="command" value="createorder">
             Choose Material:
             <br>
@@ -114,16 +119,22 @@
                 <option value="750">750cm</option>
                 <option value="780">780cm</option>
             </select>
+            <br>
             <input type="submit" value="Submit" id="submitId">
+
+            <input type="submit" value="Submit" onclick="alert('tak din bestillign er registreret, vi er glade for at du handlede hos os. du vil blive vidresendt til din ordre side')" >
+
         </form>
+        
+        <jsp:include page="../includes/footer.jsp"/>
 
         <script>
             function myfunction() {
-                if (document.getElementById("lengthShed").value === 0 && document.getElementById("widthShed").value !== 0) {
+                if (document.getElementById("lengthShed").value == 0 && document.getElementById("widthShed").value != 0) {
                     alert("Shed must be given both dimensions");
                     return false;
                 }
-                if (document.getElementById("widthShed").value === 0 && document.getElementById("lengthShed").value !== 0) {
+                if (document.getElementById("widthShed").value == 0 && document.getElementById("lengthShed").value != 0) {
                     alert("Shed must be given both dimensions");
                     return false;
                 }
@@ -135,7 +146,7 @@
                     alert("The shed has to be atleast 90cm shorter in width than the carport");
                     return false;
                 }
-                
+
                 return true;
             }
         </script>

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package PresentationLayer;
 
 import FunctionLayer.LoginSampleException;
@@ -13,10 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
-
- @author kasper
- */
 @WebServlet( name = "FrontController", urlPatterns = { "/FrontController" } )
 public class FrontController extends HttpServlet {
 
@@ -25,7 +16,12 @@ public class FrontController extends HttpServlet {
         try {
             Command action = Command.from( request );
             String view = action.execute( request, response );
+            if(!view.equals("index")){
             request.getRequestDispatcher( "/WEB-INF/" + view + ".jsp" ).forward( request, response );
+        }
+            else {
+                    response.sendRedirect("index.jsp");
+                    }
         } catch ( LoginSampleException ex ) {
             request.setAttribute( "error", ex.getMessage() );
             request.getRequestDispatcher( "index.jsp" ).forward( request, response );

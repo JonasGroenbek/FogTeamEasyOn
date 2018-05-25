@@ -87,12 +87,12 @@ public class CreateOrder extends Command {
             int shedID = LogicFacade.createShed(shed, userID);
             LogicFacade.createOrder(userID, 500, order, material, roof, shedID);
             OrderMapper.createBill(bom, OrderMapper.getUserLatestOrder(user.getId()));
-            return "placedorderpage";
+            return "customerpage";
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CreateOrder.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(CreateOrder.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "placedorderpage";
+        return "customerpage";
     }
 }
