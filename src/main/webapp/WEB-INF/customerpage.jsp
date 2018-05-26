@@ -1,4 +1,4 @@
-
+<%@page import="FunctionLayer.LogicFacade"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="FunctionLayer.Order"%>
 <%@page import="FunctionLayer.User"%>
@@ -8,34 +8,40 @@
 <html>
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <title>Customer home page</title>
     </head>
     <% User user = (User) session.getAttribute("user");%>
     <body>
-        <div class="jumbotron" id="jens">
+
+        <div class="jumbotron">
         </div>
+        
+
         <%@include file="../includes/navbar.jsp" %>
         <h1>Hello <% out.println(session.getAttribute("email")); %> </h1>
+        <a id="bestil" href="FrontController?command=link" > TRYK HER FOR AT BESTILLE </a>
 
-        <a href="FrontController?command=link" > tryk her for at bestille </a>
+
         <%
             if (OrderMapper.getUserOrders(user.getId()).isEmpty()) {
         %>
-        <p>du har ingen tideligere ordere</p>>
+        
+        <h2 id="noorder">DU HAR INGEN TIDLIGERE ORDRE</h2 >
         <%
         } else {
         %>
-        <table class="table table-striped">
+        <table class="table table-striped" id="customertable">
             <tr>
                 <th>ordre id</th>
                 <th>userID</th> 
                 <th>pris</th>
                 <th>materialeID</th>
-                <th>højde</tsomeone@nowhere.comh>
+                <th>højde</tsomeone@nowhere.comh </th>
                 <th>længde</th> 
                 <th>brede</th>
                 <th>tagID</th>
@@ -48,48 +54,31 @@
                 for (int i = 0; i < OrderMapper.getUserOrders(user.getId()).size(); i++) {
             %> 
             <form name="bill" action="FrontController" method="POST">
-                <input type="hidden" name="command" value="BillDrawing">
+                <input type="hidden" name="command" value="billdrawing">
                 <input type="hidden" name="orderID" value="<% out.println(OrderMapper.getUserOrders(user.getId()).get(i).getId()); %>">
+S
 
-                <tr>
-                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getId()); %> </td>
-                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getUserID());%> </td>
-                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getPrice());%> </td>
-                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getMaterial());%> </td>
-                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getHeight());%> </td>
-                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getLength());%> </td>
-                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getWidth());%> </td>
-                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getRoofID());%> </td>
-                    <td> <%out.println(OrderMapper.getUserOrders(user.getId()).get(i).getShed());%> </td>
-                    <td>
-                        <input type="submit" name="site" value="bill" </td>
-                    <td>
-                        <input type="submit" name="site" value="drawing"> 
-                    </td>
-            </form>
+                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getId()); %> </td>
+                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getUserID());%> </td>
+                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getPrice());%> </td>
+                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getMaterial());%> </td>
+                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getHeight());%> </td>
+                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getLength());%> </td>
+                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getWidth());%> </td>
+                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getRoofID());%> </td>
+                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getShed());%> </td>
+                    <td><input type="submit" name="site" value="Se Stykliste"> </td>
+                    <td><input type="submit" name="site" value="tegning"> </form></td>
 
+    </tr>
+    
 
+    <% }
 
-
-        </tr>
-        <% }
-
-            }
-        %>
-    </table>>
-    <div class="footer">
-        <div class="container">
-            <a href='#'><i class="fa fa-twitch fa-3x fa-fw"></i></a>
-            <a href='#'><i class="fa fa-facebook fa-3x fa-fw"></i></a>
-            <a href='#'><i class="fa fa-twitter fa-3x fa-fw"></i></a>
-            <a href='#'><i class="fa fa-youtube-play fa-3x fa-fw"></i></a>
-            <a href='#'><i class="fa fa-rss fa-3x fa-fw"></i></a>
-            <a href='#'><i class="fa fa-vine fa-3x fa-fw"></i></a>
-            <a href='#'><i class="fa fa-flickr fa-3x fa-fw"></i></a>
-            <a href='#'><i class="fa fa-linkedin fa-3x fa-fw"></i></a>
-            </span>
-        </div>
-    </div>
+        }
+    %>
+</table>
+    <jsp:include page="../includes/footer.jsp"/>
 
 </body>
 </html>

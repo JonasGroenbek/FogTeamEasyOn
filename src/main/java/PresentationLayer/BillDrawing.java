@@ -22,7 +22,7 @@ public class BillDrawing extends Command {
     String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
         HttpSession session = request.getSession();
         String site = request.getParameter("site");
-        if (site.equals("drawing")) {
+        if (site.equals("tegning")) {
             int id = Integer.parseInt(request.getParameter("orderID").trim());
             Order order = LogicFacade.getOrder(id);
             Shed shed;
@@ -50,7 +50,7 @@ public class BillDrawing extends Command {
                 ArrayList<Bill> list = OrderMapper.getBom(id);
                 request.setAttribute("bill", list);
             } catch (ClassNotFoundException | SQLException ex) {
-                Logger.getLogger(MakeBill.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
             return "bill";
         }
