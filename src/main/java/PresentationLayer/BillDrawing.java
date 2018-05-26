@@ -29,15 +29,9 @@ public class BillDrawing extends Command {
             try {
                 shed = LogicFacade.getShed(order.getShed());
                 int material = order.getMaterial();               
-                int roof = order.getRoofID();
-                int lengthX = shed.getLength();
-                int widthX = shed.getLength();
-                shed.setLength(widthX);
-                shed.setWidth(lengthX);               
-//                int lengthShed = shed.getLength();
-//                int widthShed = shed.getWidth();
-                int width = order.getLength();
-                int length = order.getWidth();
+                int roof = order.getRoofID();             
+                int length = order.getLength();
+                int width = order.getWidth();
                 SVGBuilderTop svgTop = new SVGBuilderTop(roof, length, width, shed, material);
                 SVGBuilderSide svgSide = new SVGBuilderSide(roof, length, width, shed, material);
                 session.setAttribute("SVGTopView", svgTop.buildSvgTopView(svgTop));

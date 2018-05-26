@@ -11,7 +11,8 @@
     </head>
     <body>
         <h1>List of all orders</h1>
-<% 
+<% gthShed").value == 0 && document.getElementById("widthShed").value != 0) {
+                    alert("Shed must be given bo
             List<Order> orders;
             switch ((Integer) session.getAttribute("role")) {
             case 2:
