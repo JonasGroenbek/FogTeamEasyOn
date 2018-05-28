@@ -43,5 +43,15 @@ public class LogicFacade {
     public static ArrayList<Order> getUserOrders(int userId) throws SQLException{
     return OrderMapper.getUserOrders(userId);
     }
+    
+    public static ArrayList<Order> getAllOrders(){
+    return OrderMapper.getAllOrders();
+    }
+    public static ArrayList<Order> getOrdersByMail(String email) throws SQLException{
+    return OrderMapper.getUserOrders(UserMapper.getID(email));
+    }
+    public static String getEmail(int id){
+    return UserMapper.getMail(id);
+    }
 
 }

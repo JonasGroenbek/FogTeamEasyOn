@@ -1,3 +1,7 @@
+<%@page import="FunctionLayer.LogicFacade"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="FunctionLayer.Order"%>
+<%@page import="FunctionLayer.Order"%>
 <%@page import="FunctionLayer.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,19 +21,69 @@
         </div>  
 
         <% User user = (User) session.getAttribute("user");%>
+        <% ArrayList<Order> Orders = (ArrayList<Order>) request.getAttribute("orders");%>
         <h1>Hello <%=user.getEmail()%> </h1>
 
-        <%@include file="OrderSearchMenu.jsp" %>
-
-        <form id="empform" name="updateBuilder" action="FrontController" method="POST">
-            <input type="hidden" name="command" value="updateBuilder">
-            <input type="number" min="1"max="1000" name="orderId">
-            <select name="builder">
-                <option value="0">Customer's building</option>
-                <option value="1">Assembler's building</option>
+        <form name="searchorder" action="FrontController" method="POST">
+            <input type="hidden" name="command" value="searchorder">
+            hvad vil du søge efter:
+            <select name="search">
+                <option value="1">Alle</option>
+                <option value="2">User ID</option>
+                <option value="3">Email</option>
             </select>
-            <input type="submit" value="updateBuilder">
+            <input type="text" name="query">
+            <input type="submit" value="Søg">
         </form>
+        <%
+            if (Orders.isEmpty()) {
+        %>
+
+        <h2 id="noorder">Ingen ordre at vise, søg for at finde ordre</h2 >
+        <%
+        } else {
+        %>
+        <table class="table table-striped" id="customertable">
+            <tr>
+                <th>ordre id</th>
+                <th>Email</th>
+                <th>userID</th> 
+                <th>pris</th>
+                <th>materialeID</th>
+                <th>længde</th> 
+                <th>brede</th>
+                <th>tagID</th>
+                <th>skur</th>
+                <th>opdater</th>
+            </tr>
+
+            <%
+                for (int i = 0; i < Orders.size(); i++) {
+            %> 
+            <form name="searchorder" action="FrontController" method="POST">
+                <input type="hidden" name="command" value="updateorder">
+                <td>  <input type="hidden" name="orderID" value="<% Orders.get(i).getId(); %>"> </td>
+                <td> <%out.println(Orders.get(i).getUserID());%> </td>
+                <td> <%out.println(LogicFacade.getEmail(Orders.get(i).getUserID()));%> </td>
+                <td> <input type="text" name="price" value=" <%out.println(Orders.get(i).getPrice()); %>"> </td>
+                <td> <%out.println(Orders.get(i).getMaterial()); %> </td>
+                <td> <input type="text" name="length" value=" <%out.println(Orders.get(i).getLength()); %>"> </td>
+                <td> <input type="text" name="width" value=" <%out.println(Orders.get(i).getWidth()); %>"> </td>
+                <td> <%out.println(Orders.get(i).getRoofID());%> </td>
+                <td> <input type="text" value=" <%out.println(Orders.get(i).getShed()); %>"> </td>
+                <td><input type="submit" value="Opdater"></td>
+
+
+                </tr>
+
+
+                <% }
+
+                    }
+                %>
+            </form>
+        </table>
+
         <jsp:include page="../includes/footer.jsp"/>
     </body>
 </html>
