@@ -53,5 +53,16 @@ public class LogicFacade {
     public static String getEmail(int id){
     return UserMapper.getMail(id);
     }
+    
+    public static boolean updateOrder(int ID, int price, int height, int length, int width) {
+        
+        Order newOrder = LogicFacade.getOrder(ID);
+        newOrder.setPrice(price);
+        newOrder.setHeight(height);
+        newOrder.setLength(length);
+        newOrder.setWidth(width);
+        OrderMapper.updateOrder(ID, newOrder);
+        return true;
+    }
 
 }
