@@ -21,9 +21,8 @@ public class UpdateOrder extends Command {
         int price = Integer.parseInt(request.getParameter("price").trim());
         int length = Integer.parseInt(request.getParameter("length").trim());
         int width = Integer.parseInt(request.getParameter("width").trim());
-
-        LogicFacade.updateOrder(id, price, 300, length, width);
         try {
+            LogicFacade.updateOrder(id, price, 300, length, width);
             ArrayList<Order> orders = LogicFacade.getAllOrders();
             request.setAttribute("orders", orders);
         } catch (OrderException ex) {
