@@ -1,33 +1,45 @@
-package FunctionLayer;
-
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
-
-public class LogicFacadeTest {
-    
-    public LogicFacadeTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
+///*
+// * To change this license header, choose License Headers in Project Properties.
+// * To change this template file, choose Tools | Templates
+// * and open the template in the editor.
+// */
+//package FunctionLayer;
+//
+//import org.junit.After;
+//import org.junit.AfterClass;
+//import org.junit.Before;
+//import org.junit.BeforeClass;
+//import org.junit.Test;
+//import static org.junit.Assert.*;
+//
+///**
+// *
+// * @author stgre
+// */
+//public class LogicFacadeTest {
+//    
+//    public LogicFacadeTest() {
+//    }
+//    
+//    @BeforeClass
+//    public static void setUpClass() {
+//    }
+//    
+//    @AfterClass
+//    public static void tearDownClass() {
+//    }
+//    
+//    @Before
+//    public void setUp() {
+//    }
+//    
+//    @After
+//    public void tearDown() {
+//    }
+//
+//    /**
+//     * Test of createUser method, of class LogicFacade.
+//     */
 //    @Test
 //    public void testCreateUser() throws Exception {
 //        System.out.println("createUser");
@@ -38,6 +50,10 @@ public class LogicFacadeTest {
 //        User result = LogicFacade.createUser(email, password);
 //        assertEquals(expResult.toString(), result.toString());
 //    }
+//    
+//    /**
+//     * Test of login method, of class LogicFacade.
+//     */
 // 
 //    @Test
 //    public void testLogin() throws Exception {
@@ -102,5 +118,5 @@ public class LogicFacadeTest {
 //        Order result = LogicFacade.getOrder(orderID);
 //        assertEquals(expResult.toString(), result.toString());
 //    }
-    
-}
+//    
+//}
