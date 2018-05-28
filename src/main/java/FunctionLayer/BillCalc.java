@@ -1,8 +1,5 @@
 package FunctionLayer;
 
-import DBAccess.OrderMapper;
-import java.sql.SQLException;
-
 public class BillCalc {
     
     public static void main(String[] args) {

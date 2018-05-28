@@ -5,12 +5,10 @@ import FunctionLayer.BillCalc;
 import FunctionLayer.LogicFacade;
 import FunctionLayer.LoginSampleException;
 import FunctionLayer.Order;
+import FunctionLayer.OrderException;
 import FunctionLayer.Shed;
 import FunctionLayer.User;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,7 +16,7 @@ import javax.servlet.http.HttpSession;
 public class CreateOrder extends Command {
 
     @Override
-    String execute(HttpServletRequest request, HttpServletResponse response) throws LoginSampleException {
+    String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("user");
@@ -88,11 +86,9 @@ public class CreateOrder extends Command {
             LogicFacade.createOrder(userID, 500, order, material, roof, shedID);
             OrderMapper.createBill(bom, OrderMapper.getUserLatestOrder(user.getId()));
             return "customerpage";
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateOrder.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(CreateOrder.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (OrderException ex) {
+            request.setAttribute("error", ex.getStackTrace());
+            return "errorPage";
         }
-        return "customerpage";
     }
 }

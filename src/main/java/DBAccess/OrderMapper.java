@@ -2,9 +2,9 @@ package DBAccess;
 
 import FunctionLayer.Bill;
 import FunctionLayer.BillCalc;
-import FunctionLayer.LoginSampleException;
 import FunctionLayer.Material;
 import FunctionLayer.Order;
+import FunctionLayer.OrderException;
 import FunctionLayer.Roof;
 import FunctionLayer.Shed;
 import java.sql.Connection;
@@ -16,20 +16,23 @@ import java.util.ArrayList;
 
 public class OrderMapper {
 
-    public static int getUserLatestOrder(int userID) throws ClassNotFoundException, SQLException {
-        Connection con = Connector.connection();
-        String SQL = "select * from orders where userID = ? ORDER BY id DESC;";
-        PreparedStatement ps = con.prepareStatement(SQL);
-        ps.setInt(1, userID);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            return rs.getInt("ID");
-
+    public static int getUserLatestOrder(int userID) throws OrderException {
+        try {
+            Connection con = Connector.connection();
+            String SQL = "select * from orders where userID = ? ORDER BY id DESC;";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, userID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("ID");
+            }
+            return 0;
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new OrderException(ex.getMessage());
         }
-        return 0;
     }
 
-    public static void createBill(ArrayList<Integer> quan, int orderID) throws LoginSampleException {
+    public static void createBill(ArrayList<Integer> quan, int orderID) throws OrderException {
         try {
             BillCalc calc = new BillCalc();
             Connection con = Connector.connection();
@@ -45,11 +48,11 @@ public class OrderMapper {
                 ids.next();
             }
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new OrderException(ex.getMessage());
         }
     }
 
-    public static ArrayList<Bill> getBom(int orderID) throws ClassNotFoundException, SQLException, LoginSampleException {
+    public static ArrayList<Bill> getBom(int orderID) throws OrderException {
         try {
             ArrayList<Bill> list = new ArrayList();
             Connection con = Connector.connection();
@@ -68,11 +71,11 @@ public class OrderMapper {
             return list;
 
         } catch (ClassNotFoundException | SQLException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new OrderException(ex.getMessage());
         }
     }
 
-    public static Material getMaterial(int id) throws ClassNotFoundException, SQLException, LoginSampleException {
+    public static Material getMaterial(int id) throws OrderException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT * from materials where id = ?";
@@ -94,11 +97,11 @@ public class OrderMapper {
             return null;
 
         } catch (ClassNotFoundException | SQLException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new OrderException(ex.getMessage());
         }
     }
 
-    public static ArrayList<Material> getAllMaterials() throws ClassNotFoundException, SQLException, LoginSampleException {
+    public static ArrayList<Material> getAllMaterials() throws OrderException {
         try {
             ArrayList<Material> list = new ArrayList();
             Connection con = Connector.connection();
@@ -119,11 +122,11 @@ public class OrderMapper {
             return list;
 
         } catch (ClassNotFoundException | SQLException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new OrderException(ex.getMessage());
         }
     }
 
-    public static Roof getRoof(int id) throws ClassNotFoundException, SQLException, LoginSampleException {
+    public static Roof getRoof(int id) throws OrderException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT * from roof where id = ?";
@@ -144,11 +147,11 @@ public class OrderMapper {
             return null;
 
         } catch (ClassNotFoundException | SQLException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new OrderException(ex.getMessage());
         }
     }
 
-    public static ArrayList<Bill> getBill(int orderID) throws ClassNotFoundException, SQLException, LoginSampleException {
+    public static ArrayList<Bill> getBill(int orderID) throws OrderException {
         try {
             ArrayList<Bill> list = new ArrayList<>();
             Connection con = Connector.connection();
@@ -168,11 +171,11 @@ public class OrderMapper {
             return list;
 
         } catch (ClassNotFoundException | SQLException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new OrderException(ex.getMessage());
         }
     }
 
-    public static void createOrder(int userID, int price, Order order, int matType, int roofType, int shed) throws LoginSampleException {
+    public static void createOrder(int userID, int price, Order order, int matType, int roofType, int shed) throws OrderException {
         try {
             Connection con = Connector.connection();
             String SQL = "INSERT INTO orders (userID, price, bomID, height, length, width, roofID, shed) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -192,11 +195,11 @@ public class OrderMapper {
             order.setId(id);
 
         } catch (SQLException | ClassNotFoundException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new OrderException(ex.getMessage());
         }
     }
 
-    public static int createShed(Shed shed, int userID) throws LoginSampleException {
+    public static int createShed(Shed shed, int userID) throws OrderException {
         if (shed.getLength() != 0 || shed.getWidth() != 0) {
             try {
                 Connection con = Connector.connection();
@@ -213,14 +216,14 @@ public class OrderMapper {
                 shed.setId(id);
                 return shed.getId();
             } catch (SQLException | ClassNotFoundException ex) {
-                throw new LoginSampleException(ex.getMessage());
+                throw new OrderException(ex.getMessage());
             }
         } else {
             return 0;
         }
     }
 
-    public static Shed getShed(int shedID) throws ClassNotFoundException, SQLException, LoginSampleException {
+    public static Shed getShed(int shedID) throws OrderException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT * from shed where id = ?";
@@ -234,11 +237,11 @@ public class OrderMapper {
             return shed;
 
         } catch (ClassNotFoundException | SQLException ex) {
-            throw new LoginSampleException(ex.getMessage());
+            throw new OrderException(ex.getMessage());
         }
     }
 
-    public static ArrayList<Order> getUserOrders(int userID) throws SQLException {
+    public static ArrayList<Order> getUserOrders(int userID) throws OrderException {
         ArrayList<Order> Orders = new ArrayList();
 
         try {
@@ -252,13 +255,13 @@ public class OrderMapper {
                 Orders.add(new Order(rs.getInt("id"), rs.getInt("userID"),
                         rs.getInt("price"), rs.getInt("bomID"), rs.getInt("height"), rs.getInt("length"), rs.getInt("width"), rs.getInt("roofID"), rs.getInt("shed")));
             }
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new OrderException(ex.getMessage());
         }
         return Orders;
     }
 
-    public static Order getOrder(int ID) {
+    public static Order getOrder(int ID) throws OrderException {
         Order order = null;
 
         try {
@@ -276,12 +279,12 @@ public class OrderMapper {
                         rs.getInt("shed"));
             }
         } catch (SQLException | ClassNotFoundException ex) {
-            //TO-DO
+            throw new OrderException(ex.getMessage());
         }
         return order;
     }
 
-    public static ArrayList<Order> getAllOrders() {
+    public static ArrayList<Order> getAllOrders() throws OrderException {
         ArrayList<Order> Orders = new ArrayList();
 
         try {
@@ -298,12 +301,12 @@ public class OrderMapper {
                         rs.getInt("roofID"), rs.getInt("shed")));
             }
         } catch (SQLException | ClassNotFoundException ex) {
-            //TO-DO
+            throw new OrderException(ex.getMessage());
         }
         return Orders;
     }
 
-    public static boolean updateOrder(int ID, Order newOrder) {
+    public static boolean updateOrder(int ID, Order newOrder) throws OrderException {
         try {
             Order order = null;
             Connection con;
@@ -351,26 +354,7 @@ public class OrderMapper {
             }
             return true;
         } catch (SQLException | ClassNotFoundException ex) {
-            //TO-DO
+            throw new OrderException(ex.getMessage());
         }
-        return false;
     }
-    
-
-//    public static void createBill(int orderID, int matID, int amount, int price) throws LoginSampleException {
-//        try {
-//            Connection con = Connector.connection();
-//            String SQL = "INSERT INTO bom (order_id, mat_id, amount, price) VALUES (?, ?, ?, ?)";
-//            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-//            ps.setInt(1, orderID);
-//            ps.setInt(2, matID);
-//            ps.setInt(3, amount);
-//            ps.setInt(4, price);
-//            ps.executeUpdate();
-//            ResultSet ids = ps.getGeneratedKeys();
-//            ids.next();
-//        } catch (SQLException | ClassNotFoundException ex) {
-//            throw new LoginSampleException(ex.getMessage());
-//        }
-//    }
 }

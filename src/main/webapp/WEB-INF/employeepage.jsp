@@ -62,7 +62,8 @@
             %> 
             <form name="searchorder" action="FrontController" method="POST">
                 <input type="hidden" name="command" value="updateorder">
-                <td>  <input type="hidden" name="orderID" value="<% Orders.get(i).getId(); %>"> </td>
+                <% int x = Orders.get(i).getId(); %>
+                <td>  <input type="hidden" name="orderID" value="<%out.println(Orders.get(i).getId());%>"> </td>
                 <td> <%out.println(Orders.get(i).getUserID());%> </td>
                 <td> <%out.println(LogicFacade.getEmail(Orders.get(i).getUserID()));%> </td>
                 <td> <input type="text" name="price" value=" <%out.println(Orders.get(i).getPrice()); %>"> </td>
@@ -72,8 +73,6 @@
                 <td> <%out.println(Orders.get(i).getRoofID());%> </td>
                 <td> <input type="text" value=" <%out.println(Orders.get(i).getShed()); %>"> </td>
                 <td><input type="submit" value="Opdater"></td>
-
-
                 </tr>
 
 
