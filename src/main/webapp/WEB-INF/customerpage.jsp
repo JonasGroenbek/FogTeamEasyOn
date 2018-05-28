@@ -20,7 +20,7 @@
 
         <div class="jumbotron">
         </div>
-        
+
 
         <%@include file="../includes/navbar.jsp" %>
         <h1>Hello <% out.println(session.getAttribute("email")); %> </h1>
@@ -30,7 +30,7 @@
         <%
             if (OrderMapper.getUserOrders(user.getId()).isEmpty()) {
         %>
-        
+
         <h2 id="noorder">DU HAR INGEN TIDLIGERE ORDRE</h2 >
         <%
         } else {
@@ -56,29 +56,29 @@
             <form name="bill" action="FrontController" method="POST">
                 <input type="hidden" name="command" value="billdrawing">
                 <input type="hidden" name="orderID" value="<% out.println(OrderMapper.getUserOrders(user.getId()).get(i).getId()); %>">
-S
+                S
 
-                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getId()); %> </td>
-                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getUserID());%> </td>
-                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getPrice());%> </td>
-                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getMaterial());%> </td>
-                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getHeight());%> </td>
-                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getLength());%> </td>
-                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getWidth());%> </td>
-                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getRoofID());%> </td>
-                    <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getShed());%> </td>
-                    <td><input type="submit" name="site" value="Se Stykliste"> </td>
-                    <td><input type="submit" name="site" value="tegning"> </form></td>
+                <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getId()); %> </td>
+                <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getUserID());%> </td>
+                <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getPrice());%> </td>
+                <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getMaterial());%> </td>
+                <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getHeight());%> </td>
+                <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getLength());%> </td>
+                <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getWidth());%> </td>
+                <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getRoofID());%> </td>
+                <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getShed());%> </td>
+                <td><input type="submit" name="site" value="Se Stykliste"> </td>
+                <td><input type="submit" name="site" value="tegning"> </form></td>
 
     </tr>
-    
+
 
     <% }
 
         }
     %>
 </table>
-    <jsp:include page="../includes/footer.jsp"/>
+<jsp:include page="../includes/footer.jsp"/>
 
 </body>
 </html>
