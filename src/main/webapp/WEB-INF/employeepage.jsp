@@ -62,8 +62,9 @@
             %> 
             <form name="searchorder" action="FrontController" method="POST">
                 <input type="hidden" name="command" value="updateorder">
-                <% int x = Orders.get(i).getId(); %>
-                <td>  <input type="hidden" name="orderID" value="<%out.println(Orders.get(i).getId());%>"> </td>
+                <input type="hidden" name="orderID" value="<% out.println(Orders.get(i).getId()); %>">
+                
+                <td> <%out.println(Orders.get(i).getId()); %> </td>
                 <td> <%out.println(Orders.get(i).getUserID());%> </td>
                 <td> <%out.println(LogicFacade.getEmail(Orders.get(i).getUserID()));%> </td>
                 <td> <input type="text" name="price" value=" <%out.println(Orders.get(i).getPrice()); %>"> </td>
