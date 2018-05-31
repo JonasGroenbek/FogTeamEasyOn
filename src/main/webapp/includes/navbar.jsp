@@ -4,7 +4,6 @@
       <a class="navbar-brand" href="#">FOG</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
       <li><a href="FrontController?command=gohome">profil</a></li>
       <li><a href="FrontController?command=link">bestil</a></li>
       <li><a href="FrontController?command=logout">logout</a></li>

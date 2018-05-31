@@ -13,7 +13,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Employee home page</title>
+        <link rel="icon" href="${pageContext.request.contextPath}/assets/images/fog.jpg">
+        <title>FOG Carport</title>
     </head>
     <body>
 
@@ -22,8 +23,8 @@
 
         <% User user = (User) session.getAttribute("user");%>
         <% ArrayList<Order> Orders = (ArrayList<Order>) request.getAttribute("orders");%>
-        <h1>Hello <%=user.getEmail()%> </h1>
-        <li><a href="FrontController?command=logout">logout</a></li>
+        <h1>Hallo <%=user.getEmail()%> </h1>
+        <li><a href="FrontController?command=logout">logud</a></li>
 
         <form name="searchorder" action="FrontController" method="POST">
             <input type="hidden" name="command" value="searchorder">

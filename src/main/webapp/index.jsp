@@ -10,7 +10,8 @@
         <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        <title>Welcome page</title>
+        <link rel="icon" href="assets/images/fog.jpg">
+        <title>FOG Carport</title>
     </head>
     <body>
         
@@ -28,12 +29,12 @@
                             <div class="main-login-form">
                                 <div class="login-group">
                                     <div class="form-group">
-                                        <label for="lg_username" class="sr-only">Username</label>
-                                        <input type="text" class="form-control" id="lg_username" name="email" placeholder="username">
+                                        <label for="lg_username" class="sr-only">Email</label>
+                                        <input type="text" class="form-control" id="lg_username" name="email" placeholder="Email">
                                     </div>
                                     <div class="form-group">
-                                        <label for="lg_password" class="sr-only">Password</label>
-                                        <input type="password" class="form-control" id="lg_password" name="password" placeholder="password">
+                                        <label for="lg_password" class="sr-only">Kode</label>
+                                        <input type="password" class="form-control" id="lg_password" name="password" placeholder="kode">
                                     </div>
                                 </div>
                                 <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
@@ -47,7 +48,7 @@
 
                 <!-- REGISTRATION FORM -->
                 <div class="text-center" style="padding:20px 0">
-                    <div class="logo">Register</div>
+                    <div class="logo">Registrer</div>
                     <!-- Main Form -->
                     <div class="login-form-1">
                         <form class="text-left" name="register" action="FrontController" method="POST">
@@ -60,12 +61,12 @@
                                         <input type="text" class="form-control" id="reg_username" name="email" placeholder="email">
                                     </div>
                                     <div class="form-group">
-                                        <label for="reg_password" class="sr-only">Password</label>
-                                        <input type="password" class="form-control" id="reg_password" name="password1" placeholder="password">
+                                        <label for="reg_password" class="sr-only">Kode</label>
+                                        <input type="password" class="form-control" id="reg_password" name="password1" placeholder="kode">
                                     </div>
                                     <div class="form-group">
-                                        <label for="reg_password_confirm" class="sr-only">Password Confirm</label>
-                                        <input type="password" class="form-control" id="reg_password_confirm" name="password2" placeholder="confirm password">
+                                        <label for="reg_password_confirm" class="sr-only">Bekræft kode</label>
+                                        <input type="password" class="form-control" id="reg_password_confirm" name="password2" placeholder="bekræft kode">
                                     </div>
                                 </div>
                                 <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>

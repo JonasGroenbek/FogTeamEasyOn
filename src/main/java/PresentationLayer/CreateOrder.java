@@ -21,8 +21,8 @@ public class CreateOrder extends Command {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("user");
             int userID = user.getId();
-            int material = Integer.parseInt(request.getParameter("material"));
-            int roof = Integer.parseInt(request.getParameter("roof"));
+            int material = 1;
+            int roof = 1;
             int lengthShed = Integer.parseInt(request.getParameter("lengthShed"));
             int widthShed = Integer.parseInt(request.getParameter("widthShed"));
             int length = Integer.parseInt(request.getParameter("length"));
