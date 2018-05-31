@@ -16,7 +16,7 @@ public class UpdateOrder extends Command {
     String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
 
-        User user = (User) session.getAttribute("User");
+        User user = (User) session.getAttribute("user");
         int id = Integer.parseInt(request.getParameter("orderID").trim());
         int price = Integer.parseInt(request.getParameter("price").trim());
         int length = Integer.parseInt(request.getParameter("length").trim());

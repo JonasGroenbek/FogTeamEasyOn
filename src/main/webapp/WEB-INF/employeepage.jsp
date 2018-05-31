@@ -23,6 +23,7 @@
         <% User user = (User) session.getAttribute("user");%>
         <% ArrayList<Order> Orders = (ArrayList<Order>) request.getAttribute("orders");%>
         <h1>Hello <%=user.getEmail()%> </h1>
+        <li><a href="FrontController?command=logout">logout</a></li>
 
         <form name="searchorder" action="FrontController" method="POST">
             <input type="hidden" name="command" value="searchorder">
@@ -49,7 +50,6 @@
                 <th>Email</th>
                 <th>userID</th> 
                 <th>pris</th>
-                <th>materialeID</th>
                 <th>længde</th> 
                 <th>brede</th>
                 <th>tagID</th>
@@ -65,10 +65,9 @@
                 <input type="hidden" name="orderID" value="<% out.println(Orders.get(i).getId()); %>">
                 
                 <td> <%out.println(Orders.get(i).getId()); %> </td>
-                <td> <%out.println(Orders.get(i).getUserID());%> </td>
                 <td> <%out.println(LogicFacade.getEmail(Orders.get(i).getUserID()));%> </td>
+                <td> <%out.println(Orders.get(i).getUserID());%> </td>
                 <td> <input type="text" name="price" value=" <%out.println(Orders.get(i).getPrice()); %>"> </td>
-                <td> <%out.println(Orders.get(i).getMaterial()); %> </td>
                 <td> <input type="text" name="length" value=" <%out.println(Orders.get(i).getLength()); %>"> </td>
                 <td> <input type="text" name="width" value=" <%out.println(Orders.get(i).getWidth()); %>"> </td>
                 <td> <%out.println(Orders.get(i).getRoofID());%> </td>

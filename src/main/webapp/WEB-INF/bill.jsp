@@ -18,6 +18,7 @@
     <body>
          <div class="jumbotron">
         </div>
+        <%@include file="../includes/navbar.jsp" %>
         <h1>Stykliste</h1>
         <table class="table table-striped">
             <% ArrayList<Bill> list = (ArrayList) request.getAttribute("bill"); %>

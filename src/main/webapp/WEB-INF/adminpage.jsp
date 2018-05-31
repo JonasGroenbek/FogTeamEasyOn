@@ -1,3 +1,4 @@
+<%@page import="FunctionLayer.LogicFacade"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="FunctionLayer.User"%>
 <%@page import="DBAccess.UserMapper"%>
@@ -16,12 +17,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin home page</title>
     </head>
-    <body>
+     <body>
+
+        <div class="jumbotron">
+        </div>  
+
         <% User user = (User) session.getAttribute("user");%>
         <% ArrayList<Order> Orders = (ArrayList<Order>) request.getAttribute("orders");%>
-        <div class="jumbotron">
-        </div>
-        <h1>Welcome <%=request.getParameter("email")%> </h1>
+        <h1>Hello <%=user.getEmail()%> </h1>
+        <li><a href="FrontController?command=logout">logout</a></li>
 
         <form name="searchorder" action="FrontController" method="POST">
             <input type="hidden" name="command" value="searchorder">
@@ -45,41 +49,50 @@
         <table class="table table-striped" id="customertable">
             <tr>
                 <th>ordre id</th>
+                <th>Email</th>
                 <th>userID</th> 
                 <th>pris</th>
-                <th>materialeID</th>
-                <th>højde</tsomeone@nowhere.comh </th>
                 <th>længde</th> 
                 <th>brede</th>
                 <th>tagID</th>
                 <th>skur</th>
+                <th>opdater</th>
+                <th>stykliste</th>
+                <th>tegning</th>
             </tr>
 
             <%
-                for (int i = 0; i < Orders.size(); i++) {
+                for (Order o : Orders) {
             %> 
-
-            <td> <%out.println(Orders.get(i).getId()); %> </td>
-            <td> <%out.println(Orders.get(i).getUserID());%> </td>
-            <td> <%out.println(Orders.get(i).getPrice());%> </td>
-            <td> <%out.println(Orders.get(i).getMaterial());%> </td>
-            <td> <%out.println(Orders.get(i).getHeight());%> </td>
-            <td> <%out.println(Orders.get(i).getLength());%> </td>
-            <td> <%out.println(Orders.get(i).getWidth());%> </td>
-            <td> <%out.println(Orders.get(i).getRoofID());%> </td>
-            <td> <%out.println(Orders.get(i).getShed());%> </td>
-
-
+            <form name="searchorder" action="FrontController" method="POST">
+                <input type="hidden" name="command" value="updateorder">
+                <input type="hidden" name="orderID" value="<% out.println(o.getId()); %>">
+                
+                <td> <%out.println(o.getId()); %> </td>
+                <td> <%out.println(LogicFacade.getEmail(o.getUserID()));%> </td>
+                <td> <%out.println(o.getUserID());%> </td>
+                <td> <input type="text" name="price" value=" <%out.println(o.getPrice()); %>"> </td>
+                <td> <input type="text" name="length" value=" <%out.println(o.getLength()); %>"> </td>
+                <td> <input type="text" name="width" value=" <%out.println(o.getWidth()); %>"> </td>
+                <td> <%out.println(o.getRoofID());%> </td>
+                <td> <input type="text" value=" <%out.println(o.getShed()); %>"> </td>
+                <td><input type="submit" value="Opdater"></td>
+                </form>
+                <form name="bill" action="FrontController" method="POST">
+                <input type="hidden" name="command" value="billdrawing">
+                <input type="hidden" name="orderID" value="<% out.println(o.getId()); %>">
+                <td><input type="submit" name="site" value="Se Stykliste"> </td>
+                <td><input type="submit" name="site" value="tegning"> </form></td>
         </tr>
 
 
-        <% }
+                <% }
 
-            }
-        %>
-    </table>
+                    }
+                %>
+            
+        </table>
 
-
-    <jsp:include page="../includes/footer.jsp"/>
-</body>
+        <jsp:include page="../includes/footer.jsp"/>
+    </body>
 </html>

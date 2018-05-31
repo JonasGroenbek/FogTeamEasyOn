@@ -55,8 +55,7 @@
             <form name="bill" action="FrontController" method="POST">
                 <input type="hidden" name="command" value="billdrawing">
                 <input type="hidden" name="orderID" value="<% out.println(OrderMapper.getUserOrders(user.getId()).get(i).getId()); %>">
-                S
-
+                
                 <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getId()); %> </td>
                 <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getUserID());%> </td>
                 <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getPrice());%> </td>

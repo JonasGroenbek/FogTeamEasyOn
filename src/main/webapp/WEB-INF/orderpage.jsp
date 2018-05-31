@@ -11,6 +11,7 @@
     <body>
         <div class="jumbotron">
         </div>
+        <%@include file="../includes/navbar.jsp" %>
         <h1>PLACE YOUR ORDER</h1>
         <form id="order" name="createorder" action="FrontController" method="POST" onsubmit="return myfunction()">
             <input type="hidden" name="command" value="createorder">
