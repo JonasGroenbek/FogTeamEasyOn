@@ -19,7 +19,7 @@ public class OrderMapper {
     public static int getUserLatestOrder(int userID) throws OrderException {
         try {
             Connection con = Connector.connection();
-            String SQL = "select * from orders where userID = ? ORDER BY id DESC;";
+            String SQL = "select id from orders where userID = ? ORDER BY id DESC;";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, userID);
             ResultSet rs = ps.executeQuery();
