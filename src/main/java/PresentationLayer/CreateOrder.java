@@ -80,10 +80,10 @@ public class CreateOrder extends Command {
             SVGBuilderSide svgSide = new SVGBuilderSide(roof, length, width, shed, material);
             session.setAttribute("SVGTopView", svgTop.buildSvgTopView(svgTop));
             session.setAttribute("SVGSideView", svgSide.buildSvgSideView(svgSide));
-            Order order = new Order(length, width, height);
+            Order order = new Order(height, length, width);
 
             int shedID = LogicFacade.createShed(shed, userID);
-            LogicFacade.createOrder(userID, 500, order, material, roof, shedID);
+            LogicFacade.createOrder(userID, 500, order, roof, shedID);
             OrderMapper.createBill(bom, OrderMapper.getUserLatestOrder(user.getId()));
             return "customerpage";
         } catch (OrderException ex) {

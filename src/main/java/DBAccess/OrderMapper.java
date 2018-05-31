@@ -175,19 +175,18 @@ public class OrderMapper {
         }
     }
 
-    public static void createOrder(int userID, int price, Order order, int matType, int roofType, int shed) throws OrderException {
+    public static void createOrder(int userID, int price, Order order, int roofType, int shed) throws OrderException {
         try {
             Connection con = Connector.connection();
-            String SQL = "INSERT INTO orders (userID, price, bomID, height, length, width, roofID, shed) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String SQL = "INSERT INTO orders (userID, price, height, length, width, roofID, shed) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, userID);
             ps.setInt(2, price);
-            ps.setInt(3, OrderMapper.getMaterial(matType).getId());
-            ps.setInt(4, order.getWidth());
-            ps.setInt(5, order.getHeight());
-            ps.setInt(6, order.getLength());
-            ps.setInt(7, OrderMapper.getRoof(roofType).getId());
-            ps.setInt(8, shed);
+            ps.setInt(3, order.getHeight());
+            ps.setInt(4, order.getLength());
+            ps.setInt(5, order.getWidth());
+            ps.setInt(6, OrderMapper.getRoof(roofType).getId());
+            ps.setInt(7, shed);
             ps.executeUpdate();
             ResultSet ids = ps.getGeneratedKeys();
             ids.next();
@@ -247,13 +246,13 @@ public class OrderMapper {
         try {
             Connection con;
             con = Connector.connection();
-            String SQL = "SELECT id, userID, price, bomID, height, length, width, roofID, shed FROM orders WHERE userID=?;";
+            String SQL = "SELECT id, userID, price, height, length, width, roofID, shed FROM orders WHERE userID=?;";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, userID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Orders.add(new Order(rs.getInt("id"), rs.getInt("userID"),
-                        rs.getInt("price"), rs.getInt("bomID"), rs.getInt("height"), rs.getInt("length"), rs.getInt("width"), rs.getInt("roofID"), rs.getInt("shed")));
+                        rs.getInt("price"), rs.getInt("height"), rs.getInt("length"), rs.getInt("width"), rs.getInt("roofID"), rs.getInt("shed")));
             }
         } catch (ClassNotFoundException | SQLException ex) {
             throw new OrderException(ex.getMessage());
@@ -273,7 +272,7 @@ public class OrderMapper {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 order = new Order(rs.getInt("id"), rs.getInt("userID"),
-                        rs.getInt("price"), rs.getInt("bomID"),
+                        rs.getInt("price"),
                         rs.getInt("height"), rs.getInt("length"),
                         rs.getInt("width"), rs.getInt("roofID"),
                         rs.getInt("shed"));
@@ -295,7 +294,7 @@ public class OrderMapper {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Orders.add(new Order(rs.getInt("id"), rs.getInt("userID"),
-                        rs.getInt("price"), rs.getInt("bomID"),
+                        rs.getInt("price"),
                         rs.getInt("height"), rs.getInt("length"),
                         rs.getInt("width"),
                         rs.getInt("roofID"), rs.getInt("shed")));
@@ -317,7 +316,7 @@ public class OrderMapper {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 order = new Order(rs.getInt("id"), rs.getInt("userID"),
-                        rs.getInt("price"), rs.getInt("bomID"),
+                        rs.getInt("price"),
                         rs.getInt("height"), rs.getInt("length"),
                         rs.getInt("width"), rs.getInt("roofID"),
                         rs.getInt("shed"));

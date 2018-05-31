@@ -24,8 +24,8 @@ public class LogicFacade {
         return OrderMapper.getShed(shedID);
     }
 
-    public static void createOrder(int userID, int price, Order order, int matType, int roofType, int shed) throws OrderException {
-        OrderMapper.createOrder(userID, price, order, matType, roofType, shed);
+    public static void createOrder(int userID, int price, Order order, int roofType, int shed) throws OrderException {
+        OrderMapper.createOrder(userID, price, order, roofType, shed);
     }
 
     public static Order getOrder(int orderID) throws OrderException {

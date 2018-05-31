@@ -4,18 +4,16 @@ public class Order {
     private int id;
     private int userID;
     private int price;
-    private int materialID;
     private int height;
     private int length;
     private int width;
     private int roofID;
     private int shedID;
 
-    public Order(int id, int userID, int price, int materialID, int height, int length, int width, int roofID, int shedID) {
+    public Order(int id, int userID, int price, int height, int length, int width, int roofID, int shedID) {
         this.id = id;
         this.userID = userID;
         this.price = price;
-        this.materialID = materialID;
         this.height = height;
         this.length = length;
         this.width = width;
@@ -29,8 +27,6 @@ public class Order {
         this.width = width;
     }
     
-    
-
     public int getId() {
         return id;
     }
@@ -53,14 +49,6 @@ public class Order {
 
     public void setPrice(int price) {
         this.price = price;
-    }
-
-    public int getMaterial() {
-        return materialID;
-    }
-
-    public void setMaterial(int material) {
-        this.materialID = material;
     }
 
     public int getHeight() {
@@ -105,6 +93,6 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" + "id=" + id + ", userID=" + userID + ", price=" + price + ", material=" + materialID + ", height=" + height + ", length=" + length + ", width=" + width + ", roofID=" + roofID + ", shed=" + shedID + '}';
+        return "Order{" + "id=" + id + ", userID=" + userID + ", price=" + price + ", height=" + height + ", length=" + length + ", width=" + width + ", roofID=" + roofID + ", shed=" + shedID + '}';
     }
 }

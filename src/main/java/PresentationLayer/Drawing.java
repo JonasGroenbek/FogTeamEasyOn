@@ -18,7 +18,7 @@ public class Drawing extends Command {
             int id = Integer.parseInt(request.getParameter("orderID").trim());
             Order order = LogicFacade.getOrder(id);
             Shed shed = LogicFacade.getShed(order.getShed());
-            int material = order.getMaterial();
+            int material = 1;
             int roof = order.getRoofID();
             int length = order.getLength();
             int width = order.getWidth();

@@ -40,7 +40,6 @@
                 <th>ordre id</th>
                 <th>userID</th> 
                 <th>pris</th>
-                <th>materialeID</th>
                 <th>højde</tsomeone@nowhere.comh </th>
                 <th>længde</th> 
                 <th>brede</th>
@@ -61,7 +60,6 @@
                 <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getId()); %> </td>
                 <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getUserID());%> </td>
                 <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getPrice());%> </td>
-                <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getMaterial());%> </td>
                 <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getHeight());%> </td>
                 <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getLength());%> </td>
                 <td> <%out.println(LogicFacade.getUserOrders(user.getId()).get(i).getWidth());%> </td>

@@ -13,6 +13,6 @@
     </head>
     <body>
         <p> something went wrong, please contact IT </p>
-        <%= request.getParameter("errorPage")); %>
+        <%= request.getParameter("error")); %>
     </body>
 </html>

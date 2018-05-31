@@ -26,7 +26,7 @@ public class BillDrawing extends Command {
                 Order order = LogicFacade.getOrder(id);
                 Shed shed;
                 shed = LogicFacade.getShed(order.getShed());
-                int material = order.getMaterial();
+                int material = 1;
                 int roof = order.getRoofID();
                 int length = order.getLength();
                 int width = order.getWidth();
