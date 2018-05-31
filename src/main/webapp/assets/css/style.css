@@ -13,6 +13,7 @@ background-repeat: no-repeat;
 height: 200px;
 background-size: 300px 200px;
 background-position: center;
+margin-bottom: 0px;
 }
 
 #venstre{
@@ -407,4 +408,13 @@ td, th {
 #order{
     display:block;
     text-align: center;
+}
+
+.nav{
+    margin-bottom: 0px;
+}
+
+#tilbage{
+    font-size: 40px;
+    color: #014785;
 }

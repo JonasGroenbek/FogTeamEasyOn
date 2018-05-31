@@ -1,3 +1,4 @@
+<%@page import="FunctionLayer.User"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="FunctionLayer.Bill"%>
 <%@page import="FunctionLayer.Order"%>
@@ -19,7 +20,17 @@
     <body>
          <div class="jumbotron">
         </div>
+        
+        <% User user = (User) session.getAttribute("user");%>
+        
+        <% if(user.getId() == 1){ %>
         <%@include file="../includes/navbar.jsp" %>
+        <% } %>
+        
+        <% if(user.getId() != 1){ %>
+        <a id="tilbage" href="FrontController?command=back">Tilbage</a>
+        <% } %>
+        
         <h1>Stykliste</h1>
         <table class="table table-striped">
             <% ArrayList<Bill> list = (ArrayList) request.getAttribute("bill"); %>

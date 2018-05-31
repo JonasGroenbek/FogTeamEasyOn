@@ -26,7 +26,6 @@
 
         <%@include file="../includes/navbar.jsp" %>
         <h1>Hello <% out.println(session.getAttribute("email")); %> </h1>
-        <a id="bestil" href="FrontController?command=link" > TRYK HER FOR AT BESTILLE </a>
         
 
         <%
