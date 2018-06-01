@@ -27,7 +27,7 @@ public class Back extends Command {
             Logger.getLogger(Back.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if (user.getId() == 2) {
+        if (user.getRole()== 2) {
             return "employeepage";
         } else {
             return "adminpage";

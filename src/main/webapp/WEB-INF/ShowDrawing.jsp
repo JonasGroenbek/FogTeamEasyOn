@@ -16,14 +16,13 @@
         <div class="jumbotron">
         </div>
         <div id="svg"> 
-            <p> Thank you for the order, here is your drawing </p>
             <% User user = (User) session.getAttribute("user");%>
 
-            <% if (user.getId() == 1) { %>
+            <% if (user.getRole() == 1) { %>
             <%@include file="../includes/navbar.jsp" %>
             <% } %>
 
-            <% if (user.getId() != 1) { %>
+            <% if (user.getRole() != 1) { %>
             <a id="tilbage" href="FrontController?command=back">Tilbage</a>
             <% } %>
             
