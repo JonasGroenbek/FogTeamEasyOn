@@ -1,3 +1,4 @@
+<%@page import="FunctionLayer.User"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="FunctionLayer.Bill"%>
 <%@page import="FunctionLayer.Order"%>
@@ -13,12 +14,23 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <meta http-equiv="Content-Type" content/html; charset=UTF-8">
-              <title>JSP Page</title>
+        <link rel="icon" href="${pageContext.request.contextPath}/assets/images/fog.jpg">
+        <title>FOG Carport</title>
     </head>
     <body>
          <div class="jumbotron">
         </div>
+        
+        <% User user = (User) session.getAttribute("user");%>
+        
+        <% if(user.getId() == 1){ %>
         <%@include file="../includes/navbar.jsp" %>
+        <% } %>
+        
+        <% if(user.getId() != 1){ %>
+        <a id="tilbage" href="FrontController?command=back">Tilbage</a>
+        <% } %>
+        
         <h1>Stykliste</h1>
         <table class="table table-striped">
             <% ArrayList<Bill> list = (ArrayList) request.getAttribute("bill"); %>

@@ -2,34 +2,25 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Order Page</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <link rel="icon" href="${pageContext.request.contextPath}/assets/images/fog.jpg">
     </head>
     <body>
         <div class="jumbotron">
         </div>
+
         <%@include file="../includes/navbar.jsp" %>
-        <h1>PLACE YOUR ORDER</h1>
+
+        <h1> Bestil din carport </h1>
         <form id="order" name="createorder" action="FrontController" method="POST" onsubmit="return myfunction()">
             <input type="hidden" name="command" value="createorder">
-            Choose Material:
             <br>
-            <select name="material">
-                <option value="1">material1</option>
-                <option value="2">material2</option>
-            </select>
-            <br>
-            Choose type of roof:
-            <br>
-            <select name="roof">
-                <option value="1">roof1</option>
-                <option value="2">roof2</option>
-            </select>
-            <br>
-            Length of shed:<br>
+            Længde på skur:<br>
             <select id="lengthShed" name="lengthShed">
                 <option value="0">Ønsker ikke redskabsrum</option>
                 <option value="180">180cm</option>
@@ -53,7 +44,7 @@
                 <option value="720">720cm</option>
             </select>
             <br>
-            Width of shed:<br>
+            Brede på skur:<br>
             <select id="widthShed" name="widthShed">
                 <option value="0">Ønsker ikke redskabsrum</option>
                 <option value="180">180cm</option>
@@ -76,7 +67,7 @@
                 <option value="690">690cm</option>
             </select>
             <br>
-            Width:<br>
+            Brede:<br>
             <select id="widthCarport" name="width">
                 <option value="240">240cm</option>
                 <option value="270">270cm</option>
@@ -98,7 +89,7 @@
                 <option value="750">750cm</option>
             </select>
             <br>
-            Length:<br>
+            Længde:<br>
             <select id="lengthCarport" name="length">
                 <option value="240">240cm</option>
                 <option value="270">270cm</option>
@@ -122,7 +113,7 @@
             </select>
             <br>
 
-            <input type="submit" value="Submit" onclick="alert('tak din bestillign er registreret, vi er glade for at du handlede hos os. du vil blive vidresendt til din ordre side')" >
+            <input type="submit" value="Submit">
 
         </form>
 
@@ -131,22 +122,23 @@
         <script>
             function myfunction() {
                 if (document.getElementById("lengthShed").value == 0 && document.getElementById("widthShed").value != 0) {
-                    alert("Shed must be given both dimensions");
+                    alert("et skur skal have både længde og brede");
                     return false;
                 }
                 if (document.getElementById("widthShed").value == 0 && document.getElementById("lengthShed").value != 0) {
-                    alert("Shed must be given both dimensions");
+                    alert("et skur skal have både længde og brede");
                     return false;
                 }
                 if (document.getElementById("lengthShed").value + 90 > document.getElementById("lengthCarport").value) {
-                    alert("The shed has to be atleast 90cm shorter in length than the carport");
+                    alert("skurets længde skal være 90 cm indre end længden på carporten");
                     return false;
                 }
                 if (document.getElementById("widthShed").value + 90 > document.getElementById("widthCarport").value) {
-                    alert("The shed has to be atleast 90cm shorter in width than the carport");
+                    alert("skurets brede skal være 90 cm mindre end breden på carporten");
                     return false;
                 }
 
+                alert("tak din bestillign er registreret, vi er glade for at du handlede hos os. du vil blive vidresendt til din ordre side");
                 return true;
             }
         </script>

@@ -1,3 +1,4 @@
+<%@page import="FunctionLayer.Shed"%>
 <%@page import="FunctionLayer.LogicFacade"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="FunctionLayer.User"%>
@@ -15,7 +16,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Admin home page</title>
+        <link rel="icon" href="${pageContext.request.contextPath}/assets/images/fog.jpg">
+        <title>FOG Carport</title>
     </head>
      <body>
 
@@ -24,8 +26,8 @@
 
         <% User user = (User) session.getAttribute("user");%>
         <% ArrayList<Order> Orders = (ArrayList<Order>) request.getAttribute("orders");%>
-        <h1>Hello <%=user.getEmail()%> </h1>
-        <li><a href="FrontController?command=logout">logout</a></li>
+        <h1>Hallo <%=user.getEmail()%> </h1>
+        <li><a href="FrontController?command=logout">logud</a></li>
 
         <form name="searchorder" action="FrontController" method="POST">
             <input type="hidden" name="command" value="searchorder">
@@ -54,8 +56,8 @@
                 <th>pris</th>
                 <th>længde</th> 
                 <th>brede</th>
-                <th>tagID</th>
-                <th>skur</th>
+                <th>skur længde</th>
+                <th>skur brede</th>
                 <th>opdater</th>
                 <th>stykliste</th>
                 <th>tegning</th>
@@ -63,6 +65,7 @@
 
             <%
                 for (Order o : Orders) {
+                    Shed shed = LogicFacade.getShed(o.getShed());
             %> 
             <form name="searchorder" action="FrontController" method="POST">
                 <input type="hidden" name="command" value="updateorder">
@@ -74,8 +77,8 @@
                 <td> <input type="text" name="price" value=" <%out.println(o.getPrice()); %>"> </td>
                 <td> <input type="text" name="length" value=" <%out.println(o.getLength()); %>"> </td>
                 <td> <input type="text" name="width" value=" <%out.println(o.getWidth()); %>"> </td>
-                <td> <%out.println(o.getRoofID());%> </td>
-                <td> <input type="text" value=" <%out.println(o.getShed()); %>"> </td>
+                <td> <% out.println(shed.getLength()); %> </td>
+                <td> <% out.println(shed.getWidth()); %> </td>
                 <td><input type="submit" value="Opdater"></td>
                 </form>
                 <form name="bill" action="FrontController" method="POST">

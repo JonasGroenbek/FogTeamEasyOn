@@ -1,3 +1,4 @@
+<%@page import="FunctionLayer.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -8,13 +9,24 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link rel="icon" href="${pageContext.request.contextPath}/assets/images/fog.jpg">
+        <title>FOG Carport</title>
     </head>
     <body>
         <div class="jumbotron">
         </div>
         <div id="svg"> 
             <p> Thank you for the order, here is your drawing </p>
+            <% User user = (User) session.getAttribute("user");%>
+
+            <% if (user.getId() == 1) { %>
+            <%@include file="../includes/navbar.jsp" %>
+            <% } %>
+
+            <% if (user.getId() != 1) { %>
+            <a id="tilbage" href="FrontController?command=back">Tilbage</a>
+            <% } %>
+            
             <% session = request.getSession();%>
             <div id="SVGTopView">
                 <%=session.getAttribute("SVGTopView")%>
