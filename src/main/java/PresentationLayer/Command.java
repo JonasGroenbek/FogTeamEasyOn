@@ -21,6 +21,7 @@ abstract class Command {
         commands.put("searchorder", new OrderSearch());
         commands.put("errorPage", new ErrorPage());
         commands.put("gohome", new GoHome());
+        commands.put("back", new Back());
     }
 
     static Command from( HttpServletRequest request ) {

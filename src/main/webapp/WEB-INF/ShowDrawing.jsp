@@ -1,3 +1,4 @@
+<%@page import="FunctionLayer.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,6 +17,16 @@
         </div>
         <div id="svg"> 
             <p> Thank you for the order, here is your drawing </p>
+            <% User user = (User) session.getAttribute("user");%>
+
+            <% if (user.getId() == 1) { %>
+            <%@include file="../includes/navbar.jsp" %>
+            <% } %>
+
+            <% if (user.getId() != 1) { %>
+            <a id="tilbage" href="FrontController?command=back">Tilbage</a>
+            <% } %>
+            
             <% session = request.getSession();%>
             <div id="SVGTopView">
                 <%=session.getAttribute("SVGTopView")%>

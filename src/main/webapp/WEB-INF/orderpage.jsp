@@ -2,19 +2,20 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="icon" href="${pageContext.request.contextPath}/assets/images/fog.jpg">
-        <title>FOG Carport</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <link rel="icon" href="${pageContext.request.contextPath}/assets/images/fog.jpg">
     </head>
     <body>
         <div class="jumbotron">
         </div>
-        
-       <%@include file="../includes/navbar.jsp" %>
-        
+
+        <%@include file="../includes/navbar.jsp" %>
+
         <h1> Bestil din carport </h1>
         <form id="order" name="createorder" action="FrontController" method="POST" onsubmit="return myfunction()">
             <input type="hidden" name="command" value="createorder">
@@ -136,7 +137,7 @@
                     alert("skurets brede skal være 90 cm mindre end breden på carporten");
                     return false;
                 }
-                
+
                 alert("tak din bestillign er registreret, vi er glade for at du handlede hos os. du vil blive vidresendt til din ordre side");
                 return true;
             }
