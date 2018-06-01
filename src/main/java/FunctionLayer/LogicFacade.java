@@ -58,6 +58,4 @@ public class LogicFacade {
         OrderMapper.updateOrder(ID, newOrder);
         return true;
     }
-
-
 }

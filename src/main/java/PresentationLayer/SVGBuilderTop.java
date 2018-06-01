@@ -6,7 +6,7 @@ import java.text.DecimalFormat;
 public class SVGBuilderTop {
 
     private final StringBuilder sb = new StringBuilder();
-    private final int roofType;
+    private final int roofType; //will be used later
     private final int length;
     private final int width;
     private final Shed shed;
@@ -14,7 +14,6 @@ public class SVGBuilderTop {
     private final int firstX = 80; //if below 45 then the text for rafterspacers will be messed up
     private final int firstY = 90;
     private final int roofOverhang = 35;
-    private final int firstXRoofOverhang = firstX + roofOverhang;
     final double rafter = 4.5;
     private double spacing;
 
@@ -80,24 +79,22 @@ public class SVGBuilderTop {
     }
 
     private void buildRafter(SVGBuilderTop svg) { //spær
-        final int y2 = svg.length + firstY;
-        double x = firstX + rafter; //this is the leftmost rafter which has to be placed before any others
-        double xe = svg.width + firstX - rafter; //this is the rightmost rafter which has to be placed before any others
+        final int y = svg.length + firstY;
+        double x = firstX + rafter; //the leftmost rafter, has to be placed first
+        double xe = svg.width + firstX - rafter; //the rightmost rafter, has to be placed first
         spacing = calcSpacing(svg.width);
-
-        sb.append("<line x1=\"" + x + "\" y1=\"" + firstY + "\" x2=\"" + x + "\" y2=\"" + y2
+        sb.append("<line x1=\"" + x + "\" y1=\"" + firstY + "\" x2=\"" + x + "\" y2=\"" + y
                 + "\" stroke=\"#000\" stroke-width=\"2\"/> \n");
-        sb.append("<line x1=\"" + xe + "\" y1=\"" + firstY + "\" x2=\"" + xe + "\" y2=\"" + y2
+        sb.append("<line x1=\"" + xe + "\" y1=\"" + firstY + "\" x2=\"" + xe + "\" y2=\"" + y
                 + "\" stroke=\"#000\" stroke-width=\"2\"/> \n");
 
         for (double i = spacing * 2 + rafter; i < svg.width - (rafter * 2); i += spacing) {
             x += spacing;
-            sb.append("<line x1=\"" + x + "\" y1=\"" + firstY + "\" x2=\"" + x + "\" y2=\"" + y2
+            sb.append("<line x1=\"" + x + "\" y1=\"" + firstY + "\" x2=\"" + x + "\" y2=\"" + y
                     + "\" stroke=\"#000\" stroke-width=\"2\"/> \n");
             x += 4.5;
-            sb.append("<line x1=\"" + x + "\" y1=\"" + firstY + "\" x2=\"" + x + "\" y2=\"" + y2
+            sb.append("<line x1=\"" + x + "\" y1=\"" + firstY + "\" x2=\"" + x + "\" y2=\"" + y
                     + "\" stroke=\"#000\" stroke-width=\"2\"/> \n");
-
         }
         spacingMarkers(spacing, svg);
     }
@@ -123,19 +120,20 @@ public class SVGBuilderTop {
     private void buildRem(SVGBuilderTop svg) {
         int y = firstY + roofOverhang;
         int maxY = svg.getMaxY(svg) - (roofOverhang + 5);
-        //int maxX = svg.getMaxX(svg);
-        int textPlacementXtop = firstX - 40;
         int textPlacementYtop = firstY + roofOverhang / 2;
+        int textPlacementXtop = firstX - 40;
         int textPlacementYbot = svg.getMaxY(svg) - roofOverhang / 2;
         int textPlacementXbot = firstX - 40;
-
-        sb.append("<rect x=\"" + firstX + "\" y=\"" + y + "\" width=\"" + svg.width + "\" height=\"4\"/>");
-
-        sb.append("<rect x=\"" + firstX + "\" y=\"" + maxY + "\" width=\"" + svg.width + "\" height=\"4\"/>");
-
-        sb.append("<line x1=\"" + firstX + "\" y1=\"" + firstY + "\" x2=\"" + firstX + "\" y2=\"" + y + "\" stroke=\"#000\" stroke-width=\"2\"/> ");
-        sb.append("<text x=\"" + textPlacementXtop + "\" y=\"" + textPlacementYtop + "\" font-family=\"Verdana\" font-size=\"10\"> 35cm </text>\"");
-        sb.append("<text x=\"" + textPlacementXbot + "\" y=\"" + textPlacementYbot + "\" font-family=\"Verdana\" font-size=\"10\"> 35cm </text>\"");
+        sb.append("<rect x=\"" + firstX + "\" y=\"" + y
+                + "\" width=\"" + svg.width + "\" height=\"4\"/>");
+        sb.append("<rect x=\"" + firstX + "\" y=\"" + maxY
+                + "\" width=\"" + svg.width + "\" height=\"4\"/>");
+        sb.append("<line x1=\"" + firstX + "\" y1=\"" + firstY
+                + "\" x2=\"" + firstX + "\" y2=\"" + y + "\" stroke=\"#000\" stroke-width=\"2\"/> ");
+        sb.append("<text x=\"" + textPlacementXtop + "\" y=\""
+                + textPlacementYtop + "\" font-family=\"Verdana\" font-size=\"10\"> 35cm </text>\"");
+        sb.append("<text x=\"" + textPlacementXbot + "\" y=\""
+                + textPlacementYbot + "\" font-family=\"Verdana\" font-size=\"10\"> 35cm </text>\"");
     }
 
     private void createShed(SVGBuilderTop svg) {
@@ -146,7 +144,6 @@ public class SVGBuilderTop {
     }
 
     private void createPosts(SVGBuilderTop svg) {
-        int outerMostX = firstX + svg.getMaxX(svg) - roofOverhang;
         int innerMostX = firstX + roofOverhang;
         int middleOfY = firstY + svg.length / 2;
         int middleOfX = firstX + svg.width / 2;
