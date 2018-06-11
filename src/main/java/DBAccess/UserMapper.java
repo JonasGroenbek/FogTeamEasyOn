@@ -7,55 +7,100 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/**
- The purpose of UserMapper is to...
-
- @author kasper
- */
 public class UserMapper {
 
-    public static void createUser( User user ) throws LoginSampleException {
+    public static User createUser(User user) throws LoginSampleException {
+
         try {
             Connection con = Connector.connection();
             String SQL = "INSERT INTO users (mail, password, roleID) VALUES (?, ?, ?)";
-            PreparedStatement ps = con.prepareStatement( SQL, Statement.RETURN_GENERATED_KEYS );
-            ps.setString( 1, user.getEmail() );
-            ps.setString( 2, user.getPassword() );
-            ps.setString( 3, user.getRole() );
+            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, user.getEmail());
+            ps.setString(2, PasswordSecurity.hashPassword(user.getPassword()));
+            ps.setInt(3, user.getRole());
             ps.executeUpdate();
+
             ResultSet ids = ps.getGeneratedKeys();
             ids.next();
-            int id = ids.getInt( 1 );
-            user.setId( id );
-        } catch ( SQLException | ClassNotFoundException ex ) {
-            throw new LoginSampleException( ex.getMessage() );
+            int id = ids.getInt(1);
+            user.setId(id);
+        } catch (SQLException | ClassNotFoundException ex) {
         }
+        return user;
     }
 
-    public static User login( String email, String password ) throws LoginSampleException {
+    public static User login(String email, String password) throws LoginSampleException {
         try {
             Connection con = Connector.connection();
             String SQL = "SELECT id, roleID FROM users "
-                    + "WHERE mail=? AND password=?";
-            PreparedStatement ps = con.prepareStatement( SQL );
-            ps.setString( 1, email );
-            ps.setString( 2, password );
+                    + "WHERE mail=?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
-            if ( rs.next() ) {
-                String role = rs.getString( "roleID" );
-                int id = rs.getInt( "id" );
-                User user = new User( email, password, role );
-                user.setId( id );
+            String x = getStoredPassword(email);
+            if (PasswordSecurity.checkPassword(password, getStoredPassword(email))
+                    && rs.next()) {
+                int role = rs.getInt("roleID");
+                int id = rs.getInt("id");
+                User user = new User(email, password, role);
+                user.setId(id);
                 return user;
             } else {
-                throw new LoginSampleException( "Could not validate user" );
+                throw new LoginSampleException("Password and username does not match");
             }
-        } catch ( ClassNotFoundException | SQLException ex ) {
+        } catch (ClassNotFoundException | SQLException ex) {
             throw new LoginSampleException(ex.getMessage());
         }
     }
 
+    private static String getStoredPassword(String email) throws LoginSampleException {
+        String password = null;
+        try {
+            Connection con = Connector.connection();
+            String SQL = "SELECT password FROM users WHERE mail=?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                password = rs.getString("password");
+            } else {
+                throw new LoginSampleException("something went wrong with validation");
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new LoginSampleException("something went wrong with validation");
+        }
+        return password;
+    }
+
+    public static String getMail(int userID) {
+        String mail = null;
+        try {
+            Connection con = Connector.connection();
+            String SQL = "SELECT mail FROM users WHERE id=?";
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, userID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                mail = rs.getString("mail");
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+        }
+        return mail;
+    }
+    public static int getID(String mail){
+        int id = 0;
+        try {
+            Connection con = Connector.connection();
+            String SQL = "SELECT id FROM users WHERE mail=?";
+            PreparedStatement ps = con.prepareStatement( SQL );
+            ps.setString( 1, mail );
+            ResultSet rs = ps.executeQuery();
+            if ( rs.next() ) {
+                id = rs.getInt( "id" );
+            }
+            } catch ( ClassNotFoundException | SQLException ex ) {
+        }
+        return id;
+    }
 }
